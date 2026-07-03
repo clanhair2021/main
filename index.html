@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>美容室CLanからの挑戦状</title>
+
+<!-- PWA(アプリ化)用設定 -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0b0a14">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="CLan挑戦状">
+
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ================= タイトル画面 ================= -->
+  <section id="screen-title" class="screen active">
+    <div class="title-plate pixel-box">
+      <div class="title-eyebrow">CHALLENGE ACCEPTED?</div>
+      <div class="title-logo">美容室<span class="accent">CLan</span><br>からの<br>挑戦状</div>
+    </div>
+    <div class="press-start">▼ PRESS START</div>
+    <div class="title-actions">
+      <button class="btn-pixel" onclick="showScreen('select')">▶ ゲームをえらぶ</button>
+      <button class="btn-pixel ghost" onclick="showScreen('settings')">⚙ せってい</button>
+    </div>
+    <div class="footnote">v0.1 — もっとゲームが増える予定です</div>
+  </section>
+
+  <!-- ================= ゲーム選択画面 ================= -->
+  <section id="screen-select" class="screen">
+    <div class="header">
+      <button class="back-btn" onclick="showScreen('title')">←</button>
+      <h2>ゲームをえらぶ</h2>
+    </div>
+    <div class="game-grid" id="game-grid"></div>
+  </section>
+
+  <!-- ================= 設定画面 ================= -->
+  <section id="screen-settings" class="screen">
+    <div class="header">
+      <button class="back-btn" onclick="showScreen('title')">←</button>
+      <h2>せってい</h2>
+    </div>
+
+    <div class="settings-group pixel-box">
+      <div class="settings-group-title">サウンド</div>
+      <div class="settings-row">
+        <div>
+          <div class="label">効果音</div>
+          <div class="desc">タップ音などを鳴らす</div>
+        </div>
+        <label class="switch-px">
+          <input type="checkbox" id="setting-sound" checked onchange="saveSettings()">
+          <span class="track"><span class="knob"></span></span>
+        </label>
+      </div>
+      <div class="settings-row">
+        <div class="label">音量</div>
+        <input type="range" class="range-px" id="setting-volume" min="0" max="100" value="70" oninput="saveSettings()">
+      </div>
+    </div>
+
+    <div class="settings-group pixel-box">
+      <div class="settings-group-title">表示</div>
+      <div class="settings-row">
+        <div class="label">テーマ</div>
+        <select class="select-px" id="setting-theme" onchange="saveSettings()">
+          <option value="dark">ダーク</option>
+          <option value="light">ライト</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="settings-group pixel-box">
+      <div class="settings-group-title">データ</div>
+      <div class="settings-row danger-row" style="cursor:pointer;" onclick="resetAllData()">
+        <div>
+          <div class="label">全ゲームのセーブデータを削除</div>
+          <div class="desc">この操作は取り消せません</div>
+        </div>
+        <span>›</span>
+      </div>
+    </div>
+  </section>
+
+<script src="js/app.js"></script>
+<script>
+  // オフライン起動・ホーム画面追加を可能にする
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('sw.js').catch(err => {
+        console.warn('SW登録失敗:', err);
+      });
+    });
+  }
+</script>
+</body>
+</html>
