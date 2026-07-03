@@ -1,0 +1,268 @@
+/* =========================================================
+   美容室CLanからの挑戦状 — レトロドットゲーム風ハブ
+   ========================================================= */
+
+@font-face{
+  font-family:'NosutaruDot';
+  src: url('../fonts/Nosutaru-dotMPlusH-10-Regular.ttf') format('truetype');
+  font-display: swap;
+}
+
+:root{
+  --bg-0:#0b0a14;
+  --bg-1:#161327;
+  --panel:#1d1830;
+  --ink:#f4f1ea;
+  --ink-dim:#9c96bd;
+  --pink:#ff4d94;
+  --cyan:#3fe8c8;
+  --yellow:#ffcf3f;
+  --black:#000000;
+  --px:4px; /* ドット単位。border太さなどを揃える */
+}
+
+*{ box-sizing:border-box; }
+html,body{ height:100%; margin:0; padding:0; }
+
+body{
+  background:var(--bg-0);
+  color:var(--ink);
+  font-family:'NosutaruDot','MS Gothic',monospace;
+  image-rendering:pixelated;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  position:relative;
+  overflow-x:hidden;
+  -webkit-font-smoothing:none;
+}
+
+/* ドット背景 + CRTスキャンライン */
+body::before{
+  content:"";
+  position:fixed; inset:0;
+  background-image:
+    radial-gradient(circle at 20% 15%, rgba(255,77,148,.10) 0, transparent 40%),
+    radial-gradient(circle at 80% 85%, rgba(63,232,200,.10) 0, transparent 40%),
+    repeating-linear-gradient(0deg, rgba(255,255,255,.035) 0px, rgba(255,255,255,.035) 1px, transparent 1px, transparent 3px);
+  pointer-events:none;
+  z-index:0;
+}
+body::after{
+  content:"";
+  position:fixed; inset:0;
+  background:repeating-linear-gradient(180deg, rgba(0,0,0,.25) 0, rgba(0,0,0,.25) 1px, transparent 1px, transparent 3px);
+  mix-blend-mode:multiply;
+  pointer-events:none;
+  z-index:5;
+}
+
+.screen{
+  display:none;
+  flex:1;
+  flex-direction:column;
+  min-height:100vh;
+  padding:28px 18px 34px;
+  position:relative;
+  z-index:1;
+}
+.screen.active{ display:flex; }
+
+/* ---------- ピクセル枠パーツ ---------- */
+.pixel-box{
+  background:var(--panel);
+  border:var(--px) solid var(--black);
+  box-shadow:
+    0 0 0 var(--px) var(--cyan),
+    inset 0 0 0 1px rgba(255,255,255,.05);
+  position:relative;
+}
+.pixel-box::before{ /* 角の欠け(ドット感)を演出 */
+  content:"";
+  position:absolute;
+  inset:calc(-1 * var(--px));
+  background:
+    linear-gradient(var(--bg-0),var(--bg-0)) top left / var(--px) var(--px) no-repeat,
+    linear-gradient(var(--bg-0),var(--bg-0)) top right / var(--px) var(--px) no-repeat,
+    linear-gradient(var(--bg-0),var(--bg-0)) bottom left / var(--px) var(--px) no-repeat,
+    linear-gradient(var(--bg-0),var(--bg-0)) bottom right / var(--px) var(--px) no-repeat;
+  pointer-events:none;
+}
+
+/* ---------- タイトル画面 ---------- */
+#screen-title{
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+}
+.title-plate{
+  padding:26px 18px 22px;
+  max-width:340px;
+}
+.title-eyebrow{
+  font-size:.62rem;
+  letter-spacing:.3em;
+  color:var(--yellow);
+  margin-bottom:10px;
+}
+.title-logo{
+  font-size:1.5rem;
+  line-height:1.7;
+  letter-spacing:.04em;
+  text-shadow:2px 2px 0 var(--pink);
+}
+.title-logo .accent{ color:var(--cyan); }
+
+.press-start{
+  margin-top:26px;
+  font-size:.85rem;
+  color:var(--ink);
+  letter-spacing:.1em;
+  animation: blink 1s steps(1) infinite;
+}
+@keyframes blink{ 50%{ opacity:0; } }
+
+.title-actions{
+  margin-top:34px;
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+  width:100%;
+  max-width:300px;
+}
+
+/* ---------- ピクセルボタン ---------- */
+.btn-pixel{
+  font-family:'NosutaruDot','MS Gothic',monospace;
+  font-size:.85rem;
+  letter-spacing:.08em;
+  color:var(--black);
+  background:var(--yellow);
+  border:none;
+  padding:16px 14px;
+  cursor:pointer;
+  box-shadow:
+    4px 4px 0 0 var(--black),
+    4px 4px 0 4px var(--cyan);
+  transition: transform .06s ease;
+}
+.btn-pixel.alt{ background:var(--pink); color:var(--ink); }
+.btn-pixel.ghost{ background:var(--panel); color:var(--ink); box-shadow:4px 4px 0 0 var(--black), 4px 4px 0 4px var(--pink); }
+.btn-pixel:active{
+  transform:translate(4px,4px);
+  box-shadow:0 0 0 0 var(--black);
+}
+
+.footnote{
+  margin-top:28px;
+  font-size:.6rem;
+  color:var(--ink-dim);
+  letter-spacing:.08em;
+}
+
+/* ---------- 共通ヘッダー ---------- */
+.header{
+  display:flex; align-items:center; gap:12px;
+  margin-bottom:22px;
+}
+.back-btn{
+  width:42px; height:42px;
+  background:var(--panel);
+  border:var(--px) solid var(--black);
+  box-shadow:0 0 0 var(--px) var(--yellow);
+  color:var(--ink);
+  font-size:1rem;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer;
+  flex-shrink:0;
+}
+.back-btn:active{ transform:translate(2px,2px); }
+.header h2{
+  font-size:.9rem;
+  letter-spacing:.08em;
+  margin:0;
+  text-shadow:2px 2px 0 var(--black);
+}
+
+/* ---------- ゲーム選択画面 ---------- */
+.game-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+}
+.game-card{
+  padding:16px 10px 14px;
+  display:flex; flex-direction:column; align-items:center; gap:10px;
+  cursor:pointer;
+  text-align:center;
+}
+.game-card.locked{ opacity:.45; cursor:default; }
+.game-card .icon{
+  width:52px; height:52px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.5rem;
+  background:var(--bg-1);
+  border:var(--px) solid var(--black);
+}
+.game-card .name{ font-size:.72rem; letter-spacing:.03em; line-height:1.5; }
+.game-card .tag{ font-size:.58rem; color:var(--cyan); }
+.game-card.locked .tag{ color:var(--ink-dim); }
+
+/* ---------- 設定画面 ---------- */
+.settings-group{ margin-bottom:20px; padding:4px 0 8px; }
+.settings-group-title{
+  font-size:.62rem; color:var(--yellow);
+  letter-spacing:.1em;
+  padding:10px 14px 12px;
+}
+.settings-row{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:14px 14px;
+  border-top:2px solid rgba(255,255,255,.08);
+}
+.settings-row:first-of-type{ border-top:none; }
+.settings-row .label{ font-size:.75rem; letter-spacing:.03em; }
+.settings-row .desc{ font-size:.6rem; color:var(--ink-dim); margin-top:4px; }
+
+.switch-px{ position:relative; width:52px; height:26px; flex-shrink:0; cursor:pointer; }
+.switch-px input{ display:none; }
+.switch-px .track{
+  position:absolute; inset:0;
+  background:var(--bg-0);
+  border:2px solid var(--black);
+  box-shadow:0 0 0 2px var(--ink-dim);
+}
+.switch-px .knob{
+  position:absolute; top:2px; left:2px;
+  width:18px; height:18px;
+  background:var(--pink);
+}
+.switch-px input:checked + .track{ box-shadow:0 0 0 2px var(--cyan); }
+.switch-px input:checked + .track .knob{ left:auto; right:2px; background:var(--cyan); }
+
+input[type=range].range-px{
+  -webkit-appearance:none;
+  width:120px; height:10px;
+  background:var(--bg-0);
+  border:2px solid var(--black);
+  outline:none;
+}
+input[type=range].range-px::-webkit-slider-thumb{
+  -webkit-appearance:none;
+  width:14px; height:16px;
+  background:var(--yellow);
+  border:2px solid var(--black);
+  cursor:pointer;
+}
+
+.select-px{
+  font-family:'NosutaruDot','MS Gothic',monospace;
+  background:var(--bg-0);
+  color:var(--ink);
+  border:2px solid var(--black);
+  box-shadow:0 0 0 2px var(--ink-dim);
+  padding:8px 10px;
+  font-size:.7rem;
+}
+
+.danger-row .label{ color:var(--pink); }
