@@ -310,9 +310,53 @@
           const theme = THEMES[s.theme] || THEMES.dark;
           const root = document.documentElement;
           Object.entries(theme).forEach(([k, v]) => root.style.setProperty(k, v));
+          
+          // ネオンテーマの場合、派手なグロー効果を追加
+          if(s.theme === 'neon'){
+            document.body.dataset.theme = 'neon';
+          }
         }catch(e){ /* 設定がなければ元の配色のまま */ }
       })();
     </script>
+    <style>
+      /* ネオンテーマ時の派手なグロー効果 */
+      body[data-theme="neon"] .num-btn,
+      body[data-theme="neon"] .memo-btn {
+        box-shadow: 0 0 12px rgba(0, 204, 255, 0.8), inset 0 0 6px rgba(0, 204, 255, 0.4) !important;
+        text-shadow: 0 0 8px rgba(0, 204, 255, 0.8) !important;
+      }
+      body[data-theme="neon"] .cell {
+        box-shadow: inset 0 0 8px rgba(0, 204, 255, 0.3), 0 0 6px rgba(0, 204, 255, 0.2) !important;
+        border-color: rgba(0, 204, 255, 0.6) !important;
+      }
+      body[data-theme="neon"] .cell.fixed {
+        box-shadow: inset 0 0 10px rgba(0, 204, 255, 0.4), 0 0 8px rgba(0, 204, 255, 0.3) !important;
+      }
+      body[data-theme="neon"] .btn-resume,
+      body[data-theme="neon"] .btn-save {
+        box-shadow: 0 0 14px rgba(0, 255, 136, 0.8), 0 4px 12px rgba(0, 255, 136, 0.4) !important;
+        text-shadow: 0 0 10px rgba(0, 255, 136, 0.8) !important;
+      }
+      body[data-theme="neon"] .btn-item-del {
+        box-shadow: 0 0 12px rgba(255, 34, 68, 0.8) !important;
+        text-shadow: 0 0 8px rgba(255, 34, 68, 0.8) !important;
+      }
+      body[data-theme="neon"] .memo-on {
+        box-shadow: 0 0 16px rgba(255, 170, 0, 0.9), inset 0 0 8px rgba(255, 170, 0, 0.5) !important;
+        text-shadow: 0 0 10px rgba(255, 170, 0, 0.9) !important;
+      }
+      body[data-theme="neon"] .num-grid {
+        border-color: rgba(0, 204, 255, 0.8) !important;
+        box-shadow: 0 0 18px rgba(0, 204, 255, 0.6), inset 0 0 12px rgba(0, 204, 255, 0.15) !important;
+      }
+      body[data-theme="neon"] h1,
+      body[data-theme="neon"] .pause-title {
+        text-shadow: 0 0 16px rgba(255, 170, 0, 0.9), 0 0 8px rgba(255, 170, 0, 0.6) !important;
+      }
+      body[data-theme="neon"] .mode-toggle {
+        box-shadow: 0 0 14px rgba(0, 204, 255, 0.7) !important;
+      }
+    </style>
 </head>
 <body>
 
