@@ -192,9 +192,9 @@ body::after{
   background:var(--bg-0);
 }
 .title-plate{ padding:26px 18px 22px; max-width:340px; }
-.title-eyebrow{ font-size:.62rem; letter-spacing:.3em; color:var(--yellow); margin-bottom:10px; }
-.title-logo{ font-size:1.5rem; line-height:1.7; letter-spacing:.04em; text-shadow:2px 2px 0 var(--pink); }
-.title-logo .accent{ color:var(--cyan); }
+.title-eyebrow{ font-size:.62rem; letter-spacing:.3em; color:var(--yellow); margin-bottom:10px; text-shadow:0 0 12px rgba(0,0,0,.9), 2px 2px 4px rgba(0,0,0,.8); }
+.title-logo{ font-size:1.5rem; line-height:1.7; letter-spacing:.04em; text-shadow:0 0 16px rgba(0,0,0,.95), 3px 3px 6px rgba(0,0,0,.9), 0 0 20px rgba(255,255,255,.3); }
+.title-logo .accent{ color:var(--cyan); text-shadow:0 0 20px rgba(255,255,255,.6), 0 0 30px rgba(63,232,200,.4); }
 
 /* ===== 昔のモノクロテレビ風の筐体 ===== */
 .tv-set{
@@ -219,6 +219,9 @@ body::after{
 }
 .tv-screen{
   background:#020202;
+  background-image:url('tv-bg.png');
+  background-size:cover;
+  background-position:center;
   border-radius:16px 16px 34px 34px / 16px 16px 46px 46px;
   padding:34px 22px;
   position:relative;
@@ -253,6 +256,14 @@ body::after{
   animation: tv-roll 6s linear infinite;
 }
 .tv-screen > *:not(.tv-roll){ position:relative; z-index:1; }
+.tv-screen-content{
+  width:100%;
+  height:100%;
+  display:block;
+  object-fit:cover;
+  position:relative;
+  z-index:1;
+}
 @keyframes tv-flicker{
   0%, 90%, 100%{ opacity:1; filter:brightness(1); }
   91%{ opacity:.5; filter:brightness(1.4); }
@@ -277,6 +288,23 @@ body::after{
   margin:10px auto 0;
   border-radius:0 0 6px 6px;
 }
+.tv-vignette{
+  position:absolute; inset:0;
+  background:
+    linear-gradient(115deg, transparent 38%, rgba(255,255,255,.05) 50%, transparent 62%),
+    radial-gradient(ellipse at center, rgba(0,0,0,.3) 0%, rgba(0,0,0,.92) 100%);
+  pointer-events:none;
+  z-index:2;
+}
+.tv-scan{
+  position:absolute; inset:0;
+  background:repeating-linear-gradient(180deg, rgba(255,255,255,.12) 0px, rgba(255,255,255,.12) 1px, transparent 1px, transparent 3px);
+  mix-blend-mode:screen;
+  pointer-events:none;
+  z-index:2;
+  animation: tv-flicker 4s infinite;
+}
+.tv-screen > div:not(.tv-vignette):not(.tv-scan):not(.tv-roll){ position:relative; z-index:1; }
 .press-start{ margin-top:26px; font-size:.85rem; letter-spacing:.1em; animation: blink 1s steps(1) infinite; }
 @keyframes blink{ 50%{ opacity:0; } }
 .title-actions{ margin-top:34px; display:flex; flex-direction:column; gap:16px; width:100%; max-width:200px; }
@@ -329,6 +357,8 @@ input[type=range].range-px::-webkit-slider-thumb{ -webkit-appearance:none; width
     <div class="tv-set">
       <div class="tv-knobs"><span></span><span></span></div>
       <div class="tv-screen">
+        <div class="tv-vignette"></div>
+        <div class="tv-scan"></div>
         <div class="tv-roll"></div>
         <div class="title-eyebrow">CHALLENGE ACCEPTED?</div>
         <div class="title-logo">美容室<span class="accent">CLan</span><br>からの<br>挑戦状</div>
