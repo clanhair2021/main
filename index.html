@@ -1,128 +1,307 @@
-<div>
-  <div class="label" onclick="resetAllData()">全ゲームのセーブデータを削除</div>
-  <div class="desc">この操作は取り消せません</div>
-</div>
-<span>›</span>
-
-<div id="crt-overlay">
-  <div class="crt-vignette"></div>
-  <div class="crt-scan"></div>
-  <div class="crt-roll"></div>
-</div>
-
-<script>
-  // ==========================================
-  // 1. ゲーム一覧の設定
-  // ==========================================
-  // 【改善ポイント】
-  // 将来、別のGitHubリポジトリ（別URL）にゲームを作った場合でも、
-  // ここに「https://〜」から始まるフルURLをそのまま書けば動くように柔軟に設計しました。
-  const GAMES = [
-    { id:"sudoku",  name:"モダン・ナンプレ", icon:"🔢", tag:"PUZZLE", url:"sudoku.html", locked:false },
-    { id:"maze",    name:"迷路ゲーム",       icon:"🌀", tag:"準備中", url:null, locked:true },
-    { id:"picross", name:"イラストロジック", icon:"🧩", tag:"準備中", url:null, locked:true },
-  ];
-
-  // ==========================================
-  // 2. テーマ適用
-  // ==========================================
-  function applyTheme(theme){
-    document.body.dataset.theme = theme || 'dark';
-  }
-
-  // ==========================================
-  // 3. 設定・データの保存と読み込み
-  // ==========================================
-  const SETTINGS_KEY = "clanhair.settings";
-
-  // 設定を保存する
-  function saveSettings(){
-    const themeSelect = document.getElementById('setting-theme');
-    const soundCheck = document.getElementById('setting-sound');
-    const volumeSlider = document.getElementById('setting-volume');
-
-    // 要素が存在する場合のみ値を取得（エラー防止）
-    const theme = themeSelect ? themeSelect.value : 'dark';
-    const sound = soundCheck ? soundCheck.checked : true;
-    const volume = volumeSlider ? volumeSlider.value : 70;
-
-    applyTheme(theme);
-
-    localStorage.setItem(SETTINGS_KEY, JSON.stringify({
-      sound: sound,
-      volume: volume,
-      theme: theme,
-    }));
-  }
-
-  // 設定を読み込む
-  function loadSettings(){
-    const raw = localStorage.getItem(SETTINGS_KEY);
-    const s = raw ? JSON.parse(raw) : {};
-    
-    // 初回起動時やデータが空の場合のデフォルト値を設定
-    const theme = s.theme ?? 'dark';
-    applyTheme(theme);
-
-    // 画面に設定値を反映（要素が存在するかチェックしてエラーを防ぐ）
-    const themeSelect = document.getElementById('setting-theme');
-    if (themeSelect) themeSelect.value = theme;
-
-    const soundCheck = document.getElementById('setting-sound');
-    if (soundCheck) soundCheck.checked = s.sound ?? true;
-
-    const volumeSlider = document.getElementById('setting-volume');
-    if (volumeSlider) volumeSlider.value = s.volume ?? 70;
-  }
-
-  // ==========================================
-  // 4. 全データの削除（重要）
-  // ==========================================
-  // 【改善ポイント】
-  // ローカルストレージを全てクリアし、ページをリロードして初期状態に戻します。
-  // これにより、メニューの設定だけでなく、各ゲーム（ナンプレなど）が
-  // ローカルストレージに保存していたセーブデータも丸ごと綺麗にリセットされます。
-  function resetAllData(){
-    if(confirm("すべてのゲームのセーブデータと設定を削除します。よろしいですか？\nこの操作は取り消せません。")){
-      localStorage.clear();
-      alert("すべてのデータを削除しました。ページを再読み込みします。");
-      window.location.reload(); // ページをリロードして初期状態を再適用
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>マイ・アーケード</title>
+  <style>
+    /* ==========================================
+       レトロゲーム風デザイン (CSS)
+       ========================================== */
+    :root {
+      --bg-color: #121214;
+      --text-color: #e2e2e7;
+      --accent-color: #3b82f6;
+      --card-bg: #1e1e24;
+      --border-color: #3f3f46;
     }
-  }
 
-  // ==========================================
-  // 5. ゲームグリッドの描画
-  // ==========================================
-  function renderGameGrid(){
-    const grid = document.getElementById('game-grid');
-    if (!grid) return;
-    
-    grid.innerHTML = "";
-    GAMES.forEach(g => {
-      const card = document.createElement('div');
-      // lockedクラスの付与条件を整理
-      card.className = `game-card pixel-box ${g.locked ? 'locked' : ''}`;
-      card.innerHTML = `
-        <div class="icon">${g.icon}</div>
-        <div class="name">${g.name}</div>
-        <div class="tag">${g.tag}</div>
-      `;
+    [data-theme="light"] {
+      --bg-color: #f4f4f5;
+      --text-color: #18181b;
+      --accent-color: #2563eb;
+      --card-bg: #ffffff;
+      --border-color: #e4e4e7;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: 'Courier New', Courier, monospace, sans-serif;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      box-sizing: border-box;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      text-align: center;
+      margin-bottom: 20px;
+      text-shadow: 0 0 5px var(--accent-color);
+    }
+
+    /* ゲームのグリッド配置 */
+    .game-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      width: 100%;
+      max-width: 400px;
+      margin-bottom: 30px;
+    }
+
+    /* ドット絵風のカードデザイン */
+    .pixel-box {
+      border: 3px solid var(--border-color);
+      background-color: var(--card-bg);
+      padding: 15px;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.1s, box-shadow 0.1s;
+      border-radius: 8px;
+    }
+
+    .pixel-box:active {
+      transform: scale(0.95);
+    }
+
+    .game-card .icon {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    .game-card .name {
+      font-weight: bold;
+      font-size: 0.9rem;
+      margin-bottom: 5px;
+    }
+
+    .game-card .tag {
+      font-size: 0.7rem;
+      background-color: var(--accent-color);
+      color: #fff;
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    /* 準備中（ロック状態）のゲーム */
+    .game-card.locked {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    .game-card.locked .tag {
+      background-color: #71717a;
+    }
+
+    /* 設定エリア */
+    .settings-panel {
+      width: 100%;
+      max-width: 400px;
+      border-top: 2px dashed var(--border-color);
+      padding-top: 20px;
+      margin-top: auto;
+    }
+
+    .setting-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      font-size: 0.9rem;
+    }
+
+    select, input[type="range"] {
+      background: var(--card-bg);
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+      padding: 5px;
+      border-radius: 4px;
+    }
+
+    .danger-zone {
+      margin-top: 20px;
+      padding: 15px;
+      border: 2px solid #ef4444;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .danger-zone:active {
+      background-color: rgba(239, 68, 68, 0.1);
+    }
+
+    .danger-zone .label {
+      color: #ef4444;
+      font-weight: bold;
+    }
+
+    .danger-zone .desc {
+      font-size: 0.75rem;
+      opacity: 0.7;
+    }
+
+    /* CRTモニター風のエフェクト */
+    #crt-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 9999;
+    }
+    .crt-scan {
+      width: 100%; height: 100%;
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+      background-size: 100% 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎮 MY ARCADE (β)</h1>
+
+  <div id="game-grid" class="game-grid"></div>
+
+  <section class="settings-panel">
+    <div class="setting-item">
+      <span>テーマ設定</span>
+      <select id="setting-theme" onchange="saveSettings()">
+        <option value="dark">ダークモード</option>
+        <option value="light">ライトモード</option>
+      </select>
+    </div>
+
+    <div class="setting-item">
+      <span>効果音</span>
+      <input type="checkbox" id="setting-sound" onchange="saveSettings()" checked>
+    </div>
+
+    <div class="setting-item">
+      <span>音量</span>
+      <input type="range" id="setting-volume" min="0" max="100" value="70" onchange="saveSettings()">
+    </div>
+
+    <div class="danger-zone" onclick="resetAllData()">
+      <div>
+        <div class="label">全ゲームのセーブデータを削除</div>
+        <div class="desc">この操作は取り消せません</div>
+      </div>
+      <span>&rsaquo;</span>
+    </div>
+  </section>
+
+  <div id="crt-overlay">
+    <div class="crt-scan"></div>
+  </div>
+
+  <script>
+    // ==========================================
+    // 1. ゲーム一覧の設定
+    // ==========================================
+    const GAMES = [
+      { id:"sudoku",  name:"モダン・ナンプレ", icon:"🔢", tag:"PUZZLE", url:"sudoku.html", locked:false },
+      { id:"maze",    name:"迷路ゲーム",       icon:"🌀", tag:"準備中", url:null, locked:true },
+      { id:"picross", name:"イラストロジック", icon:"🧩", tag:"準備中", url:null, locked:true },
+    ];
+
+    // ==========================================
+    // 2. テーマ適用
+    // ==========================================
+    function applyTheme(theme){
+      document.body.dataset.theme = theme || 'dark';
+    }
+
+    // ==========================================
+    // 3. 設定・データの保存と読み込み
+    // ==========================================
+    const SETTINGS_KEY = "clanhair.settings";
+
+    function saveSettings(){
+      const themeSelect = document.getElementById('setting-theme');
+      const soundCheck = document.getElementById('setting-sound');
+      const volumeSlider = document.getElementById('setting-volume');
+
+      const theme = themeSelect ? themeSelect.value : 'dark';
+      const sound = soundCheck ? soundCheck.checked : true;
+      const volume = volumeSlider ? volumeSlider.value : 70;
+
+      applyTheme(theme);
+
+      localStorage.setItem(SETTINGS_KEY, JSON.stringify({
+        sound: sound,
+        volume: volume,
+        theme: theme,
+      }));
+    }
+
+    function loadSettings(){
+      const raw = localStorage.getItem(SETTINGS_KEY);
+      const s = raw ? JSON.parse(raw) : {};
       
-      if(!g.locked && g.url){ 
-        card.onclick = () => { 
-          location.href = g.url; 
-        }; 
-      }
-      grid.appendChild(card);
-    });
-  }
+      const theme = s.theme ?? 'dark';
+      applyTheme(theme);
 
-  // ==========================================
-  // 6. 起動処理
-  // ==========================================
-  // ページの読み込みが完了した時点で即座にテーマやグリッドを適用（チラつき防止）
-  document.addEventListener("DOMContentLoaded", () => {
-    loadSettings();
-    renderGameGrid();
-  });
-</script>
+      const themeSelect = document.getElementById('setting-theme');
+      if (themeSelect) themeSelect.value = theme;
+
+      const soundCheck = document.getElementById('setting-sound');
+      if (soundCheck) soundCheck.checked = s.sound ?? true;
+
+      const volumeSlider = document.getElementById('setting-volume');
+      if (volumeSlider) volumeSlider.value = s.volume ?? 70;
+    }
+
+    // ==========================================
+    // 4. 全データの削除
+    // ==========================================
+    function resetAllData(){
+      if(confirm("すべてのゲームのセーブデータと設定を削除します。よろしいですか？\nこの操作は取り消せません。")){
+        localStorage.clear();
+        alert("すべてのデータを削除しました。ページを再読み込みします。");
+        window.location.reload();
+      }
+    }
+
+    // ==========================================
+    // 5. ゲームグリッドの描画
+    // ==========================================
+    function renderGameGrid(){
+      const grid = document.getElementById('game-grid');
+      if (!grid) return;
+      
+      grid.innerHTML = "";
+      GAMES.forEach(g => {
+        const card = document.createElement('div');
+        card.className = `game-card pixel-box ${g.locked ? 'locked' : ''}`;
+        card.innerHTML = `
+          <div class="icon">${g.icon}</div>
+          <div class="name">${g.name}</div>
+          <div class="tag">${g.tag}</div>
+        `;
+        
+        if(!g.locked && g.url){ 
+          card.onclick = () => { 
+            location.href = g.url; 
+          }; 
+        }
+        grid.appendChild(card);
+      });
+    }
+
+    // ==========================================
+    // 6. 起動処理
+    // ==========================================
+    document.addEventListener("DOMContentLoaded", () => {
+      loadSettings();
+      renderGameGrid();
+    });
+  </script>
+</body>
+</html>
