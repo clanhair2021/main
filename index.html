@@ -3,167 +3,246 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>マイ・アーケード</title>
+  <title>マイ・アーケード・ポータル</title>
+  
   <style>
-    /* お手元のCSS（元のデザイン設定）をそのままここに残してお使いください */
+    /* ==========================================================
+       🎨 カスタマイズエリア（ここを書き換えるだけで雰囲気が激変！）
+       ========================================================== */
+    :root {
+      /* --- カラー設定 --- */
+      --bg-color: #0f172a;       /* 全体の背景色 */
+      --panel-bg: #1e293b;       /* カードや枠の内側の色 */
+      --text-color: #f8fafc;     /* 文字の色 */
+      --accent-color: #38bdf8;   /* アクセント（ネオンやボタン）の色 */
+      --locked-color: #64748b;   /* 準備中のゲームの色 */
+
+      /* --- 線・角の丸み設定 --- */
+      --border-width: 3px;       /* 線の太さ（ドット絵風なら太め、サイバーなら細め） */
+      --border-style: solid;     /* 線の種類（solid: 実線, dashed: 点線, double: 二重線） */
+      --border-color: #38bdf8;   /* 枠線の色 */
+      --border-radius: 8px;      /* 角の丸み（0pxにするとシャープなレトロ風に） */
+
+      /* --- フォント設定 --- */
+      --font-family: 'Courier New', Courier, monospace, sans-serif;
+    }
+
+    /* ==========================================================
+       🧱 基本スタイル（基本触らなくてOK。上の変数と連動します）
+       ========================================================== */
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: var(--font-family);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      box-sizing: border-box;
+      overflow-x: hidden;
+    }
+
+    /* 共通コンテナ（スマホサイズを基準にする） */
+    .app-container {
+      width: 100%;
+      max-width: 450px;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    /* 🛠️ 画面の切り替え設定 */
+    .screen {
+      display: none; /* 基本は非表示 */
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+    }
+    .screen.active {
+      display: flex; /* activeクラスがついた画面だけ表示 */
+    }
+
+    /* 汎用的な「枠（ボックス）」のデザイン */
+    .pixel-box {
+      border: var(--border-width) var(--border-style) var(--border-color);
+      background-color: var(--panel-bg);
+      border-radius: var(--border-radius);
+      padding: 20px;
+      box-sizing: border-box;
+      text-align: center;
+    }
+
+    /* 共通ボタン */
+    .arcade-btn {
+      background-color: transparent;
+      color: var(--text-color);
+      border: var(--border-width) var(--border-style) var(--accent-color);
+      border-radius: var(--border-radius);
+      padding: 12px 24px;
+      font-size: 1.1rem;
+      font-family: var(--font-family);
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.1s, background-color 0.2s;
+    }
+    .arcade-btn:active {
+      transform: scale(0.95);
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    /* ==========================================================
+       画面1：タイトル画面用スタイル
+       ========================================================== */
+    .title-logo {
+      font-size: 2.2rem;
+      margin-bottom: 40px;
+      text-shadow: 0 0 8px var(--accent-color);
+      animation: pulse 2s infinite alternate;
+    }
+    @keyframes pulse {
+      from { transform: scale(1); }
+      to { transform: scale(1.03); }
+    }
+
+    /* ==========================================================
+       画面2：ゲームSELECT画面用スタイル
+       ========================================================== */
+    .select-title {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+    }
+
+    /* ゲームグリッド（2列で並べる） */
+    .game-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      width: 100%;
+      margin-bottom: 30px;
+    }
+
+    .game-card {
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      aspect-ratio: 1 / 1; /* 正方形にする */
+      transition: transform 0.1s;
+    }
+    .game-card:active {
+      transform: scale(0.95);
+    }
+
+    .game-card .icon {
+      font-size: 2.5rem;
+      margin-bottom: 8px;
+    }
+    .game-card .name {
+      font-size: 0.85rem;
+      font-weight: bold;
+    }
+
+    /* ロック（準備中）状態 */
+    .game-card.locked {
+      border-color: var(--locked-color);
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    .game-card.locked:active {
+      transform: none;
+    }
+
+    /* メニューへ戻る用ボタンの配置 */
+    .back-container {
+      margin-top: auto; /* 一番下に配置 */
+      width: 100%;
+    }
   </style>
 </head>
 <body>
 
-  <div id="screen-title" class="screen active">
+  <div class="app-container">
+
+    <div id="screen-title" class="screen active">
+      <div class="title-logo">MY ARCADE</div>
+      <button class="arcade-btn" onclick="showScreen('select')">PRESS START</button>
     </div>
 
-  <section class="settings-panel">
-    <div class="setting-item">
-      <span>テーマ設定</span>
-      <select id="setting-theme" onchange="saveSettings()">
-        <option value="dark">ダークモード</option>
-        <option value="light">ライトモード</option>
-      </select>
-    </div>
+    <div id="screen-select" class="screen">
+      <div class="select-title">SELECT GAME</div>
+      
+      <div id="game-grid" class="game-grid"></div>
 
-    <div class="setting-item">
-      <span>効果音</span>
-      <input type="checkbox" id="setting-sound" onchange="saveSettings()" checked>
-    </div>
-
-    <div class="setting-item">
-      <span>音量</span>
-      <input type="range" id="setting-volume" min="0" max="100" value="70" onchange="saveSettings()">
-    </div>
-
-    <div class="danger-zone" onclick="resetAllData()">
-      <div>
-        <div class="label">全ゲームのセーブデータを削除</div>
-        <div class="desc">この操作は取り消せません</div>
+      <div class="back-container">
+        <button class="arcade-btn" style="width:100%;" onclick="showScreen('title')">BACK TO TITLE</button>
       </div>
-      <span>&rsaquo;</span>
     </div>
-  </section>
 
-  <div id="crt-overlay">
-    <div class="crt-vignette"></div>
-    <div class="crt-scan"></div>
-    <div class="crt-roll"></div>
   </div>
 
   <script>
-    // ==========================================
-    // 1. ゲーム一覧
-    // ==========================================
+    // 1. 表示させたいゲームの一覧データ
     const GAMES = [
-      { id:"sudoku",  name:"モダン・ナンプレ", icon:"🔢", tag:"PUZZLE", url:"sudoku.html", locked:false },
-      { id:"maze",    name:"迷路ゲーム",       icon:"🌀", tag:"準備中", url:null, locked:true },
-      { id:"picross", name:"イラストロジック", icon:"🧩", tag:"準備中", url:null, locked:true },
+      { id: "sudoku",  name: "ナンプレ",   icon: "🔢", url: "sudoku.html", locked: false },
+      { id: "maze",    name: "迷路ゲーム", icon: "🌀", url: "maze.html",   locked: true },
+      { id: "picross", name: "ロジック",   icon: "🧩", url: "picross.html",locked: true },
+      { id: "puzzle",  name: "パズル",     icon: "🦁", url: "puzzle.html", locked: true },
     ];
 
-    // ==========================================
-    // 2. 画面切り替え（元の関数をそのまま維持）
-    // ==========================================
-    function showScreen(name){
-      const screens = document.querySelectorAll('.screen');
-      if (screens.length > 0) {
-        screens.forEach(s => s.classList.remove('active'));
-      }
-      const targetScreen = document.getElementById('screen-' + name);
-      if (targetScreen) {
-        targetScreen.classList.add('active');
-      }
-      document.body.classList.toggle('on-title', name === 'title');
-    }
-
-    // ==========================================
-    // 3. テーマ適用
-    // ==========================================
-    function applyTheme(theme){
-      document.body.dataset.theme = theme || 'dark';
-    }
-
-    // ==========================================
-    // 4. 設定の保存と読み込み
-    // ==========================================
-    const SETTINGS_KEY = "clanhair.settings";
-
-    function saveSettings(){
-      const themeSelect = document.getElementById('setting-theme');
-      const soundCheck = document.getElementById('setting-sound');
-      const volumeSlider = document.getElementById('setting-volume');
-
-      const theme = themeSelect ? themeSelect.value : 'dark';
-      const sound = soundCheck ? soundCheck.checked : true;
-      const volume = volumeSlider ? volumeSlider.value : 70;
-
-      applyTheme(theme);
-
-      localStorage.setItem(SETTINGS_KEY, JSON.stringify({
-        sound: sound,
-        volume: volume,
-        theme: theme,
-      }));
-    }
-
-    function loadSettings(){
-      const raw = localStorage.getItem(SETTINGS_KEY);
-      const s = raw ? JSON.parse(raw) : {};
-      
-      const theme = s.theme ?? 'dark';
-      applyTheme(theme);
-
-      const themeSelect = document.getElementById('setting-theme');
-      if (themeSelect) themeSelect.value = theme;
-
-      const soundCheck = document.getElementById('setting-sound');
-      if (soundCheck) soundCheck.checked = s.sound ?? true;
-
-      const volumeSlider = document.getElementById('setting-volume');
-      if (volumeSlider) volumeSlider.value = s.volume ?? 70;
-    }
-
-    // ==========================================
-    // 5. データの一括リセット（バグを防ぐよう改善）
-    // ==========================================
-    function resetAllData(){
-      if(confirm("すべてのゲームのセーブデータと設定を削除します。よろしいですか？\nこの操作は取り消せません。")){
-        localStorage.clear();
-        alert("すべてのデータを削除しました。");
-        window.location.reload(); // 再読み込みして初期設定を再適用
+    // 2. 画面を切り替える魔法の関数
+    function showScreen(screenId) {
+      // 一旦すべての画面を非表示にする
+      document.querySelectorAll('.screen').forEach(screen => {
+        screen.classList.remove('active');
+      });
+      // 指定された画面だけを表示（activeクラスを付与）
+      const target = document.getElementById('screen-' + screenId);
+      if (target) {
+        target.classList.add('active');
       }
     }
 
-    // ==========================================
-    // 6. ゲームカードの生成（元のクラス名 pixel-box などを100%維持）
-    // ==========================================
-    function renderGameGrid(){
+    // 3. ゲームセレクト画面のカードを自動作成する関数
+    function renderGameGrid() {
       const grid = document.getElementById('game-grid');
       if (!grid) return;
       
-      grid.innerHTML = "";
-      GAMES.forEach(g => {
+      grid.innerHTML = ""; // 初期化
+      
+      GAMES.forEach(game => {
         const card = document.createElement('div');
-        // 元のクラス「game-card pixel-box」と「locked」を完全に維持
-        card.className = 'game-card pixel-box' + (g.locked ? ' locked' : '');
+        // 共通の枠デザイン「pixel-box」を適用
+        card.className = `game-card pixel-box ${game.locked ? 'locked' : ''}`;
+        
         card.innerHTML = `
-          <div class="icon">${g.icon}</div>
-          <div class="name">${g.name}</div>
-          <div class="tag">${g.tag}</div>
+          <div class="icon">${game.icon}</div>
+          <div class="name">${game.name}</div>
         `;
         
-        if(!g.locked && g.url){ 
-          card.onclick = () => { 
-            location.href = g.url; 
-          }; 
+        // ロックされていなければ、クリックしたときにそのゲームのURLへ飛ぶ
+        if (!game.locked && game.url) {
+          card.onclick = () => {
+            location.href = game.url;
+          };
         }
+        
         grid.appendChild(card);
       });
     }
 
-    // ==========================================
-    // 7. 起動処理（読み込みタイミングを安全に最適化）
-    // ==========================================
+    // ページが読み込まれたら自動で実行する処理
     document.addEventListener("DOMContentLoaded", () => {
-      loadSettings();
       renderGameGrid();
     });
   </script>
 </body>
 </html>
+
