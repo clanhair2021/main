@@ -191,7 +191,14 @@
   <script>
     // 1. 表示させたいゲームの一覧データ
     const GAMES = [
-      { id: "sudoku",  name: "ナンプレ",   icon: "🔢", url: "sudoku.html", locked: false },
+      {
+        id: "sudoku",  
+        name: "ナンプレ",   
+        icon: "🔢", 
+        // 【ここを変更！】ローカルのファイル名ではなく、実際のURLを直接指定します
+        url: "https://clanhair2021.github.io/Sudoku-game/", 
+        locked: false 
+      },
       { id: "maze",    name: "迷路ゲーム", icon: "🌀", url: "maze.html",   locked: true },
       { id: "picross", name: "ロジック",   icon: "🧩", url: "picross.html",locked: true },
       { id: "puzzle",  name: "パズル",     icon: "🦁", url: "puzzle.html", locked: true },
