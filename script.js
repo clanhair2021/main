@@ -45,11 +45,14 @@ function renderGameGrid() {
       ? `<img src="${g.icon}" alt="${g.name}" class="game-card-img">`
       : `<div class="icon">${g.icon}</div>`;
 
-    card.innerHTML = `
+        card.innerHTML = `
       ${iconHtml}
-      <div class="name">${g.name}</div>
-      <div class="tag">${g.tag}</div>
+      <div class="card-text-group">
+        <span class="name">${g.name}</span>
+        <span class="tag">${g.tag}</span>
+      </div>
     `;
+
 
     if (!g.locked) {
       card.onclick = () => { location.href = g.url; };
