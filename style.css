@@ -212,17 +212,17 @@ h2 {
   background: rgba(0, 0, 0, 0.03);
   border: 2px solid var(--border-color);
   border-radius: 6px;
-  padding: 10px 8px;       /* 内側の余白を狭くして領域を確保 */
+  padding: 4px 4px 8px 4px; /* 上下の無駄な余白をギリギリまで削る */
   text-align: center;
   cursor: pointer;
   transition: border-color 0.2s, background-color 0.2s, transform 0.1s;
   
-  /* カード内を縦並びにして、画像を拡大＋文字を下寄せ */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  min-height: 140px;       /* カードの高さを固定して安定させます */
+  min-height: 150px;       /* 140px → 150px にほんの少しだけ広げて画像域を確保 */
+  overflow: hidden;        /* はみ出し防止 */
 }
 
 body[data-theme="dark"] .game-card {
@@ -240,56 +240,56 @@ body[data-theme="dark"] .game-card {
   cursor: not-allowed;
 }
 
+/* --- 画像アイコン（限界突破サイズ） --- */
+.game-card-img {
+  width: 100%;
+  max-width: 120px;        /* 最大幅を 90px → 120px に拡大 */
+  height: auto;
+  max-height: 110px;       /* 最大高さを 85px → 110px に大幅拡大 */
+  object-fit: contain;
+  flex: 1;
+  margin-bottom: 2px;
+}
+
 /* 絵文字アイコン（他のゲーム用） */
 .game-card .icon {
-  font-size: 2.8rem;
+  font-size: 3.2rem;
   flex: 1;
   display: flex;
   align-items: center;
 }
 
-/* --- 画像アイコン（限界まで大きく設定） --- */
-.game-card-img {
-  width: 100%;
-  max-width: 90px;         /* 画像の最大幅を大幅アップ */
-  height: auto;
-  max-height: 85px;        /* 上下の限界まで広げる */
-  object-fit: contain;
-  flex: 1;                 /* 上の空きスペースを画像を広げるために使う */
-  margin-bottom: 4px;
-}
-
-/* --- 下部のテキストグループ（横並び＋中央寄せ） --- */
+/* --- 下部のテキストグループ --- */
 .card-text-group {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 4px;                /* 文字とタグの間隔 */
+  gap: 3px;
   width: 100%;
-  margin-top: auto;        /* 下側に寄せる */
-  flex-wrap: wrap;         /* 万が一文字が長い場合は折り返す設定 */
+  margin-top: auto;
 }
 
 /* --- タイトル文字 --- */
 .game-card .name {
   font-weight: bold;
-  font-size: 0.75rem;
-  line-height: 1.1;
-  white-space: nowrap;     /* 折り返さず一列に表示 */
+  font-size: 0.7rem;      /* 画像を優先するため文字サイズをほんの少しキュッと絞る */
+  line-height: 1;
+  white-space: nowrap;
 }
 
 /* --- 極小タグ（PUZZLEなど） --- */
 .game-card .tag {
   display: inline-block;
   font-family: 'Press Start 2P', monospace;
-  font-size: 0.3rem;
-  padding: 1px 3px;
+  font-size: 0.28rem;
+  padding: 1px 2px;
   border: 1px solid var(--border-color);
   color: var(--sub-text-color);
   border-radius: 2px;
-  transform: scale(0.8);
+  transform: scale(0.75);
   white-space: nowrap;
 }
+
 
 
 
