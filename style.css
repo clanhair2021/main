@@ -237,31 +237,35 @@ body[data-theme="dark"] .game-card {
   margin-bottom: 8px;
 }
 
-/* ゲームカード内の画像アイコン用スタイル */
+/* --- ゲームカード内の画像（大きく調整） --- */
 .game-card-img {
-  width: 50px;
-  height: 50px;
+  width: 75px;            /* 50px → 75px に拡大 */
+  height: 75px;           /* 50px → 75px に拡大 */
   object-fit: contain;
-  margin-bottom: 8px;
+  margin-bottom: 2px;     /* 上下の余白を詰めて枠内に収める */
   display: inline-block;
 }
 
+/* --- タイトル文字の余白微調整 --- */
 .game-card .name {
   font-weight: bold;
   font-size: 0.85rem;
-  margin-bottom: 6px;
-  line-height: 1.3;
+  margin-bottom: 2px;     /* 余白を少し小さく */
+  line-height: 1.2;
 }
 
+/* --- タグ（PUZZLEなど）の文字（極端に小さく設定） --- */
 .game-card .tag {
   display: inline-block;
   font-family: 'Press Start 2P', monospace;
-  font-size: 0.55rem;
-  padding: 2px 6px;
+  font-size: 0.35rem;     /* 0.55rem → 0.35rem に縮小 */
+  padding: 1px 3px;       /* 枠のパディングも最小限に */
   border: 1px solid var(--border-color);
   color: var(--sub-text-color);
   border-radius: 2px;
+  transform: scale(0.9);  /* さらにキュッと小さく見せる調整 */
 }
+
 
 .back-btn {
   font-family: 'Press Start 2P', monospace;
