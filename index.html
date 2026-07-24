@@ -4,6 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>美容室CLanからの挑戦状</title>
+  
+  <!-- レトロゲーム用ドット絵フォント (Press Start 2P) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
   <style>
     /* =========================================
        モノクロ設定 & イラスト背景最適化
@@ -62,7 +68,6 @@
       border: 2px solid var(--border-color); /* 四角い外枠 */
       border-radius: 12px;
       padding: 24px;
-      /* 上に少し余白を作って枠の位置を調整 */
       margin-top: 15px; 
       transition: background-color 0.3s;
     }
@@ -132,52 +137,88 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* --- 1. タイトル画面 --- */
+    /* --- 1. タイトル画面（レトロスタートUI） --- */
     #screen-title {
       text-align: center;
-      /* 猫ちゃんとPUSH STARTボタンの間の距離感をここで調整 */
-      padding-top: 48vh; 
-      padding-bottom: 10px;
+      padding-top: 46vh; 
+      padding-bottom: 20px;
     }
 
-    .start-btn {
-      display: inline-block;
-      background: #222222;
-      color: #ffffff;
-      font-weight: bold;
-      font-size: 1.2rem;
-      padding: 16px 40px;
-      border: 2px solid #222222;
-      border-radius: 30px;
+    .retro-start-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       cursor: pointer;
-      letter-spacing: 2px;
-      animation: blink 1.2s infinite;
-      transition: all 0.2s ease;
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+      user-select: none;
+      transition: transform 0.1s;
     }
 
-    body[data-theme="dark"] .start-btn {
+    .retro-start-wrapper:active {
+      transform: scale(0.96);
+    }
+
+    /* 8bitピクセル風の「PRESS START」テキスト */
+    .retro-start-text {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 1.1rem;
+      color: var(--text-color);
+      letter-spacing: 2px;
+      text-shadow: 2px 2px 0px rgba(0,0,0,0.15);
+      animation: retroBlink 1.0s steps(1) infinite;
+      margin-bottom: 12px;
+    }
+
+    /* レトロゲーム特有のカクカク点滅（0.5秒おきに消える） */
+    @keyframes retroBlink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    /* アーケード筐体風立体スタートボタン */
+    .retro-start-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.85rem;
+      background: #111111;
+      color: #ffffff;
+      padding: 14px 28px;
+      border: 3px solid #111111;
+      border-radius: 4px; /* あえて少しカクつかせたデザイン */
+      cursor: pointer;
+      box-shadow: 0 6px 0px #555555, 0 8px 12px rgba(0, 0, 0, 0.3);
+      position: relative;
+      top: 0;
+      transition: all 0.1s ease;
+    }
+
+    body[data-theme="dark"] .retro-start-btn {
       background: #ffffff;
       color: #111111;
       border-color: #ffffff;
+      box-shadow: 0 6px 0px #888888, 0 8px 12px rgba(0, 0, 0, 0.5);
     }
 
-    .start-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    .retro-start-btn:hover {
+      top: 2px;
+      box-shadow: 0 4px 0px #555555, 0 5px 8px rgba(0, 0, 0, 0.3);
     }
 
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.6; }
+    .retro-start-btn:active {
+      top: 6px;
+      box-shadow: 0 0px 0px #555555, 0 2px 4px rgba(0, 0, 0, 0.3);
     }
 
     /* --- 2. ゲーム選択画面 --- */
     h2 {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 1rem;
       text-align: center;
       margin-bottom: 24px;
       color: var(--text-color);
-      letter-spacing: 2px;
+      letter-spacing: 1px;
     }
 
     .game-grid {
@@ -226,7 +267,8 @@
 
     .game-card .tag {
       display: inline-block;
-      font-size: 0.65rem;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.55rem;
       padding: 2px 6px;
       border: 1px solid var(--border-color);
       color: var(--sub-text-color);
@@ -234,10 +276,12 @@
     }
 
     .back-btn {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.7rem;
       background: transparent;
-      border: 1px solid var(--border-color);
+      border: 2px solid var(--border-color);
       color: var(--text-color);
-      padding: 8px 16px;
+      padding: 10px 18px;
       border-radius: 4px;
       cursor: pointer;
       transition: background-color 0.2s;
@@ -285,8 +329,9 @@
     }
 
     .modal-header h3 {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.9rem;
       color: var(--text-color);
-      font-size: 1.1rem;
     }
 
     .close-btn {
@@ -364,7 +409,13 @@
   <main class="container">
     <!-- 1. タイトル画面 -->
     <section id="screen-title" class="screen active">
-      <button class="start-btn" onclick="showScreen('select')">PUSH START</button>
+      <div class="retro-start-wrapper" onclick="showScreen('select')">
+        <!-- ドット絵風のチカチカ点滅する「PRESS START」 -->
+        <div class="retro-start-text">- PRESS START -</div>
+        
+        <!-- カチッと押せる立体のスタートボタン -->
+        <button class="retro-start-btn">▶ START</button>
+      </div>
     </section>
 
     <!-- 2. ゲーム選択画面 -->
