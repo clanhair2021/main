@@ -259,26 +259,38 @@ body[data-theme="dark"] .game-card {
   margin-bottom: 4px;
 }
 
-/* --- 下に寄せるテキスト部分エリア --- */
+/* --- 下部のテキストグループ（横並び＋中央寄せ） --- */
+.card-text-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;                /* 文字とタグの間隔 */
+  width: 100%;
+  margin-top: auto;        /* 下側に寄せる */
+  flex-wrap: wrap;         /* 万が一文字が長い場合は折り返す設定 */
+}
+
+/* --- タイトル文字 --- */
 .game-card .name {
   font-weight: bold;
-  font-size: 0.8rem;
-  margin-bottom: 2px;
+  font-size: 0.75rem;
   line-height: 1.1;
-  margin-top: auto;        /* 文字列を自動で下側に押し下げる */
+  white-space: nowrap;     /* 折り返さず一列に表示 */
 }
 
 /* --- 極小タグ（PUZZLEなど） --- */
 .game-card .tag {
   display: inline-block;
   font-family: 'Press Start 2P', monospace;
-  font-size: 0.3rem;       /* かなり小さなドット文字 */
+  font-size: 0.3rem;
   padding: 1px 3px;
   border: 1px solid var(--border-color);
   color: var(--sub-text-color);
   border-radius: 2px;
-  transform: scale(0.85);
+  transform: scale(0.8);
+  white-space: nowrap;
 }
+
 
 
 
