@@ -56,10 +56,15 @@
     .container {
       width: 100%;
       max-width: 500px;
+      /* 縦長にして枠の中にイラストごと収める設定 */
+      min-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end; /* ボタンを下側に寄せる */
       position: relative;
       z-index: 1;
-      border: 2px solid var(--border-color); /* 四角い外枠を残す */
-      border-radius: 8px;
+      border: 2px solid var(--border-color); /* 四角い外枠 */
+      border-radius: 12px;
       padding: 24px;
       transition: background-color 0.3s;
     }
@@ -76,6 +81,7 @@
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
       box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+      justify-content: flex-start; /* セレクト画面では上詰めに変更 */
     }
 
     /* --- 右上設定ボタン --- */
@@ -132,10 +138,10 @@
     /* --- 1. タイトル画面 --- */
     #screen-title {
       text-align: center;
-      padding-top: 50vh; /* イラスト下のスペースに調整 */
+      padding-top: 0;
       padding-bottom: 20px;
+      width: 100%;
     }
-
     .start-btn {
       display: inline-block;
       background: #222222;
