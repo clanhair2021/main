@@ -36,7 +36,7 @@
 
     body {
       background-color: var(--bg-color);
-      /* 背景画像のパス（ファイル名）を指定してください */
+      /* 背景画像のパス（ファイル名）を指定 */
       background-image: url("title-bg.gif"); 
       background-size: contain;
       background-position: center top;
@@ -47,7 +47,8 @@
       padding: 20px;
       display: flex;
       justify-content: center;
-      align-items: center;
+      /* 上揃えにして枠全体を上に寄せる */
+      align-items: flex-start; 
       transition: background-color 0.2s, color 0.2s;
       position: relative;
     }
@@ -56,16 +57,13 @@
     .container {
       width: 100%;
       max-width: 500px;
-      /* 縦長にして枠の中にイラストごと収める設定 */
-      min-height: 85vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end; /* ボタンを下側に寄せる */
       position: relative;
       z-index: 1;
       border: 2px solid var(--border-color); /* 四角い外枠 */
       border-radius: 12px;
       padding: 24px;
+      /* 上に少し余白を作って枠の位置を調整 */
+      margin-top: 15px; 
       transition: background-color 0.3s;
     }
 
@@ -81,7 +79,6 @@
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
       box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-      justify-content: flex-start; /* セレクト画面では上詰めに変更 */
     }
 
     /* --- 右上設定ボタン --- */
@@ -138,10 +135,11 @@
     /* --- 1. タイトル画面 --- */
     #screen-title {
       text-align: center;
-      padding-top: 0;
-      padding-bottom: 20px;
-      width: 100%;
+      /* 猫ちゃんとPUSH STARTボタンの間の距離感をここで調整 */
+      padding-top: 48vh; 
+      padding-bottom: 10px;
     }
+
     .start-btn {
       display: inline-block;
       background: #222222;
