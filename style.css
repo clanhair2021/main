@@ -207,14 +207,22 @@ h2 {
   margin-bottom: 24px;
 }
 
+/* --- ゲームカード全体の配置レイアウト --- */
 .game-card {
   background: rgba(0, 0, 0, 0.03);
   border: 2px solid var(--border-color);
   border-radius: 6px;
-  padding: 16px 12px;
+  padding: 10px 8px;       /* 内側の余白を狭くして領域を確保 */
   text-align: center;
   cursor: pointer;
   transition: border-color 0.2s, background-color 0.2s, transform 0.1s;
+  
+  /* カード内を縦並びにして、画像を拡大＋文字を下寄せ */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 140px;       /* カードの高さを固定して安定させます */
 }
 
 body[data-theme="dark"] .game-card {
@@ -232,39 +240,46 @@ body[data-theme="dark"] .game-card {
   cursor: not-allowed;
 }
 
+/* 絵文字アイコン（他のゲーム用） */
 .game-card .icon {
-  font-size: 2.2rem;
-  margin-bottom: 8px;
+  font-size: 2.8rem;
+  flex: 1;
+  display: flex;
+  align-items: center;
 }
 
-/* --- ゲームカード内の画像（大きく調整） --- */
+/* --- 画像アイコン（限界まで大きく設定） --- */
 .game-card-img {
-  width: 75px;            /* 50px → 75px に拡大 */
-  height: 75px;           /* 50px → 75px に拡大 */
+  width: 100%;
+  max-width: 90px;         /* 画像の最大幅を大幅アップ */
+  height: auto;
+  max-height: 85px;        /* 上下の限界まで広げる */
   object-fit: contain;
-  margin-bottom: 2px;     /* 上下の余白を詰めて枠内に収める */
-  display: inline-block;
+  flex: 1;                 /* 上の空きスペースを画像を広げるために使う */
+  margin-bottom: 4px;
 }
 
-/* --- タイトル文字の余白微調整 --- */
+/* --- 下に寄せるテキスト部分エリア --- */
 .game-card .name {
   font-weight: bold;
-  font-size: 0.85rem;
-  margin-bottom: 2px;     /* 余白を少し小さく */
-  line-height: 1.2;
+  font-size: 0.8rem;
+  margin-bottom: 2px;
+  line-height: 1.1;
+  margin-top: auto;        /* 文字列を自動で下側に押し下げる */
 }
 
-/* --- タグ（PUZZLEなど）の文字（極端に小さく設定） --- */
+/* --- 極小タグ（PUZZLEなど） --- */
 .game-card .tag {
   display: inline-block;
   font-family: 'Press Start 2P', monospace;
-  font-size: 0.35rem;     /* 0.55rem → 0.35rem に縮小 */
-  padding: 1px 3px;       /* 枠のパディングも最小限に */
+  font-size: 0.3rem;       /* かなり小さなドット文字 */
+  padding: 1px 3px;
   border: 1px solid var(--border-color);
   color: var(--sub-text-color);
   border-radius: 2px;
-  transform: scale(0.9);  /* さらにキュッと小さく見せる調整 */
+  transform: scale(0.85);
 }
+
 
 
 .back-btn {
