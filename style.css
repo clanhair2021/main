@@ -1,7 +1,7 @@
 /* タイトル用フォントの読み込み設定 */
 @font-face {
   font-family: 'TitleFont'; /* わかりやすいフォント名を設定 */
-  src: url('Nosutaru-dotMPlusH-10-Regular.ttf') format('ttf'); /* ← 実際のファイル名に変更 */
+  src: url('Nosutaru-dotMPlusH-10-Regular.ttf') format('truetype'); /* ← 実際のファイル名に変更 */
   font-weight: normal;
   font-style: normal;
   font-display: swap;
