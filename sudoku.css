@@ -1,0 +1,620 @@
+/* =======================================================
+   🔤 カスタムフォントの読み込み
+   ======================================================= */
+@font-face {
+    font-family: 'NosutaruDot';
+    src: url('./Nosutaru-dotMPlusH-10-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* =======================================================
+   🎨 共通変数・基本設定
+   ======================================================= */
+:root {
+    --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    --primary: #0066cc;
+    --primary-light: #e6f0fa;
+    --primary-dark: #004499;
+    --success: #22c55e;
+    --error: #ef4444;
+    --text-main: #2d3748;
+    --text-muted: #718096;
+    --border: #e2e8f0;
+    --white: #ffffff;
+    --radius: 8px;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* ✨ ここを修正：bodyだけでなく、buttonなどの入力要素にもフォントを強制適用 */
+body, button, input, select, textarea {
+    font-family: 'NosutaruDot', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+body {
+    background: var(--bg-gradient);
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+/* =======================================================
+   ✨ 全面一体化デザイン（大外の枠・影・背景を完全に除去）
+   ======================================================= */
+.screen-container, .container {
+    width: 100% !important;
+    max-width: 100% !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 10px !important;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: relative;
+}
+
+/* =======================================================
+   📱 メニュー画面のスタイル
+   ======================================================= */
+.menu-title {
+    font-size: 1.8rem;
+    font-weight: 800;
+    text-align: center;
+    color: var(--primary);
+    margin-bottom: 20px;
+    line-height: 1.3;
+}
+
+.menu-difficulty-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.btn-menu {
+    width: 100%;
+    padding: 14px;
+    font-size: 1rem;
+    font-weight: 600;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text-main);
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: var(--shadow);
+}
+
+.btn-menu:hover {
+    background: var(--primary-light);
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.btn-menu-load-trigger {
+    width: 100%;
+    max-width: 300px;
+    margin: 15px auto 0 auto;
+    padding: 10px;
+    font-size: 0.85rem;
+    background: none;
+    border: 1px dashed var(--text-muted);
+    color: var(--text-muted);
+    border-radius: var(--radius);
+    cursor: pointer;
+}
+
+/* =======================================================
+   📊 ステータスバー（ゲーム画面上部）
+   ======================================================= */
+.status-bar {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.6);
+    padding: 8px 12px;
+    border-radius: var(--radius);
+}
+
+.status-row-top, .status-row-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.badge {
+    background: var(--primary);
+    color: var(--white);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+}
+
+/* =======================================================
+   🧩 数独グリッド（盤面）のスタイル
+   ====================================================== */
+.grid-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 2px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    grid-template-rows: repeat(9, 1fr);
+    width: 100%;
+    height: 100%;
+    background: var(--text-main);
+    gap: 1px;
+    border: 2px solid var(--text-main);
+}
+
+.cell {
+    background: var(--white);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.4rem;
+    font-weight: 700;
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+}
+
+/* 3x3のブロック区切り線 */
+.cell[data-col="2"], .cell[data-col="5"] { border-right: 2px solid var(--text-main); }
+.cell[data-row="2"], .cell[data-row="5"] { border-bottom: 2px solid var(--text-main); }
+
+/* マスの状態カラー */
+.cell.fixed { color: #1a202c; background: #edf2f7; }
+.cell.user-input { color: var(--primary); }
+.cell.selected { background: #bee3f8 !important; }
+.cell.highlight-cross { background: #ebf8ff; }
+.cell.same-number { background: #feebc8 !important; }
+
+/* ミス時の赤フラッシュアニメーション */
+@keyframes flash-red {
+    0% { background-color: rgba(239, 68, 68, 0.6); }
+    100% { background-color: var(--white); }
+}
+.cell.invalid-flash {
+    animation: flash-red 0.4s ease-out;
+}
+
+.cell-value {
+    position: absolute;
+    z-index: 2;
+}
+
+/* メモ（下書き）用のグリッドレイアウト */
+.memo-grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    padding: 1px;
+    z-index: 1;
+}
+
+.memo-digit {
+    font-size: 0.55rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.memo-digit.highlight-memo {
+    color: #dd6b20;
+    font-weight: 800;
+    background: #feebc8;
+    border-radius: 2px;
+}
+
+/* エラー・警告テキスト表示エリア */
+.error-message {
+    font-size: 0.85rem;
+    color: var(--error);
+    text-align: center;
+    min-height: 1.2rem;
+    font-weight: 600;
+}
+
+/* =======================================================
+   ⌨️ キーパッド（左：メモ＆ヒント / 右：テンキー）
+   ======================================================= */
+.keypad-container {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 8px;
+    width: 100%;
+    align-items: stretch;
+    transition: opacity 0.2s;
+}
+
+/* 左側エリア（メモとヒントボタンを縦に並べる） */
+.left-pad-area {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* 右側エリア（テンキー：主役なので大きめ） */
+.main-pad {
+    flex: 3;
+    background: rgba(255, 255, 255, 0.5);
+    padding: 6px;
+    border-radius: var(--radius);
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 4px;
+    position: relative;
+    aspect-ratio: 1 / 1;
+}
+
+/* メモパッド */
+.memo-pad {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.5);
+    padding: 6px;
+    border-radius: var(--radius);
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 4px;
+    position: relative;
+    aspect-ratio: 1 / 1;
+}
+
+/* ヒントボタン（左下の隙間をピッタリ埋める） */
+.btn-hint {
+    width: 100%;
+    flex: 1;
+    background: var(--white);
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 0.95rem;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    text-align: center;
+    box-sizing: border-box;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.btn-hint:hover, .btn-hint:active {
+    background: var(--primary);
+    color: var(--white);
+}
+
+.pad-title {
+    position: absolute;
+    top: -10px;
+    left: 8px;
+    font-size: 0.6rem;
+    font-weight: 800;
+    background: var(--text-muted);
+    color: var(--white);
+    padding: 1px 5px;
+    border-radius: 3px;
+    z-index: 10;
+}
+
+/* キーボタンの共通スタイル */
+.btn-memo-num, .num-btn {
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.1s;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* メモボタン独自スタイル */
+.btn-memo-num {
+    background: #edf2f7;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+.btn-memo-num:active { background: #cbd5e0; }
+
+/* 通常入力ボタン独自スタイル */
+.num-btn {
+    background: var(--white);
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    font-size: 1.1rem;
+}
+.num-btn:active { background: var(--primary-light); }
+
+/* 9枚使い切った数字ボタンのグレーアウト */
+.num-btn.completed {
+    background: #e2e8f0 !important;
+    border-color: #cbd5e0 !important;
+    color: #a0aec0 !important;
+}
+
+/* 残り枚数カウンター(0/9など) */
+.num-count {
+    font-size: 0.5rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-top: 1px;
+}
+.num-btn.completed .num-count { color: #a0aec0 !important; }
+
+/* 共通設定ギア・ボタンアイコン */
+.btn-settings {
+    position: absolute;
+    top: -4px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 1.4rem;
+    cursor: pointer;
+    color: var(--text-main);
+    z-index: 10;
+}
+
+/* =======================================================
+   ⚙️ 設定モーダル ＆ 読込モーダル
+   ======================================================= */
+.modal-overlay, .pause-overlay, .clear-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.modal-content {
+    background: var(--white);
+    padding: 20px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 340px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.modal-title {
+    font-size: 1.2rem;
+    font-weight: 800;
+    text-align: center;
+    color: var(--primary);
+    border-bottom: 2px solid var(--primary-light);
+    padding-bottom: 6px;
+}
+
+.setting-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.setting-label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-muted);
+}
+
+.mode-select-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-setting-action {
+    flex: 1;
+    padding: 10px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    cursor: pointer;
+    color: var(--text-main);
+}
+.btn-setting-action.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: var(--white);
+}
+
+.color-slots {
+    display: flex;
+    gap: 12px;
+    padding: 4px 0;
+}
+.color-dot {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+.color-dot.active { border-color: var(--text-main); }
+
+.btn-modal-close {
+    width: 100%;
+    padding: 12px;
+    background: var(--primary);
+    color: var(--white);
+    border: none;
+    border-radius: var(--radius);
+    font-weight: 600;
+    cursor: pointer;
+}
+.btn-modal-close.secondary {
+    background: #edf2f7;
+    color: var(--text-main);
+    border: 1px solid var(--border);
+}
+
+/* =======================================================
+   💾 データ読込（SAVE DATA）一覧の装飾
+   ======================================================= */
+.save-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 200px;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.save-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    background: #f7fafc;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+}
+
+.save-name {
+    font-size: 0.85rem;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 140px;
+}
+
+.save-item-btns {
+    display: flex;
+    gap: 4px;
+}
+.btn-item-load, .btn-item-del {
+    padding: 4px 8px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+.btn-item-load { background: var(--primary-light); color: var(--primary); border-color: var(--primary); }
+.btn-item-del { background: #fff5f5; color: var(--error); border-color: #feb2b2; }
+
+/* =======================================================
+   ⏸ 一時停止（ポーズ）画面
+   ======================================================= */
+.pause-overlay {
+    position: absolute;
+    border-radius: var(--radius);
+    background: rgba(255, 255, 255, 0.85);
+    flex-direction: column;
+    gap: 14px;
+}
+.pause-title { font-size: 1.6rem; font-weight: 900; color: var(--text-muted); letter-spacing: 2px; }
+.btn-resume {
+    padding: 10px 24px;
+    background: var(--primary);
+    color: var(--white);
+    border: none;
+    border-radius: var(--radius);
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+}
+
+/* =======================================================
+   🏆 クリアリザルトモーダル
+   ======================================================= */
+.clear-content {
+    background: var(--white);
+    padding: 24px;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 360px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+.clear-title { font-size: 2.2rem; font-weight: 900; color: #d69e2e; margin-bottom: 10px; letter-spacing: 1px; }
+.clear-msg { font-size: 0.9rem; text-align: left; color: var(--text-main); margin-bottom: 20px; }
+
+.result-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 8px;
+}
+.result-table td { padding: 6px 4px; font-size: 0.85rem; border-bottom: 1px solid var(--border); }
+.result-table td.val { text-align: right; font-weight: 700; color: var(--primary); }
+.result-table tr.total-row td {
+    font-weight: 800;
+    font-size: 1rem;
+    color: var(--success);
+    border-bottom: none;
+    padding-top: 12px;
+}
+.result-table tr.total-row td.val { color: var(--success); font-size: 1.1rem; }
+
+.clear-btn-close {
+    width: 100%;
+    padding: 12px;
+    background: var(--success);
+    color: var(--white);
+    border: none;
+    border-radius: var(--radius);
+    font-weight: 700;
+    cursor: pointer;
+}
+
+/* 🎉 紙吹雪（アニメーション） */
+.confetti {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    opacity: 0.8;
+    z-index: 99;
+    top: -10px;
+    border-radius: 1px;
+}
+@keyframes fall {
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
