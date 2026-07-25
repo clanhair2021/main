@@ -96,7 +96,24 @@ function resetAllData() {
     alert("削除しました。");
   }
 }
+// 🟢【ここに追加します！】
+// 難易度選択画面からハブ（ゲーム選択画面）に戻る処理
+function backToHubFromDifficulty() {
+  // 1. もしモーダル形式で開いている場合は閉じる
+  const diffModal = document.getElementById('difficulty-modal');
+  if (diffModal) {
+    diffModal.style.display = 'none';
+  }
 
+  // 2. セーブデータ読み込みモーダルなどが開いていれば閉じる（念のため）
+  const loadModal = document.getElementById('load-modal');
+  if (loadModal) {
+    loadModal.style.display = 'none';
+  }
+
+  // 3. ゲーム選択画面（ハブ）へ切り替え
+  showScreen('select');
+}
 // 初期化処理の実行
 renderGameGrid();
 loadSettings();
