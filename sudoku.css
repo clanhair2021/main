@@ -710,3 +710,29 @@ body {
   border: 2px solid var(--border);
   box-shadow: 0 3px 0 var(--border);
 }
+/* =======================================================
+   🔤 GAME SELECTロゴと同じ 'Press Start 2P' フォントを適用
+   ======================================================= */
+.btn-menu,
+.back-btn,
+#status-difficulty,
+.modal-title,
+.pause-title,
+.clear-title {
+    font-family: 'Press Start 2P', monospace !important;
+}
+
+/* 'Press Start 2P' は文字が少し大きめになるためサイズ・行間を微調整 */
+.btn-menu {
+    font-size: 0.85rem !important;
+    letter-spacing: 0px;
+}
+
+.back-btn {
+    font-size: 0.75rem !important;
+}
+
+#status-difficulty {
+    font-size: 0.7rem !important;
+}
+
