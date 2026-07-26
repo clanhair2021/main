@@ -92,10 +92,10 @@ function updateStatusBar() {
 
 function handleMenuGenerate(difficulty) {
     currentDifficulty = difficulty;
-    if (difficulty === 'easy') currentDifficultyText = "初級";
-    if (difficulty === 'normal') currentDifficultyText = "中級";
-    if (difficulty === 'hard') currentDifficultyText = "上級";
-    if (difficulty === 'expert') currentDifficultyText = "最高級";
+    if (difficulty === 'easy') currentDifficultyText = "EASY";
+    if (difficulty === 'normal') currentDifficultyText = "NORMAL";
+    if (difficulty === 'hard') currentDifficultyText = "HARD";
+    if (difficulty === 'expert') currentDifficultyText = "MASTER";
 
     gameScore = 0;
     comboCount = 0;
