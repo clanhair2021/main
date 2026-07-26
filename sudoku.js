@@ -1032,34 +1032,3 @@ function applyHubTheme() {
 
 // 画面読み込み時に実行
 applyHubTheme();
-// 【スマホ用デバッグテスト】
-function applyHubTheme() {
-  const SETTINGS_KEY = "clanhair.settings";
-  const raw = localStorage.getItem(SETTINGS_KEY);
-  
-  if (!raw) {
-    alert("【確認結果】ハブの保存データが見つかりませんでした！");
-    return;
-  }
-  
-  try {
-    const s = JSON.parse(raw);
-    alert("【確認結果】読み込んだテーマ: " + s.theme);
-    if (s.theme) {
-      document.body.dataset.theme = s.theme;
-      // 背景色を強制的に変えてテストしてみる
-      if (s.theme === 'light') {
-        document.body.style.backgroundColor = "#ffffff";
-        document.body.style.color = "#000000";
-      } else {
-        document.body.style.backgroundColor = "#121214";
-        document.body.style.color = "#ffffff";
-      }
-    }
-  } catch (e) {
-    alert("【確認結果】エラーが発生しました: " + e.message);
-  }
-}
-
-// 画面の読み込みが終わってから確実に実行
-window.addEventListener('DOMContentLoaded', applyHubTheme);
