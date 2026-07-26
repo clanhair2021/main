@@ -622,8 +622,24 @@ body {
   left: 0; 
   width: 100vw; 
   height: 100vh;
-  pointer-events: none; /* 下にあるマスやボタンの操作を邪魔しない設定 */
-  z-index: 999;          /* 一番手前に表示 */
+  pointer-events: none; /* マスやボタンの操作を透過する */
+  z-index: 999;          /* 最前面に表示 */
   background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.08) 50%);
   background-size: 100% 4px;
+}
+
+/* 🔙 GAME SELECT 戻るボタンの装飾 */
+.back-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 8px 16px;
+  transition: color 0.2s;
+}
+
+.back-btn:hover, .back-btn:active {
+  color: var(--primary);
 }
