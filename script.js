@@ -118,3 +118,11 @@ function backToHubFromDifficulty() {
 renderGameGrid();
 loadSettings();
 
+// 🟢【ここを追加・変更します！】
+// URLの目印（#select）をチェックして、指定があればゲーム選択画面を直接開く
+if (window.location.hash === '#select') {
+  showScreen('select');
+} else {
+  showScreen('title'); // 通常時はタイトル画面
+}
+
