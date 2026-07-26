@@ -82,57 +82,78 @@ body {
 }
 
 /* =======================================================
-   📱 メニュー画面のスタイル
+   📱 メニュー画面（難易度選択）のスタイル
    ======================================================= */
 .menu-title {
-    font-size: 1.8rem;
-    font-weight: 800;
+    font-size: 1.6rem;
+    font-weight: 900;
     text-align: center;
     color: var(--primary);
-    margin-bottom: 20px;
-    line-height: 1.3;
+    margin-bottom: 24px;
+    line-height: 1.4;
+    letter-spacing: 2px;
+    /* ドットフォントを引き立てる影効果 */
+    text-shadow: 2px 2px 0 var(--border);
 }
 
 .menu-difficulty-list {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 14px;
     width: 100%;
-    max-width: 300px;
+    max-width: 280px;
     margin: 0 auto;
 }
 
+/* 難易度選択ボタン：ドット絵風の厚みと立体感 */
 .btn-menu {
     width: 100%;
-    padding: 14px;
-    font-size: 1rem;
-    font-weight: 600;
+    padding: 16px;
+    font-size: 1.1rem;
+    font-weight: 800;
+    letter-spacing: 1px;
     background: var(--card-bg);
-    border: 1px solid var(--border);
+    border: 3px solid var(--text-main) !important;
     border-radius: var(--radius);
     color: var(--text-main);
     cursor: pointer;
-    transition: all 0.2s;
-    box-shadow: var(--shadow);
+    box-shadow: 0 5px 0 var(--text-main) !important;
+    transition: transform 0.05s, box-shadow 0.05s, background-color 0.1s;
+    position: relative;
 }
 
 .btn-menu:hover {
     background: var(--primary-light);
-    border-color: var(--primary);
     color: var(--primary);
 }
 
+/* 押した時のカチッとした沈み込み効果 */
+.btn-menu:active {
+    transform: translateY(4px);
+    box-shadow: 0 1px 0 var(--text-main) !important;
+}
+
+/* 保存データ読込ボタン */
 .btn-menu-load-trigger {
     width: 100%;
-    max-width: 300px;
-    margin: 15px auto 0 auto;
-    padding: 10px;
+    max-width: 280px;
+    margin: 20px auto 0 auto;
+    padding: 12px;
     font-size: 0.85rem;
-    background: none;
-    border: 1px dashed var(--text-muted);
+    font-weight: 700;
+    background: var(--card-bg-sub);
+    border: 2px dashed var(--border);
     color: var(--text-muted);
     border-radius: var(--radius);
     cursor: pointer;
+    transition: all 0.15s;
+}
+
+.btn-menu-load-trigger:hover, 
+.btn-menu-load-trigger:active {
+    border-color: var(--primary);
+    color: var(--primary);
+    background: var(--card-bg);
 }
 
 /* =======================================================
