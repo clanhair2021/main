@@ -1011,5 +1011,5 @@ setupFlickToDelete(); // 👈 イベントリスナーの起動
 
 // 難易度選択画面からハブ（index.html）に戻る処理
 function backToHubFromDifficulty() {
-  window.location.href = 'index.html';
+  window.location.href = 'index.html#select';
 }
