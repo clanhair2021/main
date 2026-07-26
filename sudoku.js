@@ -1013,3 +1013,22 @@ setupFlickToDelete(); // 👈 イベントリスナーの起動
 function backToHubFromDifficulty() {
   window.location.href = 'index.html#select';
 }
+// ハブ（index.html）で設定されたテーマを読み込んで適用する処理
+function applyHubTheme() {
+  const SETTINGS_KEY = "clanhair.settings";
+  const raw = localStorage.getItem(SETTINGS_KEY);
+  if (raw) {
+    try {
+      const s = JSON.parse(raw);
+      if (s.theme) {
+        // body要素に data-theme="light" などの属性を付与
+        document.body.dataset.theme = s.theme;
+      }
+    } catch (e) {
+      console.error("テーマ適用エラー:", e);
+    }
+  }
+}
+
+// 画面読み込み時に実行
+applyHubTheme();
