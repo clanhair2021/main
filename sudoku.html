@@ -11,103 +11,18 @@
     <link rel="stylesheet" href="sudoku.css">
 </head>
 <body>
-    <!-- 📺 レトロ CRT 走査線エフェクト（ハブと共通） -->
-    <div id="crt-overlay"></div>
-
-    <div class="container">
-        <!-- 🔙 GAME SELECT 戻るボタン（専用ナビゲーションデザイン） -->
-        <div class="back-btn-wrapper">
-            <button class="back-btn" onclick="playSE('click'); location.href='index.html';">
-                <span class="back-arrow">◀</span> GAME SELECT
-            </button>
-        </div>
-
-        <!-- 📱 メニュー画面（難易度選択） -->
-        <div id="menu-screen" class="screen-panel">
-            <div class="menu-header">
-                <!-- A-1: PRESS START 点滅テキスト -->
-                <div class="retro-start-text">PRESS START</div>
-                <h1 class="menu-title">SELECT DIFFICULTY</h1>
-            </div>
-
-            <div class="menu-difficulty-list">
-                <button class="btn-menu retro-main-btn" onclick="selectDifficulty('easy')">
-                    <span class="btn-cursor">▶</span>
-                    <span class="en">EASY</span>
-                    <span class="jp">初級</span>
-                </button>
-                <button class="btn-menu retro-main-btn" onclick="selectDifficulty('normal')">
-                    <span class="btn-cursor">▶</span>
-                    <span class="en">NORMAL</span>
-                    <span class="jp">中級</span>
-                </button>
-                <button class="btn-menu retro-main-btn" onclick="selectDifficulty('hard')">
-                    <span class="btn-cursor">▶</span>
-                    <span class="en">HARD</span>
-                    <span class="jp">上級</span>
-                </button>
-                <button class="btn-menu retro-main-btn" onclick="selectDifficulty('expert')">
-                    <span class="btn-cursor">▶</span>
-                    <span class="en">MASTER</span>
-                    <span class="jp">最高級</span>
-                </button>
-            </div>
-
-            <!-- C-1: ベストタイム表示エリア -->
-            <div id="best-time-display" class="best-time-box">
-                BEST TIME: --:--
-            </div>
-
-            <!-- サブボタン: LOAD SAVE DATA -->
-            <button class="btn-menu-load-trigger" onclick="playSE('click'); loadSavedGame();">
-                LOAD SAVE DATA
-            </button>
-        </div>
-
-        <!-- 🧩 ゲーム画面（プレイエリア） -->
-        <div id="game-screen" class="screen-panel" style="display: none;">
-            <div class="status-bar">
-                <div class="status-row-top">
-                    <span id="status-difficulty" class="badge">EASY</span>
-                    <span id="status-timer">00:00</span>
-                    <button class="btn-pause-trigger" onclick="togglePause()">PAUSE</button>
-                </div>
-            </div>
-
-            <div class="grid-wrapper">
-                <div id="sudoku-grid" class="grid"></div>
-            </div>
-
-            <!-- 入力用操作エリア（数字ボタン等） -->
-            <div class="keypad-container">
-                <div id="number-pad" class="main-pad"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- C-2: PAUSE（一時停止）モーダル -->
-    <div id="pause-modal" class="modal-overlay">
-        <div class="modal-content text-center">
-            <h2 class="pause-title">- PAUSE -</h2>
-            <div class="modal-buttons">
-                <button class="modal-btn" onclick="togglePause()">RESUME</button>
-                <button class="modal-btn" onclick="quitToMenu()">QUIT GAME</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- A-5: STAGE CLEAR モーダル -->
-    <div id="clear-modal" class="modal-overlay">
-        <div class="modal-content text-center clear-content">
-            <h2 class="clear-title">STAGE CLEAR!!</h2>
-            <p id="clear-time-text">TIME: 00:00</p>
-            <p id="new-record-tag" class="new-record" style="display:none;">★ NEW RECORD ★</p>
-            <button class="modal-btn clear-btn" onclick="quitToMenu()">NEXT GAME</button>
-        </div>
-    </div>
-
-    <script src="sudoku.js"></script>
-</div>
+<!-- 🟢 ここを追加：CRT走査線エフェクト overlay -->
+  <div id="crt-overlay"></div>
+    <div id="menu-screen" class="screen-container">
+        <button class="btn-settings" onclick="openSettingsModal()">⚙</button>
+        <h1 class="menu-title">美容室CLan<br>からの挑戦状</h1>
+        <div class="menu-difficulty-list">
+            <button class="btn-menu" onclick="handleMenuGenerate('easy')">初級</button>
+            <button class="btn-menu" onclick="handleMenuGenerate('normal')">中級</button>
+            <button class="btn-menu" onclick="handleMenuGenerate('hard')">上級</button>
+            <button class="btn-menu" onclick="handleMenuGenerate('expert')">超級</button>
+     </div>
+  </div>
 
          <!-- 🟢 ハブに戻るボタンを追加 -->
     <div style="margin-top: 15px; text-align: center;">
