@@ -425,4 +425,32 @@ body {
     text-align: center;
     margin-bottom: 8px;
 }
+/* =======================================================
+   ⚙️ モーダル（設定画面・セーブデータ画面）の制御
+   ======================================================= */
+
+/* 初期状態：モーダル全体を隠す */
+.modal-overlay {
+    display: none; /* ← これで通常時は隠れます！ */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.75);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+/* JavaScriptで 'active' や 'show' クラスがついた時だけ表示する */
+.modal-overlay.active,
+.modal-overlay.show {
+    display: flex !important;
+}
+
+/* 汎用非表示クラス */
+.hidden {
+    display: none !important;
+}
 
