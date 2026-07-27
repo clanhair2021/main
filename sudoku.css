@@ -735,4 +735,18 @@ body {
 #status-difficulty {
     font-size: 0.7rem !important;
 }
+/* PRESS START 点滅アニメーション */
+.retro-start-text {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.8rem;
+    color: var(--text-color);
+    text-align: center;
+    margin-bottom: 8px;
+    animation: retroBlink 1.0s steps(1) infinite;
+}
+
+@keyframes retroBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
 
