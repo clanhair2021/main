@@ -837,3 +837,26 @@ body[data-theme="dark"] .btn-menu:hover {
     0% { transform: translateX(0); }
     100% { transform: translateX(4px); }
 }
+/* LOAD SAVE DATA（控えめな点線枠サブボタン） */
+.btn-menu-load-trigger {
+    font-family: 'Press Start 2P', monospace !important;
+    font-size: 0.65rem !important;
+    width: 100%;
+    margin-top: 15px;
+    padding: 12px;
+    background: transparent !important;
+    border: 2px dashed var(--border-color) !important;
+    color: var(--sub-text-color) !important;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.btn-menu-load-trigger:hover,
+.btn-menu-load-trigger:active {
+    background: var(--hover-bg) !important;
+    color: var(--text-color) !important;
+    border-color: var(--text-color) !important;
+}
