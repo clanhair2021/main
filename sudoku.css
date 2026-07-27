@@ -1,5 +1,5 @@
 /* =======================================================
-   🔤 カスタムフォントの読み込み
+   🔤 カスタムフォント
    ======================================================= */
 @font-face {
     font-family: 'NosutaruDot';
@@ -9,40 +9,38 @@
 }
 
 /* =======================================================
-   🎨 テーマ設定（ハブの配色と連動）
+   🎨 テーマ設定（ダーク / ライト）
    ======================================================= */
-
-/* デフォルト（ダークモード） */
 :root {
-  --bg-color: #121214;       /* 画面全体の背景色 */
-  --card-bg: #1e1e24;        /* パネルやボードの背景色 */
-  --card-bg-sub: #2a2a32;    /* 薄めのパネル背景 */
-  --text-main: #ffffff;      /* メイン文字色 */
-  --text-muted: #a0aec0;     /* 補足文字色 */
-  --border: #333340;         /* 枠線・マス目の色 */
+  --bg-color: #121214;
+  --card-bg: #1e1e24;
+  --card-bg-sub: #2a2a32;
+  --text-main: #ffffff;
+  --text-muted: #a0aec0;
+  --border: #333340;
   --primary: #0066cc;
   --primary-light: #1e3a5f;
   --primary-dark: #004499;
   --success: #22c55e;
   --error: #ef4444;
-  --white: #1e1e24;          /* テーマ連動用のベース色 */
+  --white: #1e1e24;
   --radius: 8px;
   --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
 }
 
-/* ライトモード（明るいテーマ） */
 [data-theme="light"] {
-  --bg-color: #f4f5f7;       /* 明るい背景色 */
-  --card-bg: #ffffff;        /* 白いパネル */
-  --card-bg-sub: #edf2f7;    /* 薄いグレーパネル */
-  --text-main: #2d3748;      /* 黒っぽい文字色 */
-  --text-muted: #718096;     /* グレー文字色 */
-  --border: #e2e8f0;         /* 薄いグレーの枠線 */
+  --bg-color: #f4f5f7;
+  --card-bg: #ffffff;
+  --card-bg-sub: #edf2f7;
+  --text-main: #2d3748;
+  --text-muted: #718096;
+  --border: #e2e8f0;
   --primary-light: #e6f0fa;
   --white: #ffffff;
   --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
+/* リセット & 基本設定 */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -50,9 +48,8 @@
     -webkit-tap-highlight-color: transparent;
 }
 
-/* body・ボタン等にフォントとテーマカラーを適用 */
 body, button, input, select, textarea {
-    font-family: 'NosutaruDot', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-family: 'NosutaruDot', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 body {
@@ -66,7 +63,41 @@ body {
 }
 
 /* =======================================================
-   ✨ 全面一体化デザイン
+   🎮 共通レトロスタイル（まとめ用）
+   ======================================================= */
+/* 英語ドットフォントを使う要素を統合 */
+.btn-menu, .btn-menu-load-trigger, .back-btn, .retro-start-text, .pause-title, .clear-title, #clear-time-text, .new-record, .modal-btn {
+    font-family: 'Press Start 2P', monospace !important;
+}
+
+/* ホバー時に反転する丸みボタンの共通化 */
+.btn-menu, .back-btn, .modal-btn {
+    background: var(--bg-color) !important;
+    border: 2px solid var(--text-main) !important;
+    color: var(--text-main) !important;
+    cursor: pointer;
+    transition: all 0.2s ease !important;
+}
+
+.btn-menu:hover, .btn-menu:active, .btn-menu:focus,
+.back-btn:hover, .back-btn:active,
+.modal-btn:hover, .modal-btn:active {
+    background: var(--text-main) !important;
+    color: var(--bg-color) !important;
+}
+
+/* 点滅アニメーション共通 */
+.retro-start-text, .clear-title, .new-record {
+    animation: retroBlink 1.0s steps(1) infinite;
+}
+
+@keyframes retroBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* =======================================================
+   📱 レイアウト & メニュー画面
    ======================================================= */
 .screen-container, .container {
     width: 100% !important;
@@ -81,9 +112,6 @@ body {
     position: relative;
 }
 
-/* =======================================================
-   📱 メニュー画面（難易度選択）のスタイル
-   ======================================================= */
 .menu-title {
     font-size: 1.6rem;
     font-weight: 900;
@@ -92,7 +120,6 @@ body {
     margin-bottom: 24px;
     line-height: 1.4;
     letter-spacing: 2px;
-    /* ドットフォントを引き立てる影効果 */
     text-shadow: 2px 2px 0 var(--border);
 }
 
@@ -105,59 +132,75 @@ body {
     margin: 0 auto;
 }
 
-/* 難易度選択ボタン：ドット絵風の厚みと立体感 */
+/* 難易度選択ボタン固有 */
 .btn-menu {
+    font-size: 0.8rem !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
     width: 100%;
-    padding: 16px;
-    font-size: 1.1rem;
-    font-weight: 800;
-    letter-spacing: 1px;
-    background: var(--card-bg);
-    border: 3px solid var(--text-main) !important;
-    border-radius: var(--radius);
-    color: var(--text-main);
-    cursor: pointer;
-    box-shadow: 0 5px 0 var(--text-main) !important;
-    transition: transform 0.05s, box-shadow 0.05s, background-color 0.1s;
+    padding: 12px 20px !important;
+    border-radius: 20px !important;
     position: relative;
 }
 
-.btn-menu:hover {
-    background: var(--primary-light);
-    color: var(--primary);
+.btn-menu .jp {
+    font-family: 'NosutaruDot', sans-serif !important;
+    font-size: 0.85rem;
+    opacity: 0.85;
 }
 
-/* 押した時のカチッとした沈み込み効果 */
-.btn-menu:active {
-    transform: translateY(4px);
-    box-shadow: 0 1px 0 var(--text-main) !important;
+.btn-menu::before {
+    content: "▶";
+    position: absolute;
+    left: -18px;
+    opacity: 0;
+    color: var(--text-main);
+    font-size: 0.75rem;
+    transition: opacity 0.15s ease, transform 0.15s ease;
+    pointer-events: none;
 }
 
-/* 保存データ読込ボタン */
+.btn-menu:hover::before, .btn-menu:focus::before, .btn-menu:active::before {
+    opacity: 1;
+    animation: cursorBlink 0.6s infinite alternate;
+}
+
+@keyframes cursorBlink {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(4px); }
+}
+
+/* ロードボタン & 戻るボタン */
 .btn-menu-load-trigger {
+    font-size: 0.65rem !important;
     width: 100%;
     max-width: 280px;
-    margin: 20px auto 0 auto;
+    margin: 20px auto 0;
     padding: 12px;
-    font-size: 0.85rem;
-    font-weight: 700;
-    background: var(--card-bg-sub);
-    border: 2px dashed var(--border);
-    color: var(--text-muted);
-    border-radius: var(--radius);
+    background: transparent !important;
+    border: 2px dashed var(--border) !important;
+    color: var(--text-muted) !important;
+    border-radius: 20px !important;
     cursor: pointer;
-    transition: all 0.15s;
+    text-align: center;
 }
 
-.btn-menu-load-trigger:hover, 
-.btn-menu-load-trigger:active {
-    border-color: var(--primary);
-    color: var(--primary);
-    background: var(--card-bg);
+.btn-menu-load-trigger:hover, .btn-menu-load-trigger:active {
+    border-color: var(--primary) !important;
+    color: var(--primary) !important;
+    background: var(--card-bg) !important;
+}
+
+.back-btn {
+    border-radius: 20px;
+    font-size: 0.75rem !important;
+    font-weight: 700;
+    padding: 8px 16px;
 }
 
 /* =======================================================
-   📊 ステータスバー（ゲーム画面上部）
+   📊 ステータス & 盤面（数独）
    ======================================================= */
 .status-bar {
     display: flex;
@@ -186,9 +229,6 @@ body {
     font-size: 0.75rem;
 }
 
-/* =======================================================
-   🧩 数独グリッド（盤面）のスタイル
-   ====================================================== */
 .grid-wrapper {
     position: relative;
     width: 100%;
@@ -203,8 +243,7 @@ body {
     display: grid;
     grid-template-columns: repeat(9, 1fr);
     grid-template-rows: repeat(9, 1fr);
-    width: 100%;
-    height: 100%;
+    width: 100%; height: 100%;
     background: var(--border);
     gap: 1px;
     border: 2px solid var(--border);
@@ -223,52 +262,37 @@ body {
     user-select: none;
 }
 
-/* 3x3のブロック区切り線 */
 .cell[data-col="2"], .cell[data-col="5"] { border-right: 2px solid var(--border); }
 .cell[data-row="2"], .cell[data-row="5"] { border-bottom: 2px solid var(--border); }
 
-/* マスの状態カラー */
 .cell.fixed { color: var(--text-muted); background: var(--card-bg-sub); }
 .cell.user-input { color: var(--primary); }
 .cell.selected { background: #bee3f8 !important; color: #1a202c !important; }
 .cell.highlight-cross { background: rgba(0, 102, 204, 0.15); }
 .cell.same-number { background: #feebc8 !important; color: #1a202c !important; }
 
-/* ミス時の赤フラッシュアニメーション */
 @keyframes flash-red {
     0% { background-color: rgba(239, 68, 68, 0.6); }
     100% { background-color: var(--card-bg); }
 }
-.cell.invalid-flash {
-    animation: flash-red 0.4s ease-out;
-}
+.cell.invalid-flash { animation: flash-red 0.4s ease-out; }
+.cell-value { position: absolute; z-index: 2; }
 
-.cell-value {
-    position: absolute;
-    z-index: 2;
-}
-
-/* メモ（下書き）用のグリッドレイアウト */
+/* メモ（下書き） */
 .memo-grid {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
-    padding: 1px;
-    z-index: 1;
+    padding: 1px; z-index: 1;
 }
 
 .memo-digit {
     font-size: 0.55rem;
     font-weight: 500;
     color: var(--text-muted);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: flex; justify-content: center; align-items: center;
 }
 
 .memo-digit.highlight-memo {
@@ -278,7 +302,6 @@ body {
     border-radius: 2px;
 }
 
-/* エラー・警告テキスト表示エリア */
 .error-message {
     font-size: 0.85rem;
     color: var(--error);
@@ -292,24 +315,14 @@ body {
    ======================================================= */
 .keypad-container {
     display: flex !important;
-    flex-direction: row !important;
-    gap: 8px;
-    width: 100%;
-    align-items: stretch;
-    transition: opacity 0.2s;
+    gap: 8px; width: 100%;
 }
 
-/* 左側エリア */
 .left-pad-area {
-    flex: 2;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+    flex: 2; display: flex; flex-direction: column; gap: 8px;
 }
 
-/* 右側エリア */
-.main-pad {
-    flex: 3;
+.main-pad, .memo-pad {
     background: var(--card-bg);
     padding: 6px;
     border-radius: var(--radius);
@@ -322,25 +335,11 @@ body {
     aspect-ratio: 1 / 1;
 }
 
-/* メモパッド */
-.memo-pad {
-    width: 100%;
-    background: var(--card-bg);
-    padding: 6px;
-    border-radius: var(--radius);
-    border: 1px solid var(--border);
-    display: grid !important;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    gap: 4px;
-    position: relative;
-    aspect-ratio: 1 / 1;
-}
+.main-pad { flex: 3; }
+.memo-pad { width: 100%; }
 
-/* ヒントボタン */
 .btn-hint {
-    width: 100%;
-    flex: 1;
+    width: 100%; flex: 1;
     background: var(--card-bg);
     border: 1px solid var(--primary);
     color: var(--primary);
@@ -348,10 +347,7 @@ body {
     font-size: 0.95rem;
     border-radius: var(--radius);
     cursor: pointer;
-    transition: all 0.15s ease;
     text-align: center;
-    box-sizing: border-box;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
 .btn-hint:hover, .btn-hint:active {
@@ -361,51 +357,37 @@ body {
 
 .pad-title {
     position: absolute;
-    top: -10px;
-    left: 8px;
-    font-size: 0.6rem;
-    font-weight: 800;
+    top: -10px; left: 8px;
+    font-size: 0.6rem; font-weight: 800;
     background: var(--text-muted);
     color: var(--card-bg);
     padding: 1px 5px;
-    border-radius: 3px;
-    z-index: 10;
+    border-radius: 3px; z-index: 10;
 }
 
-/* キーボタンの共通スタイル */
 .btn-memo-num, .num-btn {
-    width: 100%;
-    height: 100%;
+    width: 100%; height: 100%;
     border-radius: 4px;
     font-weight: 700;
     cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    transition: all 0.1s;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
 }
 
-/* メモボタン独自スタイル */
 .btn-memo-num {
     background: var(--card-bg-sub);
     border: 1px solid var(--border);
     color: var(--text-muted);
     font-size: 0.9rem;
 }
-.btn-memo-num:active { background: var(--border); }
 
-/* 通常入力ボタン独自スタイル */
 .num-btn {
     background: var(--card-bg);
     border: 1px solid var(--primary);
     color: var(--primary);
     font-size: 1.1rem;
 }
-.num-btn:active { background: var(--primary-light); }
 
-/* 9枚使い切った数字ボタンのグレーアウト */
 .num-btn.completed {
     background: var(--card-bg-sub) !important;
     border-color: var(--border) !important;
@@ -413,532 +395,66 @@ body {
     opacity: 0.5;
 }
 
-/* 残り枚数カウンター(0/9など) */
 .num-count {
     font-size: 0.5rem;
-    font-weight: 600;
     color: var(--text-muted);
-    margin-top: 1px;
 }
 
-/* 共通設定ギア・ボタンアイコン */
 .btn-settings {
     position: absolute;
-    top: -4px;
-    right: 10px;
-    background: none;
-    border: none;
-    font-size: 1.4rem;
-    cursor: pointer;
-    color: var(--text-main);
-    z-index: 10;
+    top: -4px; right: 10px;
+    background: none; border: none;
+    font-size: 1.4rem; cursor: pointer;
+    color: var(--text-main); z-index: 10;
 }
 
 /* =======================================================
-   ⚙️ モーダル類
-   ======================================================= */
-.modal-overlay, .pause-overlay, .clear-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(4px);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 100;
-}
-
-.modal-content, .clear-content {
-    background: var(--card-bg);
-    color: var(--text-main);
-    padding: 20px;
-    border-radius: 12px;
-    width: 90%;
-    max-width: 340px;
-    border: 1px solid var(--border);
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-
-.modal-title {
-    font-size: 1.2rem;
-    font-weight: 800;
-    text-align: center;
-    color: var(--primary);
-    border-bottom: 2px solid var(--border);
-    padding-bottom: 6px;
-}
-
-.setting-item {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
-.setting-label {
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: var(--text-muted);
-}
-
-.mode-select-buttons {
-    display: flex;
-    gap: 8px;
-}
-
-.btn-setting-action {
-    flex: 1;
-    padding: 10px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    cursor: pointer;
-    color: var(--text-main);
-}
-.btn-setting-action.active {
-    background: var(--primary);
-    border-color: var(--primary);
-    color: #ffffff;
-}
-
-.btn-modal-close {
-    width: 100%;
-    padding: 12px;
-    background: var(--primary);
-    color: #ffffff;
-    border: none;
-    border-radius: var(--radius);
-    font-weight: 600;
-    cursor: pointer;
-}
-.btn-modal-close.secondary {
-    background: var(--card-bg-sub);
-    color: var(--text-main);
-    border: 1px solid var(--border);
-}
-
-/* 💾 データ読込（SAVE DATA） */
-.save-list {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    max-height: 200px;
-    overflow-y: auto;
-    padding-right: 4px;
-}
-
-.save-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px;
-    background: var(--card-bg-sub);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-}
-
-.save-name {
-    font-size: 0.85rem;
-    font-weight: 600;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 140px;
-}
-
-.save-item-btns {
-    display: flex;
-    gap: 4px;
-}
-.btn-item-load, .btn-item-del {
-    padding: 4px 8px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    border-radius: 4px;
-    cursor: pointer;
-    border: 1px solid transparent;
-}
-.btn-item-load { background: var(--primary-light); color: var(--primary); border-color: var(--primary); }
-.btn-item-del { background: rgba(239, 68, 68, 0.1); color: var(--error); border-color: var(--error); }
-
-/* ⏸ 一時停止（ポーズ）画面 */
-.pause-overlay {
-    position: absolute;
-    border-radius: var(--radius);
-    background: var(--card-bg);
-    flex-direction: column;
-    gap: 14px;
-}
-.pause-title { font-size: 1.6rem; font-weight: 900; color: var(--text-muted); letter-spacing: 2px; }
-.btn-resume {
-    padding: 10px 24px;
-    background: var(--primary);
-    color: #ffffff;
-    border: none;
-    border-radius: var(--radius);
-    font-weight: 700;
-    cursor: pointer;
-    box-shadow: var(--shadow);
-}
-
-/* 🏆 クリアリザルト */
-.clear-title { font-size: 2.2rem; font-weight: 900; color: #d69e2e; margin-bottom: 10px; letter-spacing: 1px; }
-.clear-msg { font-size: 0.9rem; text-align: left; color: var(--text-main); margin-bottom: 20px; }
-
-.result-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 8px;
-}
-.result-table td { padding: 6px 4px; font-size: 0.85rem; border-bottom: 1px solid var(--border); }
-.result-table td.val { text-align: right; font-weight: 700; color: var(--primary); }
-.result-table tr.total-row td {
-    font-weight: 800;
-    font-size: 1rem;
-    color: var(--success);
-    border-bottom: none;
-    padding-top: 12px;
-}
-.result-table tr.total-row td.val { color: var(--success); font-size: 1.1rem; }
-
-.clear-btn-close {
-    width: 100%;
-    padding: 12px;
-    background: var(--success);
-    color: #ffffff;
-    border: none;
-    border-radius: var(--radius);
-    font-weight: 700;
-    cursor: pointer;
-}
-
-/* 🎉 紙吹雪 */
-.confetti {
-    position: absolute;
-    width: 8px;
-    height: 8px;
-    opacity: 0.8;
-    z-index: 99;
-    top: -10px;
-    border-radius: 1px;
-}
-@keyframes fall {
-    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-    100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
-}
-
-/* =======================================================
-   📺 レトロ走査線（CRT）エフェクト
+   📺 エフェクト & モーダル
    ======================================================= */
 #crt-overlay {
-  position: fixed;
-  top: 0; 
-  left: 0; 
-  width: 100vw; 
-  height: 100vh;
-  pointer-events: none; /* マスやボタンの操作を透過する */
-  z-index: 999;          /* 最前面に表示 */
+  position: fixed; top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  pointer-events: none; z-index: 999;
   background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.08) 50%);
   background-size: 100% 4px;
 }
 
-/* 🔙 GAME SELECT 戻るボタンの装飾 */
-.back-btn {
-  background: none;
-  border: none;
-  color: var(--text-muted);
-  font-size: 0.85rem;
-  font-weight: 700;
-  cursor: pointer;
-  padding: 8px 16px;
-  transition: color 0.2s;
-}
-
-.back-btn:hover, .back-btn:active {
-  color: var(--primary);
-}
-/* =======================================================
-   🎮 ゲーム画面（盤面・ボタン）のレトロドット化
-   ======================================================= */
-
-/* 共通：ボタンにドット絵風の太枠と立体影をつける */
-.num-btn, .btn-memo-num, .btn-hint, .btn-setting-action {
-  border: 2px solid var(--text-main) !important;
-  box-shadow: 0 4px 0 var(--text-main) !important;
-  font-weight: 800;
-  border-radius: var(--radius);
-  transition: transform 0.05s, box-shadow 0.05s;
-}
-
-/* ボタンを押したときのカチッとした沈み込み */
-.num-btn:active, .btn-memo-num:active, .btn-hint:active {
-  transform: translateY(3px);
-  box-shadow: 0 1px 0 var(--text-main) !important;
-}
-
-/* 🧩 数独盤面（重厚感のあるピクセルフレーム） */
-.grid-wrapper {
-  border: 3px solid var(--text-main);
-  box-shadow: 0 5px 0 var(--border);
-  padding: 3px;
-  background: var(--card-bg);
-}
-
-.grid {
-  gap: 1px;
-  background: var(--text-main);
-  border: 2px solid var(--text-main);
-}
-
-/* 3x3ブロックの太い区切り線 */
-.cell[data-col="2"], .cell[data-col="5"] { 
-  border-right: 3px solid var(--text-main) !important; 
-}
-.cell[data-row="2"], .cell[data-row="5"] { 
-  border-bottom: 3px solid var(--text-main) !important; 
-}
-
-/* 📊 ステータスバー（上部のタイマー・スコア枠） */
-.status-bar {
-  border: 2px solid var(--border);
-  box-shadow: 0 3px 0 var(--border);
-}
-/* =======================================================
-   🔤 GAME SELECTロゴと同じ 'Press Start 2P' フォントを適用
-   ======================================================= */
-.btn-menu,
-.back-btn,
-#status-difficulty,
-.modal-title,
-.pause-title,
-.clear-title {
-    font-family: 'Press Start 2P', monospace !important;
-}
-
-/* 'Press Start 2P' は文字が少し大きめになるためサイズ・行間を微調整 */
-.btn-menu {
-    font-size: 0.85rem !important;
-    letter-spacing: 0px;
-}
-
-.back-btn {
-    font-size: 0.75rem !important;
-}
-
-#status-difficulty {
-    font-size: 0.7rem !important;
-}
-/* PRESS START 点滅アニメーション */
 .retro-start-text {
-    font-family: 'Press Start 2P', monospace;
     font-size: 0.8rem;
-    color: var(--text-color);
+    color: var(--text-main);
     text-align: center;
     margin-bottom: 8px;
-    animation: retroBlink 1.0s steps(1) infinite;
 }
 
-@keyframes retroBlink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
-}
-
-/* =======================================================
-   🎮 STEP3: 難易度ボタンの重厚立体化 ＆ ▶ カーソル演出
-   ======================================================= */
-
-/* 1. 難易度ボタンのベース（A案：重厚立体ブラック） */
-.btn-menu {
-    font-family: 'Press Start 2P', monospace !important;
-    display: flex !important;
-    justify-content: space-between !important;
-    align-items: center !important;
-    width: 100%;
-    padding: 16px 20px !important;
-    background: #111111 !important;
-    color: #ffffff !important;
-    border: 3px solid #111111 !important;
-    border-radius: 4px !important;
-    cursor: pointer;
-    box-shadow: 0 6px 0px #555555, 0 8px 12px rgba(0, 0, 0, 0.3) !important;
-    position: relative;
-    top: 0;
-    margin-bottom: 14px;
-    transition: all 0.1s ease !important;
-}
-
-/* 2. ダークモード時の自動切り替え */
-body[data-theme="dark"] .btn-menu {
-    background: #ffffff !important;
-    color: #111111 !important;
-    border-color: #ffffff !important;
-    box-shadow: 0 6px 0px #888888, 0 8px 12px rgba(0, 0, 0, 0.5) !important;
-}
-
-/* 3. 押し心地（ホバー・アクティブ時の沈み込み） */
-.btn-menu:hover {
-    top: 2px;
-    box-shadow: 0 4px 0px #555555, 0 5px 8px rgba(0, 0, 0, 0.3) !important;
-}
-body[data-theme="dark"] .btn-menu:hover {
-    box-shadow: 0 4px 0px #888888, 0 5px 8px rgba(0, 0, 0, 0.5) !important;
-}
-
-.btn-menu:active {
-    top: 6px;
-    box-shadow: 0 0px 0px #555555, 0 2px 4px rgba(0, 0, 0, 0.3) !important;
-}
-
-/* 4. ボタン内の日本語（初級・中級など）の控えめ表示 */
-.btn-menu .jp {
-    font-family: 'TitleFont', 'NosutaruDot', sans-serif !important;
-    font-size: 0.85rem;
-    opacity: 0.8;
-}
-
-/* 5. 【A-2】ホバー ＆ タッチ（フォーカス）時の ▶ カーソル演出 */
-.btn-menu::before {
-    content: "▶";
-    position: absolute;
-    left: -20px;
-    opacity: 0;
-    color: var(--text-color);
-    font-size: 0.8rem;
-    transition: opacity 0.15s ease, transform 0.15s ease;
-    pointer-events: none; /* タッチの邪魔にならないように保護 */
-}
-
-/* マウス hover だけでなく、指でタップ中/フォーカス時 (:focus, :active) も出す */
-.btn-menu:hover::before,
-.btn-menu:focus::before,
-.btn-menu:active::before {
-    opacity: 1;
-    animation: cursorBlink 0.6s infinite alternate;
-}
-
-/* スマホ等での青いタップハイライトをオフにしてレトロ感を守る */
-.btn-menu {
-    -webkit-tap-highlight-color: transparent;
-}
-
-.btn-menu:hover::before {
-    opacity: 1;
-    animation: cursorBlink 0.6s infinite alternate;
-}
-
-@keyframes cursorBlink {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(4px); }
-}
-/* LOAD SAVE DATA（控えめな点線枠サブボタン） */
-.btn-menu-load-trigger {
-    font-family: 'Press Start 2P', monospace !important;
-    font-size: 0.65rem !important;
-    width: 100%;
-    margin-top: 15px;
-    padding: 12px;
-    background: transparent !important;
-    border: 2px dashed var(--border-color) !important;
-    color: var(--sub-text-color) !important;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: all 0.2s;
-    text-align: center;
-    -webkit-tap-highlight-color: transparent;
-}
-
-.btn-menu-load-trigger:hover,
-.btn-menu-load-trigger:active {
-    background: var(--hover-bg) !important;
-    color: var(--text-color) !important;
-    border-color: var(--text-color) !important;
-}
-/* =======================================================
-   🎮 モーダル（PAUSE画面 & STAGE CLEAR画面）デザイン
-   ======================================================= */
-
-/* モーダル背景（暗いオーバーレイ） */
 .modal-overlay {
     display: none;
-    position: fixed;
-    top: 0; left: 0; width: 100vw; height: 100vh;
+    position: fixed; top: 0; left: 0;
+    width: 100vw; height: 100vh;
     background: rgba(0, 0, 0, 0.75);
     z-index: 1000;
-    justify-content: center;
-    align-items: center;
+    justify-content: center; align-items: center;
 }
 
-/* 表示時のクラス */
-.modal-overlay.active {
-    display: flex;
-}
+.modal-overlay.active { display: flex; }
 
-/* モーダル本体（ドット枠パネル） */
 .modal-content {
     background: var(--bg-color);
-    border: 3px solid var(--text-color);
-    border-radius: 8px;
+    border: 3px solid var(--text-main);
+    border-radius: 12px;
     padding: 24px 20px;
-    width: 85%;
-    max-width: 320px;
+    width: 85%; max-width: 320px;
     text-align: center;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
 }
 
-/* 【C-2】PAUSE タイトル */
-.pause-title {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 1.1rem;
-    color: var(--text-color);
-    margin-bottom: 20px;
-}
+.pause-title { font-size: 1.1rem; color: var(--text-main); margin-bottom: 20px; }
+.clear-title { font-size: 1.0rem; color: var(--text-main); margin-bottom: 16px; }
+#clear-time-text { font-size: 0.8rem; color: var(--text-main); margin-bottom: 12px; }
+.new-record { font-size: 0.65rem; color: #f59e0b; margin-bottom: 16px; }
 
-/* 【A-5】STAGE CLEAR タイトル */
-.clear-title {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 1.0rem;
-    color: var(--text-color);
-    margin-bottom: 16px;
-    animation: retroBlink 0.8s infinite;
-}
-
-#clear-time-text {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 0.8rem;
-    color: var(--text-color);
-    margin-bottom: 12px;
-}
-
-/* 【C-1】新記録タグ */
-.new-record {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 0.65rem;
-    color: #f59e0b;
-    margin-bottom: 16px;
-    animation: retroBlink 0.6s infinite;
-}
-
-/* モーダル内のボタン */
 .modal-btn {
-    font-family: 'Press Start 2P', monospace;
     font-size: 0.65rem;
     padding: 10px 16px;
     margin: 6px 4px;
-    background: var(--text-color);
-    color: var(--bg-color);
-    border: 2px solid var(--text-color);
     border-radius: 4px;
-    cursor: pointer;
-    transition: transform 0.1s ease;
 }
 
-.modal-btn:active {
-    transform: scale(0.95);
-}
