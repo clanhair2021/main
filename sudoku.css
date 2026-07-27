@@ -803,7 +803,7 @@ body[data-theme="dark"] .btn-menu:hover {
     opacity: 0.8;
 }
 
-/* 5. 【A-2】ホバー時の ▶ カーソル演出 */
+/* 5. 【A-2】ホバー ＆ タッチ（フォーカス）時の ▶ カーソル演出 */
 .btn-menu::before {
     content: "▶";
     position: absolute;
@@ -812,6 +812,20 @@ body[data-theme="dark"] .btn-menu:hover {
     color: var(--text-color);
     font-size: 0.8rem;
     transition: opacity 0.15s ease, transform 0.15s ease;
+    pointer-events: none; /* タッチの邪魔にならないように保護 */
+}
+
+/* マウス hover だけでなく、指でタップ中/フォーカス時 (:focus, :active) も出す */
+.btn-menu:hover::before,
+.btn-menu:focus::before,
+.btn-menu:active::before {
+    opacity: 1;
+    animation: cursorBlink 0.6s infinite alternate;
+}
+
+/* スマホ等での青いタップハイライトをオフにしてレトロ感を守る */
+.btn-menu {
+    -webkit-tap-highlight-color: transparent;
 }
 
 .btn-menu:hover::before {
