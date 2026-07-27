@@ -3,11 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>高速ナンプレ</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-
+    <title>美容室CLanからの挑戦状</title>
     <link rel="stylesheet" href="sudoku.css">
 </head>
 <body>
@@ -21,14 +17,12 @@
             <button class="btn-menu" onclick="handleMenuGenerate('normal')">中級</button>
             <button class="btn-menu" onclick="handleMenuGenerate('hard')">上級</button>
             <button class="btn-menu" onclick="handleMenuGenerate('expert')">超級</button>
-     </div>
-  </div>
-
+        </div>
          <!-- 🟢 ハブに戻るボタンを追加 -->
     <div style="margin-top: 15px; text-align: center;">
       <button class="back-btn" onclick="backToHubFromDifficulty()">‹ GAME SELECT</button>
     </div>
-        <button class="btn-menu-load-trigger" onclick="openLoadModal()">LOAD SAVE DATA</button>
+        <button class="btn-menu-load-trigger" onclick="openLoadModal()">保存したステージから読込</button>
     </div>
 
     <div id="game-screen" class="screen-container" style="display: none;">
