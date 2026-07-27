@@ -139,27 +139,6 @@
             <button class="clear-btn-close" onclick="closeClearScreen()">CLOSE</button>
         </div>
     </div>
-        <!-- ⏸️ 【C-2】PAUSE（一時停止）モーダル -->
-    <div id="pause-modal" class="modal-overlay">
-        <div class="modal-content text-center">
-            <h2 class="pause-title">- PAUSE -</h2>
-            <div class="modal-buttons">
-                <button class="modal-btn" onclick="togglePause()">RESUME</button>
-                <button class="modal-btn" onclick="quitToMenu()">QUIT GAME</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- 🏆 【A-5】STAGE CLEAR モーダル -->
-    <div id="clear-modal" class="modal-overlay">
-        <div class="modal-content text-center clear-content">
-            <h2 class="clear-title">STAGE CLEAR!!</h2>
-            <p id="clear-time-text">TIME: 00:00</p>
-            <!-- 【C-1】新記録時のタグ -->
-            <p id="new-record-tag" class="new-record" style="display:none;">★ NEW RECORD ★</p>
-            <button class="modal-btn clear-btn" onclick="quitToMenu()">NEXT GAME</button>
-        </div>
-    </div>
 
 
     <script src="sudoku.js"></script>
