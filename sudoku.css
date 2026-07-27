@@ -860,3 +860,85 @@ body[data-theme="dark"] .btn-menu:hover {
     color: var(--text-color) !important;
     border-color: var(--text-color) !important;
 }
+/* =======================================================
+   🎮 モーダル（PAUSE画面 & STAGE CLEAR画面）デザイン
+   ======================================================= */
+
+/* モーダル背景（暗いオーバーレイ） */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(0, 0, 0, 0.75);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 表示時のクラス */
+.modal-overlay.active {
+    display: flex;
+}
+
+/* モーダル本体（ドット枠パネル） */
+.modal-content {
+    background: var(--bg-color);
+    border: 3px solid var(--text-color);
+    border-radius: 8px;
+    padding: 24px 20px;
+    width: 85%;
+    max-width: 320px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+/* 【C-2】PAUSE タイトル */
+.pause-title {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 1.1rem;
+    color: var(--text-color);
+    margin-bottom: 20px;
+}
+
+/* 【A-5】STAGE CLEAR タイトル */
+.clear-title {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 1.0rem;
+    color: var(--text-color);
+    margin-bottom: 16px;
+    animation: retroBlink 0.8s infinite;
+}
+
+#clear-time-text {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.8rem;
+    color: var(--text-color);
+    margin-bottom: 12px;
+}
+
+/* 【C-1】新記録タグ */
+.new-record {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.65rem;
+    color: #f59e0b;
+    margin-bottom: 16px;
+    animation: retroBlink 0.6s infinite;
+}
+
+/* モーダル内のボタン */
+.modal-btn {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.65rem;
+    padding: 10px 16px;
+    margin: 6px 4px;
+    background: var(--text-color);
+    color: var(--bg-color);
+    border: 2px solid var(--text-color);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: transform 0.1s ease;
+}
+
+.modal-btn:active {
+    transform: scale(0.95);
+}
