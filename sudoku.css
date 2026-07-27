@@ -750,3 +750,76 @@ body {
     50% { opacity: 0; }
 }
 
+/* =======================================================
+   🎮 STEP3: 難易度ボタンの重厚立体化 ＆ ▶ カーソル演出
+   ======================================================= */
+
+/* 1. 難易度ボタンのベース（A案：重厚立体ブラック） */
+.btn-menu {
+    font-family: 'Press Start 2P', monospace !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    width: 100%;
+    padding: 16px 20px !important;
+    background: #111111 !important;
+    color: #ffffff !important;
+    border: 3px solid #111111 !important;
+    border-radius: 4px !important;
+    cursor: pointer;
+    box-shadow: 0 6px 0px #555555, 0 8px 12px rgba(0, 0, 0, 0.3) !important;
+    position: relative;
+    top: 0;
+    margin-bottom: 14px;
+    transition: all 0.1s ease !important;
+}
+
+/* 2. ダークモード時の自動切り替え */
+body[data-theme="dark"] .btn-menu {
+    background: #ffffff !important;
+    color: #111111 !important;
+    border-color: #ffffff !important;
+    box-shadow: 0 6px 0px #888888, 0 8px 12px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* 3. 押し心地（ホバー・アクティブ時の沈み込み） */
+.btn-menu:hover {
+    top: 2px;
+    box-shadow: 0 4px 0px #555555, 0 5px 8px rgba(0, 0, 0, 0.3) !important;
+}
+body[data-theme="dark"] .btn-menu:hover {
+    box-shadow: 0 4px 0px #888888, 0 5px 8px rgba(0, 0, 0, 0.5) !important;
+}
+
+.btn-menu:active {
+    top: 6px;
+    box-shadow: 0 0px 0px #555555, 0 2px 4px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* 4. ボタン内の日本語（初級・中級など）の控えめ表示 */
+.btn-menu .jp {
+    font-family: 'TitleFont', 'NosutaruDot', sans-serif !important;
+    font-size: 0.85rem;
+    opacity: 0.8;
+}
+
+/* 5. 【A-2】ホバー時の ▶ カーソル演出 */
+.btn-menu::before {
+    content: "▶";
+    position: absolute;
+    left: -20px;
+    opacity: 0;
+    color: var(--text-color);
+    font-size: 0.8rem;
+    transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.btn-menu:hover::before {
+    opacity: 1;
+    animation: cursorBlink 0.6s infinite alternate;
+}
+
+@keyframes cursorBlink {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(4px); }
+}
