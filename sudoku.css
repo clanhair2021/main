@@ -79,25 +79,27 @@ body::before {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: 100vw;  /* %からvwに変更して確実に全画面へ */
+    height: 100vh; /* %からvhに変更して確実に全画面へ */
     background-size: contain;
     background-position: center top;
     background-repeat: no-repeat;
-    pointer-events: none; /* ゲームの操作（タップ等）を邪魔しない設定 */
-    z-index: -1;
+    pointer-events: none;
+    z-index: -1;   /* 👈 ここを 0 から -1 に変更（絶対に画面の最奥に配置） */
     transition: background-image 0.3s ease, opacity 0.3s ease;
 }
 
 /* --- ライトモード時（黒線） --- */
 [data-theme="light"] body::before,
-body:not([data-theme]) body::before {
+html[data-theme="light"] body::before,
+body:not([data-theme])::before {
     background-image: url("sudoku-icon.png"); /* 黒線画像 */
-    opacity: 0.15;
+    opacity: 0.2; /* 0.15から少しだけ濃く設定 */
 }
 
 /* --- ダークモード時（白線） --- */
-[data-theme="dark"] body::before {
+[data-theme="dark"] body::before,
+html[data-theme="dark"] body::before {
     background-image: url("sudoku-icon-white.png"); /* 白線画像 */
     opacity: 0.4;
 }
