@@ -61,21 +61,30 @@ body, button, input, select, textarea {
 
 body {
     background-color: var(--bg-color);
-    background-image: url("sudoku-icon.png"); 
-    background-size: contain;
-    background-position: center top;
-    background-repeat: no-repeat;
-    
     color: var(--text-main);
     min-height: 100vh;
     padding: 20px;
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    transition: background-color 0.2s, color 0.2s;
     position: relative;
 }
 
+/* 画像を白線に反転して背景に配置 */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-image: url("sudoku-icon.png");
+    background-size: contain;
+    background-position: center top;
+    background-repeat: no-repeat;
+    filter: invert(1); /* 👈 これで黒線が白線に反転します */
+    opacity: 0.6;      /* 好みに応じて濃さを調整 */
+    pointer-events: none;
+    z-index: 0;
+}
 body[data-theme="dark"] {
     filter: invert(1);
 }
