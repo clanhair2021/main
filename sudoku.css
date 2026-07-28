@@ -70,51 +70,43 @@ body {
     position: relative;
 }
 
-/* ベースの背景画像設定 */
+/* ===================================================
+   背景画像の共通設定
+   =================================================== */
 body::before {
     content: "";
     position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background-image: url("sudoku-icon.png");
+    top: 0; 
+    left: 0;
+    width: 100%; 
+    height: 100%;
     background-size: contain;
     background-position: center top;
     background-repeat: no-repeat;
     pointer-events: none;
     z-index: 0;
-    opacity: 0.3; /* 全体の透明度（0.1〜1.0で調整） */
-    transition: filter 0.3s, opacity 0.3s;
-}
-
-/* ===================================================
-   【ライトモード時の設定】（デフォルト：黒〜グレー線）
-   =================================================== */
-[data-theme="light"] body::before {
-    /* パターンL1: 通常の黒線（そのまま） */
-    filter: none;
     
-    /* パターンL2: ほんのり温かみのあるセピア調の黒線 */
-    /* filter: sepia(0.5) contrast(1.2); */
+    /* 切り替え時にパッと変わらず滑らかにする設定（お好みで） */
+    transition: background-image 0.3s ease, opacity 0.3s ease;
 }
 
 /* ===================================================
-   【ダークモード時の設定】（白線 ＆ 色温度の調整）
+   【ライトモード時】黒線の画像を指定
+   =================================================== */
+[data-theme="light"] body::before,
+body:not([data-theme]) body::before { /* テーマ未設定時の保険 */
+    background-image: url("sudoku-icon-black.png"); /* 👈 ライトモード用（黒線）の画像名 */
+    opacity: 0.15; /* 背景として馴染ませる透明度（0.1〜1.0で調整） */
+}
+
+/* ===================================================
+   【ダークモード時】白線の画像を指定
    =================================================== */
 [data-theme="dark"] body::before {
-
-    /* --- パターンD1: クリアな純白 --- */
-    filter: invert(1);
-
-    /* --- パターンD2: 温かみのある電球色・暖色（暖かい白） --- */
-    /* filter: invert(1) sepia(0.8) saturate(2) hue-rotate(-20deg); */
-
-    /* --- パターンD3: クールな青白色・寒色（かっこいい白青） --- */
-    /* filter: invert(1) sepia(0.5) hue-rotate(180deg) saturate(3); */
-
-    /* --- パターンD4: 少し目立ちを抑えたソフトグレー白 --- */
-    /* filter: invert(0.7); */
-
+    background-image: url("sudoku-icon-white.png"); /* 👈 ダークモード用（白線）の画像名 */
+    opacity: 0.4;  /* 暗い背景で見えやすい透明度に調整 */
 }
+
 
 
 /* =======================================================
