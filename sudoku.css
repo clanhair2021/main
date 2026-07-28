@@ -150,17 +150,21 @@ body:has(#screen-select.active) .container {
 .menu-difficulty-list {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 10px;
     width: 100%;
+    max-width: 280px;
+    margin: 0 auto;
+    margin-top: 40px;
 }
 
 .btn-menu {
-    font-size: 0.8rem !important;
+    font-size: 0.7rem !important;
     display: flex !important;
     justify-content: space-between !important;
     align-items: center !important;
     width: 100%;
-    padding: 12px 20px !important;
+    padding: 8px 16px !important;
+    border-radius: 8px !important;
     position: relative;
 }
 
@@ -193,14 +197,15 @@ body:has(#screen-select.active) .container {
 
 /* ロードボタン */
 .btn-menu-load-trigger {
-    font-size: 0.65rem !important;
+    font-size: 0.6rem !important;
     width: 100%;
-    margin: 20px auto 0;
-    padding: 12px;
+    max-width: 280px;
+    margin: 30px auto 0;
+    padding: 8px 12px;
     background: transparent !important;
     border: 2px dashed var(--border) !important;
     color: var(--text-muted) !important;
-    border-radius: 20px !important;
+    border-radius: 8px !important;
     cursor: pointer;
     text-align: center;
 }
