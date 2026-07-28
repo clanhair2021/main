@@ -80,13 +80,16 @@ body::before {
     background-size: contain;
     background-position: center top;
     background-repeat: no-repeat;
-    filter: invert(1); /* 👈 これで黒線が白線に反転します */
-    opacity: 0.6;      /* 好みに応じて濃さを調整 */
+    opacity: 0.15; /* ライト時は黒線が目立ちすぎないよう少し薄くすると綺麗です */
     pointer-events: none;
     z-index: 0;
+    transition: filter 0.3s, opacity 0.3s; /* テーマ切り替え時に滑らかに変化 */
 }
-body[data-theme="dark"] {
-    filter: invert(1);
+
+/* ダークモード時のみ：反転して「白線」にする */
+[data-theme="dark"] body::before {
+    filter: invert(1); /* 👈 ダークテーマの時だけ白線になります！ */
+    opacity: 0.4;      /* 白線の見やすさに合わせて透明度を調整 */
 }
 
 /* =======================================================
