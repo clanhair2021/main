@@ -609,6 +609,7 @@ body:has(#screen-select.active) .container {
   text-align: center;
   padding-top: 46vh; 
   padding-bottom: 20px;
+   background: rgba(255, 0, 0, 0.2); 
 }
 
 .retro-start-wrapper {
