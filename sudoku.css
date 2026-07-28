@@ -794,18 +794,26 @@ body:has(#screen-select.active) .container {
     color: #ffffff;
 }
 /* ===================================================
-   難易度選択画面（#screen-select）の枠をさらに透過する設定
+   選択画面の枠を完全にシースルーにする設定（確定版）
    =================================================== */
 
-/* ライトモード時 */
-body:has(#screen-select.active) .container,
-body:has(#screen-select.active) .screen-container {
-    background-color: rgba(255, 255, 255, 0.4) !important;
+/* 1. すりガラス効果をオフにして背景画像をくっきり見せる */
+.container, .screen-container {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
 }
 
-/* ダークモード時 */
-[data-theme="dark"] body:has(#screen-select.active) .container,
-[data-theme="dark"] body:has(#screen-select.active) .screen-container {
-    background-color: rgba(18, 18, 18, 0.35) !important;
+/* 2. 選択画面(#screen-select)が表示されている時は、枠の背景を完全に透明にする */
+#screen-select.active {
+    background: transparent !important;
+}
+
+/* 3. 親枠(.container)の黒背景も超極薄(10%の濃さ)にする */
+[data-theme="dark"] .container {
+    background-color: rgba(18, 18, 18, 0.1) !important;
+}
+
+[data-theme="light"] .container {
+    background-color: rgba(255, 255, 255, 0.1) !important;
 }
 
