@@ -68,6 +68,7 @@ body {
     justify-content: center;
     align-items: flex-start;
     position: relative;
+    z-index: 1;
 }
 
 /* ===================================================
@@ -84,7 +85,7 @@ body::before {
     background-position: center top;
     background-repeat: no-repeat;
     pointer-events: none; /* ゲームの操作（タップ等）を邪魔しない設定 */
-    z-index: 0;
+    z-index: -1;
     transition: background-image 0.3s ease, opacity 0.3s ease;
 }
 
