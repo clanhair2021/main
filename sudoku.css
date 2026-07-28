@@ -71,41 +71,36 @@ body {
 }
 
 /* ===================================================
-   背景画像の共通設定
+   背景画像の設置（疑似要素 body::before に一本化）
    =================================================== */
 body::before {
     content: "";
     position: fixed;
-    top: 0; 
+    top: 0;
     left: 0;
-    width: 100%; 
+    width: 100%;
     height: 100%;
     background-size: contain;
     background-position: center top;
     background-repeat: no-repeat;
-    pointer-events: none;
+    pointer-events: none; /* ゲームの操作（タップ等）を邪魔しない設定 */
     z-index: 0;
-    
-    /* 切り替え時にパッと変わらず滑らかにする設定（お好みで） */
     transition: background-image 0.3s ease, opacity 0.3s ease;
 }
 
-/* ===================================================
-   【ライトモード時】黒線の画像を指定
-   =================================================== */
+/* --- ライトモード時（黒線） --- */
 [data-theme="light"] body::before,
-body:not([data-theme]) body::before { /* テーマ未設定時の保険 */
-    background-image: url("sudoku-icon-white.png"); /* 👈 ライトモード用（黒線）の画像名 */
-    opacity: 0.15; /* 背景として馴染ませる透明度（0.1〜1.0で調整） */
+body:not([data-theme]) body::before {
+    background-image: url("sudoku-icon.png"); /* 黒線画像 */
+    opacity: 0.15;
 }
 
-/* ===================================================
-   【ダークモード時】白線の画像を指定
-   =================================================== */
+/* --- ダークモード時（白線） --- */
 [data-theme="dark"] body::before {
-    background-image: url("sudoku-icon.png"); /* 👈 ダークモード用（白線）の画像名 */
-    opacity: 0.4;  /* 暗い背景で見えやすい透明度に調整 */
+    background-image: url("sudoku-icon-white.png"); /* 白線画像 */
+    opacity: 0.4;
 }
+
 
 
 
