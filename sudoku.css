@@ -12,6 +12,24 @@
    🎨 テーマ設定（ダーク / ライト）
    ======================================================= */
 :root {
+  --bg-color: #fcfcfc;
+  --card-bg: rgba(255, 255, 255, 0.92);
+  --card-bg-sub: rgba(245, 245, 245, 0.92);
+  --text-main: #222222;
+  --text-muted: #666666;
+  --border: #333333;
+  --primary: #111111;
+  --primary-light: #333333;
+  --primary-dark: #000000;
+  --success: #22c55e;
+  --error: #ef4444;
+  --white: #1e1e24;
+  --radius: 8px;
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --hover-bg: rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="dark"] {
   --bg-color: #121212;
   --card-bg: rgba(30, 30, 30, 0.92);
   --card-bg-sub: rgba(40, 40, 40, 0.92);
@@ -29,19 +47,6 @@
   --hover-bg: rgba(255, 255, 255, 0.1);
 }
 
-[data-theme="light"] {
-  --bg-color: #fcfcfc;
-  --card-bg: rgba(255, 255, 255, 0.92);
-  --card-bg-sub: rgba(245, 245, 245, 0.92);
-  --text-main: #222222;
-  --text-muted: #666666;
-  --border: #333333;
-  --primary-light: #f5f5f5;
-  --white: #ffffff;
-  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  --hover-bg: rgba(0, 0, 0, 0.05);
-}
-
 /* リセット & 基本設定 */
 * {
     box-sizing: border-box;
@@ -56,7 +61,7 @@ body, button, input, select, textarea {
 
 body {
     background-color: var(--bg-color);
-    background-image: url("title-bg.gif"); 
+    background-image: url("sudoku-icon.png"); 
     background-size: contain;
     background-position: center top;
     background-repeat: no-repeat;
@@ -69,6 +74,10 @@ body {
     align-items: flex-start;
     transition: background-color 0.2s, color 0.2s;
     position: relative;
+}
+
+body[data-theme="dark"] {
+    filter: invert(1);
 }
 
 /* =======================================================
@@ -550,21 +559,7 @@ body:has(#screen-select.active) .container {
     opacity: 0.6;
 }
 
-.setting-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 16px;
-    font-size: 0.9rem;
-}
 
-.setting-item select {
-    padding: 4px 8px;
-    background: var(--bg-color);
-    color: var(--text-main);
-    border: 2px solid var(--border);
-    border-radius: 4px;
-}
 
 .danger-zone {
     margin-top: 24px;
@@ -710,3 +705,126 @@ body[data-theme="dark"] .retro-start-btn {
     display: none !important;
 }
 
+/* =======================================================
+   ⚙️ 設定モーダル内のボタン
+   ======================================================= */
+.setting-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.setting-label {
+    font-weight: bold;
+    font-size: 0.9rem;
+    color: var(--text-main);
+}
+
+.mode-select-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-setting-action {
+    flex: 1;
+    padding: 10px;
+    background: var(--card-bg);
+    border: 2px solid var(--border);
+    color: var(--text-main);
+    font-weight: 700;
+    font-size: 0.75rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'Courier New', Courier, monospace, sans-serif;
+}
+
+.btn-setting-action:hover, .btn-setting-action:active {
+    background: var(--text-main);
+    color: var(--bg-color);
+    border-color: var(--text-main);
+}
+
+.btn-setting-action.active {
+    background: var(--text-main);
+    color: var(--bg-color);
+    border-color: var(--text-main);
+}
+
+.modal-title {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.9rem;
+    color: var(--text-main);
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+.btn-modal-close {
+    width: 100%;
+    padding: 10px;
+    background: var(--card-bg);
+    border: 2px solid var(--border);
+    color: var(--text-main);
+    font-weight: 700;
+    font-size: 0.75rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: 16px;
+}
+
+.btn-modal-close:hover, .btn-modal-close:active {
+    background: var(--text-main);
+    color: var(--bg-color);
+    border-color: var(--text-main);
+}
+
+.save-list {
+    max-height: 300px;
+    overflow-y: auto;
+    margin-bottom: 12px;
+}
+
+.save-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    background: var(--card-bg-sub);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    margin-bottom: 8px;
+}
+
+.save-name {
+    flex: 1;
+    font-size: 0.85rem;
+    color: var(--text-main);
+}
+
+.save-item-btns {
+    display: flex;
+    gap: 4px;
+}
+
+.btn-item-load, .btn-item-del {
+    padding: 4px 8px;
+    font-size: 0.7rem;
+    border: 1px solid var(--border);
+    background: var(--card-bg);
+    color: var(--text-main);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-item-load:hover {
+    background: var(--primary);
+    color: #ffffff;
+}
+
+.btn-item-del:hover {
+    background: var(--error);
+    color: #ffffff;
+}
