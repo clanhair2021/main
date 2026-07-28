@@ -154,7 +154,7 @@ body:has(#screen-select.active) .container {
     width: 100%;
     max-width: 280px;
     margin: 0 auto;
-    margin-top: 8px;
+    margin-top: 200px;
 }
 
 .btn-menu {
