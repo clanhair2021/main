@@ -101,7 +101,7 @@ body:not([data-theme])::before {
 [data-theme="dark"] body::before,
 html[data-theme="dark"] body::before {
     background-image: url("sudoku-icon-white.png"); /* 白線画像 */
-    opacity: 0.4;
+    opacity: 1;
 }
 
 
