@@ -429,12 +429,44 @@ body:has(#screen-select.active) .container {
     color: var(--text-muted);
 }
 
-.btn-settings {
+.btn-settings, .settings-btn {
     position: absolute;
     top: -4px; right: 10px;
     background: none; border: none;
     font-size: 1.4rem; cursor: pointer;
     color: var(--text-main); z-index: 10;
+    transition: transform 0.3s ease;
+}
+
+.btn-settings:hover, .settings-btn:hover {
+    transform: rotate(60deg);
+}
+
+/* 固定位置の設定ボタン用 */
+.settings-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+[data-theme="dark"] .settings-btn {
+    background: rgba(30, 30, 30, 0.8);
+    border-color: #555;
+}
+
+.settings-btn svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
 }
 
 /* =======================================================
