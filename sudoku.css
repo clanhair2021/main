@@ -59,6 +59,11 @@ body, button, input, select, textarea {
     font-family: 'Courier New', Courier, monospace, sans-serif;
 }
 
+/* ===================================================
+   背景画像 & 枠の透過設定（完全決定版）
+   =================================================== */
+
+/* 1. bodyの基本設定 */
 body {
     background-color: var(--bg-color);
     color: var(--text-main);
@@ -68,43 +73,51 @@ body {
     justify-content: center;
     align-items: flex-start;
     position: relative;
-    z-index: 1;
+    z-index: 0;
 }
 
-/* ===================================================
-   背景画像の設置（疑似要素 body::before に一本化）
-   =================================================== */
+/* 2. 背景画像を最背面に固定配置 */
 body::before {
     content: "";
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;  /* %からvwに変更して確実に全画面へ */
-    height: 100vh; /* %からvhに変更して確実に全画面へ */
+    width: 100vw;
+    height: 100vh;
     background-size: contain;
     background-position: center top;
     background-repeat: no-repeat;
     pointer-events: none;
-    z-index: -1;   /* 👈 ここを 0 から -1 に変更（絶対に画面の最奥に配置） */
-    transition: background-image 0.3s ease, opacity 0.3s ease;
+    z-index: -1; /* 👈 絶対に一番後ろに配置 */
 }
 
-/* --- ライトモード時（黒線） --- */
-[data-theme="light"] body::before,
-html[data-theme="light"] body::before,
-body:not([data-theme])::before {
-    background-image: url("sudoku-icon.png"); /* 黒線画像 */
-    opacity: 0.2; /* 0.15から少しだけ濃く設定 */
+/* 3. ライトモード時の背景画像（黒線） */
+body:not([data-theme="dark"])::before,
+[data-theme="light"] body::before {
+    background-image: url("sudoku-icon.png");
+    opacity: 0.3;
 }
 
-/* --- ダークモード時（白線） --- */
+/* 4. ダークモード時の背景画像（白線） */
 [data-theme="dark"] body::before,
-html[data-theme="dark"] body::before {
-    background-image: url("sudoku-icon-white.png"); /* 白線画像 */
-    opacity: 1;
+body[data-theme="dark"]::before {
+    background-image: url("sudoku-icon-white.png");
+    opacity: 0.6;
 }
 
+/* 5. 枠（container）を透過させて背景画像を見せる設定 */
+.container, .screen-container {
+    position: relative;
+    z-index: 1;
+    background-color: rgba(255, 255, 255, 0.8) !important;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
 
+[data-theme="dark"] .container,
+[data-theme="dark"] .screen-container {
+    background-color: rgba(18, 18, 18, 0.8) !important;
+}
 
 
 /* =======================================================
@@ -779,25 +792,4 @@ body:has(#screen-select.active) .container {
 .btn-item-del:hover {
     background: var(--error);
     color: #ffffff;
-}
-
-/* ===================================================
-   数独画面の枠を透過させて背景画像を見せる設定
-   =================================================== */
-
-/* 【ライトモード時】白の半透明 */
-[data-theme="light"] .container,
-[data-theme="light"] .screen-container,
-body:not([data-theme]) .container {
-    background-color: rgba(255, 255, 255, 0.85) !important;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-}
-
-/* 【ダークモード時】黒の半透明 */
-[data-theme="dark"] .container,
-[data-theme="dark"] .screen-container {
-    background-color: rgba(18, 18, 18, 0.75) !important;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
 }
