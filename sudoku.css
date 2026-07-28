@@ -95,7 +95,7 @@ body::before {
    =================================================== */
 [data-theme="light"] body::before,
 body:not([data-theme]) body::before { /* テーマ未設定時の保険 */
-    background-image: url("sudoku-icon-black.png"); /* 👈 ライトモード用（黒線）の画像名 */
+    background-image: url("sudoku-icon.png"); /* 👈 ライトモード用（黒線）の画像名 */
     opacity: 0.15; /* 背景として馴染ませる透明度（0.1〜1.0で調整） */
 }
 
