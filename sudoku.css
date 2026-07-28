@@ -95,7 +95,7 @@ body::before {
    =================================================== */
 [data-theme="light"] body::before,
 body:not([data-theme]) body::before { /* テーマ未設定時の保険 */
-    background-image: url("sudoku-icon.png"); /* 👈 ライトモード用（黒線）の画像名 */
+    background-image: url("sudoku-icon-white.png"); /* 👈 ライトモード用（黒線）の画像名 */
     opacity: 0.15; /* 背景として馴染ませる透明度（0.1〜1.0で調整） */
 }
 
@@ -103,7 +103,7 @@ body:not([data-theme]) body::before { /* テーマ未設定時の保険 */
    【ダークモード時】白線の画像を指定
    =================================================== */
 [data-theme="dark"] body::before {
-    background-image: url("sudoku-icon-white.png"); /* 👈 ダークモード用（白線）の画像名 */
+    background-image: url("sudoku-icon.png"); /* 👈 ダークモード用（白線）の画像名 */
     opacity: 0.4;  /* 暗い背景で見えやすい透明度に調整 */
 }
 
