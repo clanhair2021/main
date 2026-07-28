@@ -70,7 +70,7 @@ body {
     position: relative;
 }
 
-/* 画像を白線に反転して背景に配置 */
+/* ベースの背景画像設定 */
 body::before {
     content: "";
     position: fixed;
@@ -80,17 +80,42 @@ body::before {
     background-size: contain;
     background-position: center top;
     background-repeat: no-repeat;
-    opacity: 0.15; /* ライト時は黒線が目立ちすぎないよう少し薄くすると綺麗です */
     pointer-events: none;
     z-index: 0;
-    transition: filter 0.3s, opacity 0.3s; /* テーマ切り替え時に滑らかに変化 */
+    opacity: 0.3; /* 全体の透明度（0.1〜1.0で調整） */
+    transition: filter 0.3s, opacity 0.3s;
 }
 
-/* ダークモード時のみ：反転して「白線」にする */
-[data-theme="dark"] body::before {
-    filter: invert(1); /* 👈 ダークテーマの時だけ白線になります！ */
-    opacity: 0.4;      /* 白線の見やすさに合わせて透明度を調整 */
+/* ===================================================
+   【ライトモード時の設定】（デフォルト：黒〜グレー線）
+   =================================================== */
+[data-theme="light"] body::before {
+    /* パターンL1: 通常の黒線（そのまま） */
+    filter: none;
+    
+    /* パターンL2: ほんのり温かみのあるセピア調の黒線 */
+    /* filter: sepia(0.5) contrast(1.2); */
 }
+
+/* ===================================================
+   【ダークモード時の設定】（白線 ＆ 色温度の調整）
+   =================================================== */
+[data-theme="dark"] body::before {
+
+    /* --- パターンD1: クリアな純白 --- */
+    filter: invert(1);
+
+    /* --- パターンD2: 温かみのある電球色・暖色（暖かい白） --- */
+    /* filter: invert(1) sepia(0.8) saturate(2) hue-rotate(-20deg); */
+
+    /* --- パターンD3: クールな青白色・寒色（かっこいい白青） --- */
+    /* filter: invert(1) sepia(0.5) hue-rotate(180deg) saturate(3); */
+
+    /* --- パターンD4: 少し目立ちを抑えたソフトグレー白 --- */
+    /* filter: invert(0.7); */
+
+}
+
 
 /* =======================================================
    📱 レイアウト & メニュー画面
