@@ -166,6 +166,9 @@ function triggerReset() {
 
 function triggerQuit() {
     if (confirm("本当にギブアップしてメニューに戻りますか？\n（スコアはすべて破棄されます）")) {
+        closeSettingsModal();        // ← 最初に設定モーダルを閉じる
+        showScreen('menu-screen');   // ← その後に画面を切り替え
+        
         isPlayMode = false;
         isPaused = false;
         stopTimer();
