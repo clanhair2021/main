@@ -120,7 +120,6 @@ function openSettingsModal() {
         if (modeSettingItem) modeSettingItem.style.display = 'none';
         gameActionsArea.style.display = 'flex';
         isPaused = true;
-        pauseScreen.style.display = "flex";
         numPadArea.style.opacity = "0.15";
     } else {
         if (modeSettingItem) modeSettingItem.style.display = 'flex';
@@ -133,7 +132,6 @@ function closeSettingsModal() {
     settingsModal.style.display = 'none';
     if (isPlayMode) {
         isPaused = false;
-        pauseScreen.style.display = "none";
         numPadArea.style.opacity = "1";
     }
 }
