@@ -1,0 +1,761 @@
+/* =======================================================
+   🔤 カスタムフォント
+   ======================================================= */
+@font-face {
+    font-family: 'NosutaruDot';
+    src: url('./Nosutaru-dotMPlusH-10-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* =======================================================
+   🎨 テーマ設定（ダーク / ライト）
+   ======================================================= */
+:root {
+  --bg-color: #fcfcfc;
+  --card-bg: rgba(255, 255, 255, 0.92);
+  --card-bg-sub: rgba(245, 245, 245, 0.92);
+  --text-main: #222222;
+  --text-muted: #666666;
+  --border: #333333;
+  --primary: #111111;
+  --primary-light: #333333;
+  --primary-dark: #000000;
+  --success: #22c55e;
+  --error: #ef4444;
+  --white: #1e1e24;
+  --radius: 8px;
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --hover-bg: rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="dark"] {
+  --bg-color: #121212;
+  --card-bg: rgba(30, 30, 30, 0.92);
+  --card-bg-sub: rgba(40, 40, 40, 0.92);
+  --text-main: #ffffff;
+  --text-muted: #666666;
+  --border: #cccccc;
+  --primary: #111111;
+  --primary-light: #333333;
+  --primary-dark: #000000;
+  --success: #22c55e;
+  --error: #ef4444;
+  --white: #1e1e24;
+  --radius: 8px;
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+  --hover-bg: rgba(255, 255, 255, 0.1);
+}
+
+/* リセット & 基本設定 */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body, button, input, select, textarea {
+    font-family: 'Courier New', Courier, monospace, sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    background-image: url("sudoku-icon.png"); 
+    background-size: contain;
+    background-position: center top;
+    background-repeat: no-repeat;
+    
+    color: var(--text-main);
+    min-height: 100vh;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    transition: background-color 0.2s, color 0.2s;
+    position: relative;
+}
+
+body[data-theme="dark"] {
+    filter: invert(1);
+}
+
+/* =======================================================
+   📱 レイアウト & メニュー画面
+   ======================================================= */
+.screen-container, .container {
+    width: 100%;
+    max-width: 500px;
+    position: relative;
+    z-index: 1;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-top: 15px;
+    transition: background-color 0.3s;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+body:has(#screen-title.active) .container {
+  background: transparent;
+  box-shadow: none;
+}
+
+body:has(#screen-select.active) .container {
+  background: var(--card-bg);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* =======================================================
+   🎮 共通レトロスタイル
+   ======================================================= */
+/* 英語ドットフォントを使う要素を統合 */
+.btn-menu, .btn-menu-load-trigger, .back-btn, .retro-start-text, .pause-title, .clear-title, #clear-time-text, .new-record, .modal-btn {
+    font-family: 'Press Start 2P', monospace !important;
+}
+
+/* ホバー時に反転する丸みボタンの共通化 */
+.btn-menu, .back-btn, .modal-btn {
+    background: var(--bg-color) !important;
+    border: 2px solid var(--text-main) !important;
+    color: var(--text-main) !important;
+    cursor: pointer;
+    transition: all 0.2s ease !important;
+    border-radius: 20px !important;
+}
+
+.btn-menu:hover, .btn-menu:active, .btn-menu:focus,
+.back-btn:hover, .back-btn:active,
+.modal-btn:hover, .modal-btn:active {
+    background: var(--text-main) !important;
+    color: var(--bg-color) !important;
+}
+
+/* 点滅アニメーション共通 */
+.retro-start-text, .clear-title, .new-record {
+    animation: retroBlink 1.0s steps(1) infinite;
+}
+
+@keyframes retroBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* メニュータイトル */
+.menu-title, h2 {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.8rem;
+    text-align: center;
+    margin-bottom: 4px;
+    color: var(--text-main);
+    letter-spacing: 1px;
+}
+
+/* 難易度選択ボタン */
+.menu-difficulty-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto;
+    margin-top: 200px;
+}
+
+.btn-menu {
+    font-size: 0.7rem !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    width: 100%;
+    padding: 8px 16px !important;
+    border-radius: 8px !important;
+    position: relative;
+}
+
+.btn-menu .jp {
+    font-family: 'Courier New', Courier, monospace, sans-serif !important;
+    font-size: 0.85rem;
+    opacity: 0.85;
+}
+
+.btn-menu::before {
+    content: "▶";
+    position: absolute;
+    left: -18px;
+    opacity: 0;
+    color: var(--text-main);
+    font-size: 0.75rem;
+    transition: opacity 0.15s ease, transform 0.15s ease;
+    pointer-events: none;
+}
+
+.btn-menu:hover::before, .btn-menu:focus::before, .btn-menu:active::before {
+    opacity: 1;
+    animation: cursorBlink 0.6s infinite alternate;
+}
+
+@keyframes cursorBlink {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(4px); }
+}
+
+/* ロードボタン */
+.btn-menu-load-trigger {
+    font-size: 0.6rem !important;
+    width: 100%;
+    max-width: 280px;
+    margin: 12px auto 0;
+    padding: 8px 12px;
+    background: transparent !important;
+    border: 2px dashed var(--border) !important;
+    color: var(--text-muted) !important;
+    border-radius: 8px !important;
+    cursor: pointer;
+    text-align: center;
+}
+
+.btn-menu-load-trigger:hover, .btn-menu-load-trigger:active {
+    border-color: var(--text-main) !important;
+    color: var(--text-main) !important;
+    background: var(--hover-bg) !important;
+}
+
+/* 戻るボタン */
+.back-btn {
+    border-radius: 20px;
+    font-size: 0.7rem !important;
+    font-weight: 700;
+    padding: 10px 18px;
+}
+
+/* =======================================================
+   📊 ステータス & 盤面（数独）
+   ======================================================= */
+.status-bar {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    background: var(--card-bg);
+    padding: 8px 12px;
+    border-radius: 12px;
+    border: 2px solid var(--border);
+    color: var(--text-main);
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.6rem;
+}
+
+.status-row-top, .status-row-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.55rem;
+}
+
+.badge {
+    background: var(--primary);
+    color: #ffffff;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.5rem;
+    font-family: 'Press Start 2P', monospace;
+}
+
+.grid-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    padding: 2px;
+    border: 2px solid var(--border);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    grid-template-rows: repeat(9, 1fr);
+    width: 100%; height: 100%;
+    background: var(--border);
+    gap: 1px;
+    border: 2px solid var(--border);
+}
+
+.cell {
+    background: var(--card-bg);
+    color: var(--text-main);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.4rem;
+    font-weight: 700;
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+}
+
+.cell[data-col="2"], .cell[data-col="5"] { border-right: 2px solid var(--border); }
+.cell[data-row="2"], .cell[data-row="5"] { border-bottom: 2px solid var(--border); }
+
+.cell.fixed { color: var(--text-muted); background: var(--card-bg-sub); }
+.cell.user-input { color: var(--primary); }
+.cell.selected { background: var(--hover-bg) !important; }
+.cell.highlight-cross { background: rgba(0, 0, 0, 0.08); }
+.cell.same-number { background: var(--hover-bg) !important; }
+
+@keyframes flash-red {
+    0% { background-color: rgba(239, 68, 68, 0.6); }
+    100% { background-color: var(--card-bg); }
+}
+.cell.invalid-flash { animation: flash-red 0.4s ease-out; }
+.cell-value { position: absolute; z-index: 2; }
+
+/* メモ（下書き） */
+.memo-grid {
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    padding: 1px; z-index: 1;
+}
+
+.memo-digit {
+    font-size: 0.55rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    display: flex; justify-content: center; align-items: center;
+}
+
+.memo-digit.highlight-memo {
+    color: var(--primary);
+    font-weight: 800;
+    background: var(--hover-bg);
+    border-radius: 2px;
+}
+
+.error-message {
+    font-size: 0.85rem;
+    color: var(--error);
+    text-align: center;
+    min-height: 1.2rem;
+    font-weight: 600;
+}
+
+/* =======================================================
+   ⌨️ キーパッド
+   ======================================================= */
+.keypad-container {
+    display: flex !important;
+    gap: 8px; width: 100%;
+}
+
+.left-pad-area {
+    flex: 2; display: flex; flex-direction: column; gap: 8px;
+}
+
+.main-pad, .memo-pad {
+    background: var(--card-bg);
+    padding: 6px;
+    border-radius: 12px;
+    border: 2px solid var(--border);
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 4px;
+    position: relative;
+    aspect-ratio: 1 / 1;
+}
+
+.main-pad { flex: 3; }
+.memo-pad { width: 100%; }
+
+.btn-hint {
+    width: 100%; flex: 1;
+    background: var(--card-bg);
+    border: 2px solid var(--border);
+    color: var(--text-main);
+    font-weight: 700;
+    font-size: 0.95rem;
+    border-radius: 12px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+
+.btn-hint:hover, .btn-hint:active {
+    background: var(--text-main);
+    color: var(--bg-color);
+}
+
+.pad-title {
+    position: absolute;
+    top: -10px; left: 8px;
+    font-size: 0.6rem; font-weight: 800;
+    background: var(--text-muted);
+    color: var(--card-bg);
+    padding: 1px 5px;
+    border-radius: 3px; z-index: 10;
+}
+
+.btn-memo-num, .num-btn {
+    width: 100%; height: 100%;
+    border-radius: 4px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    transition: all 0.2s ease;
+}
+
+.btn-memo-num {
+    background: var(--card-bg-sub);
+    border: 2px solid var(--border);
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.num-btn {
+    background: var(--card-bg);
+    border: 2px solid var(--border);
+    color: var(--text-main);
+    font-size: 1.1rem;
+}
+
+.num-btn:hover, .num-btn:active {
+    background: var(--text-main);
+    color: var(--bg-color);
+    border-color: var(--text-main);
+}
+
+.num-btn.completed {
+    background: var(--card-bg-sub) !important;
+    border-color: var(--border) !important;
+    color: var(--text-muted) !important;
+    opacity: 0.5;
+}
+
+.num-count {
+    font-size: 0.5rem;
+    color: var(--text-muted);
+}
+
+.btn-settings, .settings-btn {
+    position: absolute;
+    top: -4px; right: 10px;
+    background: none; border: none;
+    font-size: 1.4rem; cursor: pointer;
+    color: var(--text-main); z-index: 10;
+    transition: transform 0.3s ease;
+}
+
+.btn-settings:hover, .settings-btn:hover {
+    transform: rotate(60deg);
+}
+
+/* 固定位置の設定ボタン用 */
+.settings-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+[data-theme="dark"] .settings-btn {
+    background: rgba(30, 30, 30, 0.8);
+    border-color: #555;
+}
+
+.settings-btn svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+}
+
+/* =======================================================
+   📺 エフェクト 
+   ======================================================= */
+#crt-overlay {
+  position: fixed; top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  pointer-events: none; z-index: 999;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.08) 50%);
+  background-size: 100% 4px;
+}
+
+.retro-start-text {
+    font-size: 0.8rem;
+    color: var(--text-main);
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+/* =======================================================
+   ⚙️ モーダル（設定画面・セーブデータ画面）
+   ======================================================= */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.2s ease-in-out;
+}
+
+.modal-overlay.active,
+.modal-overlay.show {
+    display: flex !important;
+}
+
+.modal-content {
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    width: 90%;
+    max-width: 360px;
+    padding: 24px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 10px;
+}
+
+.modal-header h3 {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.9rem;
+    color: var(--text-main);
+}
+
+.close-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-main);
+    font-size: 1.4rem;
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+
+
+.danger-zone {
+    margin-top: 24px;
+    padding: 10px 14px;
+    border: 2px dashed var(--border);
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.danger-zone:hover {
+    background: var(--hover-bg);
+}
+
+.danger-zone .label {
+    color: var(--text-main);
+    font-weight: bold;
+    font-size: 0.85rem;
+}
+
+.danger-zone .desc {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+}
+
+/* 画面切り替えアニメーション */
+.screen {
+    display: none;
+    animation: fadeIn 0.25s ease-in-out;
+}
+
+.screen.active {
+    display: block;
+}
+
+
+
+
+
+.retro-start-text {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 1.1rem;
+  color: var(--text-main);
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 0px rgba(0,0,0,0.15);
+  animation: retroBlink 1.0s steps(1) infinite;
+  margin-bottom: 12px;
+}
+
+@keyframes retroBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 汎用非表示クラス */
+.hidden {
+    display: none !important;
+}
+
+/* =======================================================
+   ⚙️ 設定モーダル内のボタン
+   ======================================================= */
+.setting-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.setting-label {
+    font-weight: bold;
+    font-size: 0.9rem;
+    color: var(--text-main);
+}
+
+.mode-select-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-setting-action {
+    flex: 1;
+    padding: 10px;
+    background: var(--card-bg);
+    border: 2px solid var(--border);
+    color: var(--text-main);
+    font-weight: 700;
+    font-size: 0.75rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'Courier New', Courier, monospace, sans-serif;
+}
+
+.btn-setting-action:hover, .btn-setting-action:active {
+    background: var(--text-main);
+    color: var(--bg-color);
+    border-color: var(--text-main);
+}
+
+.btn-setting-action.active {
+    background: var(--text-main);
+    color: var(--bg-color);
+    border-color: var(--text-main);
+}
+
+.modal-title {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.9rem;
+    color: var(--text-main);
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+.btn-modal-close {
+    width: 100%;
+    padding: 10px;
+    background: var(--card-bg);
+    border: 2px solid var(--border);
+    color: var(--text-main);
+    font-weight: 700;
+    font-size: 0.75rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: 16px;
+}
+
+.btn-modal-close:hover, .btn-modal-close:active {
+    background: var(--text-main);
+    color: var(--bg-color);
+    border-color: var(--text-main);
+}
+
+.save-list {
+    max-height: 300px;
+    overflow-y: auto;
+    margin-bottom: 12px;
+}
+
+.save-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    background: var(--card-bg-sub);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    margin-bottom: 8px;
+}
+
+.save-name {
+    flex: 1;
+    font-size: 0.85rem;
+    color: var(--text-main);
+}
+
+.save-item-btns {
+    display: flex;
+    gap: 4px;
+}
+
+.btn-item-load, .btn-item-del {
+    padding: 4px 8px;
+    font-size: 0.7rem;
+    border: 1px solid var(--border);
+    background: var(--card-bg);
+    color: var(--text-main);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-item-load:hover {
+    background: var(--primary);
+    color: #ffffff;
+}
+
+.btn-item-del:hover {
+    background: var(--error);
+    color: #ffffff;
+}
+
