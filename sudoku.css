@@ -59,27 +59,66 @@ body, button, input, select, textarea {
     font-family: 'Courier New', Courier, monospace, sans-serif;
 }
 
+/* ===================================================
+   背景画像 & 枠の透過設定（完全決定版）
+   =================================================== */
+
+/* 1. bodyの基本設定 */
 body {
     background-color: var(--bg-color);
-    background-image: url("sudoku-icon.png"); 
-    background-size: contain;
-    background-position: center top;
-    background-repeat: no-repeat;
-    
     color: var(--text-main);
     min-height: 100vh;
     padding: 20px;
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    transition: background-color 0.2s, color 0.2s;
     position: relative;
+    z-index: 0;
 }
 
-body[data-theme="dark"] {
-    filter: invert(1) !important;
-   background-color: red !important;
+/* 2. 背景画像を最背面に固定配置 */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-size: contain;
+    background-position: center top;
+    background-repeat: no-repeat;
+    pointer-events: none;
+    z-index: -1; /* 👈 絶対に一番後ろに配置 */
 }
+
+/* 3. ライトモード時の背景画像（黒線） */
+body:not([data-theme="dark"])::before,
+[data-theme="light"] body::before {
+    background-image: url("sudoku-icon.png");
+    opacity: 0.3;
+}
+
+/* 4. ダークモード時の背景画像（白線） */
+[data-theme="dark"] body::before,
+body[data-theme="dark"]::before {
+    background-image: url("sudoku-icon-white.png");
+    opacity: 0.6;
+}
+
+/* 5. 枠（container）を透過させて背景画像を見せる設定 */
+.container, .screen-container {
+    position: relative;
+    z-index: 1;
+    background-color: rgba(255, 255, 255, 0.8) !important;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+[data-theme="dark"] .container,
+[data-theme="dark"] .screen-container {
+    background-color: rgba(18, 18, 18, 0.8) !important;
+}
+
 
 /* =======================================================
    📱 レイアウト & メニュー画面
@@ -248,16 +287,12 @@ body:has(#screen-select.active) .container {
     border-radius: 12px;
     border: 2px solid var(--border);
     color: var(--text-main);
-    font-family: 'Press Start 2P', monospace;
-    font-size: 0.6rem;
 }
 
 .status-row-top, .status-row-bottom {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-family: 'Press Start 2P', monospace;
-    font-size: 0.55rem;
 }
 
 .badge {
@@ -265,8 +300,7 @@ body:has(#screen-select.active) .container {
     color: #ffffff;
     padding: 2px 8px;
     border-radius: 4px;
-    font-size: 0.5rem;
-    font-family: 'Press Start 2P', monospace;
+    font-size: 0.75rem;
 }
 
 .grid-wrapper {
@@ -759,4 +793,26 @@ body:has(#screen-select.active) .container {
     background: var(--error);
     color: #ffffff;
 }
+/* ===================================================
+   選択画面の枠を完全にシースルーにする設定（確定版）
+   =================================================== */
 
+/* 1. すりガラス効果をオフにして背景画像をくっきり見せる */
+.container, .screen-container {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+/* 2. 選択画面(#screen-select)が表示されている時は、枠の背景を完全に透明にする */
+#screen-select.active {
+    background: transparent !important;
+}
+
+/* 3. 親枠(.container)の黒背景も超極薄(10%の濃さ)にする */
+[data-theme="dark"] .container {
+    background-color: rgba(18, 18, 18, 0.1) !important;
+}
+
+[data-theme="light"] .container {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+}
