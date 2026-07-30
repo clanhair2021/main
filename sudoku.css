@@ -78,6 +78,7 @@ body {
 
 body[data-theme="dark"] {
     filter: invert(1) !important;
+   background-color: red !important;
 }
 
 /* =======================================================
