@@ -287,6 +287,8 @@ body:has(#screen-select.active) .container {
     border-radius: 12px;
     border: 2px solid var(--border);
     color: var(--text-main);
+    font-family: 'Press Start 2P', monospace;  /* ← 追加 */
+    font-size: 0.6rem;
 }
 
 .status-row-top, .status-row-bottom {
