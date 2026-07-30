@@ -295,6 +295,8 @@ body:has(#screen-select.active) .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-family: 'Press Start 2P', monospace;  /* ← 追加 */
+    font-size: 0.55rem;
 }
 
 .badge {
