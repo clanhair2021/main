@@ -246,10 +246,10 @@ body:has(#screen-select.active) .container {
 
 /* ロードボタン */
 .btn-menu-load-trigger {
-    font-size: 0.2rem !important;
+    font-size: 0.5rem !important;
     width: 100%;
-    max-width: 280px;
-    margin: 4px auto 0;
+    max-width: 220px;
+    margin: 0px auto 0;
     padding: 8px 12px;
     background: transparent !important;
     border: 2px dashed var(--border) !important;
@@ -267,8 +267,8 @@ body:has(#screen-select.active) .container {
 
 /* 戻るボタン */
 .back-btn {
-    border-radius: 20px;
-    font-size: 0.2rem !important;
+    border-radius: 10px;
+    font-size: 0.5rem !important;
     font-weight: 700;
     padding: 10px 18px;
     margin-top: 0px;
@@ -545,7 +545,7 @@ body:has(#screen-select.active) .container {
     font-size: 0.01rem;
     color: var(--text-main);
     text-align: center;
-    margin-top: 200px;
+    margin-top: 150px;
 }
 
 /* =======================================================
