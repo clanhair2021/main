@@ -188,7 +188,7 @@ body:has(#screen-select.active) .container {
 /* メニュータイトル */
 .menu-title, h2 {
     font-family: 'Press Start 2P', monospace;
-    font-size: 0.8rem;
+    font-size: 1.8rem;
     text-align: center;
     margin-bottom: 0px;
     color: var(--text-main);
@@ -249,7 +249,7 @@ body:has(#screen-select.active) .container {
     font-size: 0.6rem !important;
     width: 100%;
     max-width: 280px;
-    margin: 12px auto 0;
+    margin: 4px auto 0;
     padding: 8px 12px;
     background: transparent !important;
     border: 2px dashed var(--border) !important;
@@ -271,6 +271,7 @@ body:has(#screen-select.active) .container {
     font-size: 0.7rem !important;
     font-weight: 700;
     padding: 10px 18px;
+    margin-top: 2px;
 }
 
 /* =======================================================
@@ -544,7 +545,7 @@ body:has(#screen-select.active) .container {
     font-size: 0.2rem;
     color: var(--text-main);
     text-align: center;
-    margin-bottom: 100px;
+    margin-bottom: 20px;
 }
 
 /* =======================================================
