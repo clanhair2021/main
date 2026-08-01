@@ -545,7 +545,7 @@ body:has(#screen-select.active) .container {
     font-size: 0.01rem;
     color: var(--text-main);
     text-align: center;
-    margin-top: 150px;
+    margin-top: 20px;
 }
 
 /* =======================================================
@@ -824,7 +824,7 @@ body:has(#screen-select.active) .container {
     background-color: rgba(255, 255, 255, 0.1) !important;
 }
 .title-image {
-    max-width: 250px;
+    max-width: 300px;
     height: auto;
     display: block;
     margin: 0 auto;
