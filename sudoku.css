@@ -545,7 +545,7 @@ body:has(#screen-select.active) .container {
     font-size: 0.01rem;
     color: var(--text-main);
     text-align: center;
-    margin-top: 20px;
+    margin-top: 0px;
 }
 
 /* =======================================================
