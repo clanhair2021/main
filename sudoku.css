@@ -431,6 +431,7 @@ body:has(#screen-select.active) .container {
     cursor: pointer;
     text-align: center;
     transition: all 0.2s ease;
+    padding: 6px;
 }
 
 .btn-hint:hover, .btn-hint:active {
