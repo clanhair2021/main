@@ -431,7 +431,10 @@ body:has(#screen-select.active) .container {
     cursor: pointer;
     text-align: center;
     transition: all 0.2s ease;
-    padding: 6px;
+    display: flex;                 /* ← 追加：中身を中央寄せ */
+    align-items: center;           /* ← 追加：縦中央 */
+    justify-content: center;
+    height: 24px;
 }
 
 .btn-hint:hover, .btn-hint:active {
