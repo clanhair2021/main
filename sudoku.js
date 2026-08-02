@@ -12,7 +12,7 @@ let isPaused = false;
 const cellsArray = [];
 
 let solvedBoard = Array(81).fill(0); 
-let judgeMode = 'blind';             
+let judgeMode = 'normal';             
 let currentDifficulty = 'normal';   
 let currentDifficultyText = "中級";
 
