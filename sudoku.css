@@ -851,3 +851,18 @@ body:has(#screen-select.active) .container {
 .save-name {
     font-family: 'Nosutaru-dotMPlusH-10-Regular', 'Courier New', monospace !important;
 }
+/* ゲーム画面の英数字をPress Start 2Pで統一 */
+.status-bar,
+.status-row-top,
+.status-row-bottom,
+#status-difficulty,
+#status-timer,
+#status-score,
+#status-miss,
+#status-combo,
+.num-btn,
+.btn-memo-num,
+.pad-title,
+.num-count {
+    font-family: 'Press Start 2P', monospace !important;
+}
