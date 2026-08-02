@@ -83,7 +83,7 @@ function setJudgeMode(mode) {
 
 function updateStatusBar() {
     document.getElementById('status-difficulty').innerText = currentDifficultyText;
-    document.getElementById('status-miss').innerText = `ミス: ${missCount}`;
+    document.getElementById('status-miss').innerText = `MISS: ${missCount}`;
     document.getElementById('status-combo').innerText = `${comboCount} COMBO`;
     document.getElementById('status-score').innerText = `SCORE: ${gameScore}`;
 }
