@@ -838,3 +838,16 @@ body:has(#screen-select.active) .container {
 [data-theme="dark"] .title-image {
     content: url("title-nanpure-dark.png");
 }
+/* モーダル内の日本語をNosutaru-dotMPlusH-10-Regularに */
+.modal-content,
+.modal-header h3,
+.setting-item,
+.setting-label,
+.danger-zone .label,
+.danger-zone .desc,
+.btn-setting-action,
+.btn-modal-close,
+.save-item,
+.save-name {
+    font-family: 'Nosutaru-dotMPlusH-10-Regular', 'Courier New', monospace !important;
+}
