@@ -412,7 +412,7 @@ body:has(#screen-select.active) .container {
     display: grid !important;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
-    gap: 4px;
+    gap: 1px;
     position: relative;
     aspect-ratio: 1 / 1;
 }
