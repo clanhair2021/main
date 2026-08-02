@@ -473,7 +473,7 @@ body:has(#screen-select.active) .container {
     background: var(--card-bg);
     border: 2px solid var(--border);
     color: var(--text-main);
-    font-size: 1.1rem;
+    font-size: 1.5rem;
 }
 
 .num-btn:hover, .num-btn:active {
