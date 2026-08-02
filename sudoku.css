@@ -421,7 +421,7 @@ body:has(#screen-select.active) .container {
 .memo-pad { width: 100%; }
 
 .btn-hint {
-    width: 100%; flex: 1;
+    width: 100%;
     background: var(--card-bg);
     border: 2px solid var(--border);
     color: var(--text-main);
