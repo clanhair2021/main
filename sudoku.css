@@ -496,6 +496,7 @@ body:has(#screen-select.active) .container {
     background: var(--text-main);
     color: var(--bg-color);
     border-color: var(--text-main);
+    transform: translate(2px, 2px);
 }
 
 .num-btn.completed {
