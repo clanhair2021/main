@@ -338,7 +338,10 @@ body:has(#screen-select.active) .container {
     justify-content: center;
     align-items: center;
     font-size: 1.4rem;
-    font-weight: 700;
+    /* 🟢 セル内の数字を Orbitron に変更 */
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    
     position: relative;
     cursor: pointer;
     user-select: none;
