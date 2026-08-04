@@ -352,7 +352,7 @@ body:has(#screen-select.active) .container {
 
 .cell.fixed { color: var(--text-main); background: var(--card-bg-sub); }
 .cell.user-input { color: var(--primary); }
-.cell.selected { background: var(--hover-bg) !important; }
+.cell.selected { color: var(--bg-color); background: var(--hover-bg) !important; }
 .cell.highlight-cross { background: rgba(0, 0, 0, 0.08); }
 .cell.same-number { background: var(--hover-bg) !important; }
 
