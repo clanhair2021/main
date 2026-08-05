@@ -207,7 +207,7 @@ function getCellValue(cell) {
 }
 
 function setCellValue(cell, val) {
-    let valSpan = cell.querySelector('.cell-value');
+   let valSpan = cell.querySelector('.cell-value');
     
     if (val === "" || val === null || val === undefined) {
         // --- 消去する場合 ---
@@ -242,7 +242,7 @@ function setCellValue(cell, val) {
             valSpan.innerText = val;
         }
     }
-}
+}  
 
 function checkValid(board, row, col, num) {
     for (let x = 0; x < 9; x++) {
