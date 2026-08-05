@@ -208,15 +208,39 @@ function getCellValue(cell) {
 
 function setCellValue(cell, val) {
     let valSpan = cell.querySelector('.cell-value');
+    
     if (val === "" || val === null || val === undefined) {
-        if (valSpan) valSpan.remove();
+        // --- 消去する場合 ---
+        if (valSpan && valSpan.innerText !== "") {
+            valSpan.classList.remove('pop-in');
+            valSpan.classList.add('pop-out');
+            
+            setTimeout(() => {
+                if (valSpan && valSpan.parentNode) {
+                    valSpan.remove();
+                }
+            }, 120);
+        } else if (valSpan) {
+            valSpan.remove();
+        }
     } else {
+        // --- 入力する場合 ---
         if (!valSpan) {
             valSpan = document.createElement('span');
             valSpan.classList.add('cell-value');
             cell.appendChild(valSpan);
         }
-        valSpan.innerText = val;
+        
+        // 値が変わった時だけアニメーションを実行
+        if (valSpan.innerText !== String(val)) {
+            valSpan.innerText = val;
+            
+            valSpan.classList.remove('pop-in', 'pop-out');
+            void valSpan.offsetWidth; // アニメーション再再生
+            valSpan.classList.add('pop-in');
+        } else {
+            valSpan.innerText = val;
+        }
     }
 }
 
