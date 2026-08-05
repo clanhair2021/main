@@ -328,7 +328,7 @@ body:has(#screen-select.active) .container {
 }
 
 .cell {
-    background: var(--card-bg);
+    background: var(--bg-color-sub);
     color: var(--text-main);
     display: flex;
     justify-content: center;
@@ -346,7 +346,7 @@ body:has(#screen-select.active) .container {
 .cell[data-col="2"], .cell[data-col="5"] { border-right: 2px solid var(--border); }
 .cell[data-row="2"], .cell[data-row="5"] { border-bottom: 2px solid var(--border); }
 
-.cell.fixed { color: var(--text-main); background: var(--bg-color-sub); }
+.cell.fixed { color: var(--text-main); background: var(--card-bg); }
 .cell.user-input { color: var(--primary); }
 .cell.selected { color: var(--bg-color); background: var(--border) !important; }
 .cell.highlight-cross { color: var(--bg-color-sub); background: rgba(0, 0, 0, 0.08); }
