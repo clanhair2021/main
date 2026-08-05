@@ -381,7 +381,44 @@ body:has(#screen-select.active) .container {
     /* 選択時の枠色（必要に応じて var(--primary) などに変更可能） */
     border-color: var( --text-main);
 }
+/* --- 数字の入力・消去アニメーション --- */
 
+/* 入力時：ポンッと大きくなって元に戻る */
+.cell-value.pop-in {
+    animation: popIn 0.18s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* 消去時：縮みながらスーッと消える */
+.cell-value.pop-out {
+    animation: popOut 0.12s ease-in forwards;
+}
+
+/* ポップイン（飛び出し）アニメーション定義 */
+@keyframes popIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.3);
+    }
+    70% {
+        transform: scale(1.15);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* ポップアウト（消去）アニメーション定義 */
+@keyframes popOut {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.4);
+    }
+}
 /* メモ（下書き） */
 .memo-grid {
     position: absolute; top: 0; left: 0;
