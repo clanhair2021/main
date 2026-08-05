@@ -16,6 +16,7 @@
   --card-bg: rgba(255, 255, 255, 0.92);
   --card-bg-sub: rgba(245, 245, 245, 0.92);
   --text-main: #222222;
+  --text-main-clear: rgba(34, 34, 34, 0.92);
   --text-muted: #666666;
   --border: #333333;
   --primary: #111111;
@@ -344,7 +345,7 @@ body:has(#screen-select.active) .container {
 
 .cell.fixed { color: var(--text-main); background: var(--card-bg-sub); }
 .cell.user-input { color: var(--primary); }
-.cell.selected { color: var(--bg-color); background: var(--hover-bg) !important; }
+.cell.selected { color: var(--bg-color); background: var(--text-main-clear) !important; }
 .cell.highlight-cross { background: rgba(0, 0, 0, 0.08); }
 .cell.same-number { background: var(--hover-bg) !important; }
 
