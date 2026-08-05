@@ -1031,3 +1031,78 @@ function applyHubTheme() {
 
 // 画面読み込み時に実行
 applyHubTheme();
+
+/**
+ * セルに数字を入力する（pop-inアニメーション実行）
+ * @param {HTMLElement} cellElement - 対象の .cell 要素
+ * @param {string|number} value - 入力する数字
+ */
+function setCellValue(cellElement, value) {
+    const valueEl = cellElement.querySelector('.cell-value');
+    if (!valueEl) return;
+
+    // 前のアニメーションクラスを一度クリア
+    valueEl.classList.remove('pop-in', 'pop-out');
+
+    // ブラウザに描画のリセット（Reflow）を促し、アニメーションを確実に再再生させるおまじない
+    void valueEl.offsetWidth;
+
+    // 値をセットして pop-in クラスを追加
+    valueEl.textContent = value;
+    valueEl.classList.add('pop-in');
+    
+    // 入力済みマークとして user-input クラスを付与
+    cellElement.classList.add('user-input');
+}
+
+/**
+ * セルの数字を消去する（pop-outアニメーション実行）
+ * @param {HTMLElement} cellElement - 対象の .cell 要素
+ */
+function clearCellValue(cellElement) {
+    const valueEl = cellElement.querySelector('.cell-value');
+    if (!valueEl || !valueEl.textContent) return; // すでに空なら何もしない
+
+    // pop-in を外して pop-out クラスを付与
+    valueEl.classList.remove('pop-in');
+    valueEl.classList.add('pop-out');
+
+    // 消去アニメーションの所要時間（CSSの0.12s＝120ms）が終わった後に文字を消す
+    setTimeout(() => {
+        valueEl.textContent = '';
+        valueEl.classList.remove('pop-out');
+        cellElement.classList.remove('user-input');
+    }, 150); // CSSの @keyframes popOut の時間に合わせて調整
+}
+// 例：選択中のマス（.selected）を取得して数字を入力する関数
+function handleInputNumber(number) {
+    const selectedCell = document.querySelector('.cell.selected');
+    
+    // 選択中のマスがあり、かつ固定問題（fixed）でない場合のみ入力
+    if (selectedCell && !selectedCell.classList.contains('fixed')) {
+        setCellValue(selectedCell, number);
+    }
+}
+
+// 例：DeleteキーやBackspaceキーで消去する関数
+function handleClear() {
+    const selectedCell = document.querySelector('.cell.selected');
+    
+    if (selectedCell && !selectedCell.classList.contains('fixed')) {
+        clearCellValue(selectedCell);
+    }
+}
+
+// --------------------------------------------------
+// キーボードイベントの登録例
+// --------------------------------------------------
+document.addEventListener('keydown', (e) => {
+    // 1〜9の数字キーが押されたとき
+    if (e.key >= '1' && e.key <= '9') {
+        handleInputNumber(e.key);
+    }
+    // DeleteキーまたはBackspaceキーで消去
+    else if (e.key === 'Backspace' || e.key === 'Delete') {
+        handleClear();
+    }
+});
