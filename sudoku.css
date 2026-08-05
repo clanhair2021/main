@@ -352,26 +352,37 @@ body:has(#screen-select.active) .container {
 .cell.highlight-cross { color: var(--bg-color-sub); background: rgba(0, 0, 0, 0.08); }
 .cell.same-number { color: var(--bg-color-sub); background: var(--border) !important; }
 
-/* --------------------------------------------------
-   ↓ ここから下を末尾に追加してください
--------------------------------------------------- */
-
-/* アニメーション用の内枠（共通設定） */
+/* --- 選択中マス・十字ハイライト用の内枠領域 --- */
 .cell::before {
     content: '';
     position: absolute;
+    /* 十字ハイライト用の基本位置（少し内側） */
     top: 4px;
     left: 4px;
     right: 4px;
     bottom: 4px;
     border: 2px solid transparent;
     border-radius: 4px;
-    opacity: 0;
-    transform: scale(0.85);
-    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
-                opacity 0.2s ease, 
-                border-color 0.2s ease;
     pointer-events: none;
+    z-index: 1;
+    transition: all 0.15s ease;
+}
+
+/* 十字ハイライトのマスの内枠（薄い青・控えめ） */
+.cell.highlight-cross:not(.selected)::before {
+    border-color: rgba(0, 120, 255, 0.3);
+}
+
+/* 選択されているマスの内枠（太く、外側に大きくする） */
+.cell.selected::before {
+    /* 十字ハイライトより外側に広げ、セルの端に近づける */
+    top: 2px;
+    left: 2px;
+    right: 2px;
+    bottom: 2px;
+    /* 枠線を太くする (3px) */
+    border: 3px solid var(--primary, #0078ff);
+    box-shadow: inset 0 0 6px rgba(0, 120, 255, 0.4);
 }
 
 /* 選択中のマス（.selected）のスタイル */
