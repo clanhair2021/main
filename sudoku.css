@@ -347,9 +347,9 @@ body:has(#screen-select.active) .container {
 
 .cell.fixed { color: var(--text-main); background: var(--card-bg-sub); }
 .cell.user-input { color: var(--primary); }
-.cell.selected { color: var(--bg-color); background: var(--text-main-clear) !important; }
+.cell.selected { color: var(--bg-color); background: var(--border) !important; }
 .cell.highlight-cross { color: var(--bg-color-sub); background: rgba(0, 0, 0, 0.08); }
-.cell.same-number { background: var(--hover-bg) !important; }
+.cell.same-number { color: var(--bg-color-sub); background: var(--border) !important; }
 
 @keyframes flash-red {
     0% { background-color: rgba(239, 68, 68, 0.6); }
