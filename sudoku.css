@@ -13,7 +13,7 @@
    ======================================================= */
 :root {
   --bg-color: #fcfcfc;
-  --bg-color-sub: #d2d2d2; 
+  --bg-color-sub: #7d7d7d; 
   --card-bg: rgba(255, 255, 255, 0.92);
   --card-bg-sub: rgba(245, 245, 245, 0.92);
   --text-main: #222222;
@@ -29,6 +29,7 @@
 
 [data-theme="dark"] {
   --bg-color: #121212;
+  --bg-color-sub: #828282;
   --card-bg: rgba(30, 30, 30, 0.92);
   --card-bg-sub: rgba(40, 40, 40, 0.92);
   --text-main: #ffffff;
@@ -345,7 +346,7 @@ body:has(#screen-select.active) .container {
 .cell[data-col="2"], .cell[data-col="5"] { border-right: 2px solid var(--border); }
 .cell[data-row="2"], .cell[data-row="5"] { border-bottom: 2px solid var(--border); }
 
-.cell.fixed { color: var(--text-main); background: var(--text-muted); }
+.cell.fixed { color: var(--text-main); background: var(--bg-color-sub); }
 .cell.user-input { color: var(--primary); }
 .cell.selected { color: var(--bg-color); background: var(--border) !important; }
 .cell.highlight-cross { color: var(--bg-color-sub); background: rgba(0, 0, 0, 0.08); }
