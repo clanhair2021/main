@@ -352,12 +352,55 @@ body:has(#screen-select.active) .container {
 .cell.highlight-cross { color: var(--bg-color-sub); background: rgba(0, 0, 0, 0.08); }
 .cell.same-number { color: var(--bg-color-sub); background: var(--border) !important; }
 
-@keyframes flash-red {
-    0% { background-color: rgba(239, 68, 68, 0.6); }
-    100% { background-color: var(--card-bg); }
+/* --------------------------------------------------
+   ↓ ここから下を末尾に追加してください
+-------------------------------------------------- */
+
+/* アニメーション用の内枠（共通設定） */
+.cell::before {
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    right: 4px;
+    bottom: 4px;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    opacity: 0;
+    transform: scale(0.85);
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                opacity 0.2s ease, 
+                border-color 0.2s ease;
+    pointer-events: none;
 }
-.cell.invalid-flash { animation: flash-red 0.4s ease-out; }
-.cell-value { position: absolute; z-index: 2; }
+
+/* 選択中のマス（.selected）のスタイル */
+.cell.selected::before {
+    opacity: 1;
+    transform: scale(1);
+    /* 選択時の枠色（必要に応じて var(--primary) などに変更可能） */
+    border-color: var(--primary, #0078ff);
+    box-shadow: inset 0 0 8px rgba(0, 120, 255, 0.3);
+}
+
+/* エラー状態のマス（.error）のスタイル */
+.cell.error::before {
+    opacity: 1;
+    transform: scale(1);
+    /* エラー時の枠色 */
+    border-color: var(--error, #ff4d4f);
+    box-shadow: inset 0 0 8px rgba(255, 77, 79, 0.3);
+    animation: shake 0.3s ease-in-out;
+}
+
+/* エラー時の横揺れアニメーション */
+@keyframes shake {
+    0%, 100% { transform: scale(1) translateX(0); }
+    20% { transform: scale(1) translateX(-3px); }
+    40% { transform: scale(1) translateX(3px); }
+    60% { transform: scale(1) translateX(-2px); }
+    80% { transform: scale(1) translateX(2px); }
+}
 
 /* メモ（下書き） */
 .memo-grid {
