@@ -1092,17 +1092,3 @@ function handleClear() {
         clearCellValue(selectedCell);
     }
 }
-
-// --------------------------------------------------
-// キーボードイベントの登録例
-// --------------------------------------------------
-document.addEventListener('keydown', (e) => {
-    // 1〜9の数字キーが押されたとき
-    if (e.key >= '1' && e.key <= '9') {
-        handleInputNumber(e.key);
-    }
-    // DeleteキーまたはBackspaceキーで消去
-    else if (e.key === 'Backspace' || e.key === 'Delete') {
-        handleClear();
-    }
-});
