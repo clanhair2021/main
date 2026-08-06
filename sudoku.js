@@ -245,7 +245,7 @@ function setCellValue(cell, val) {
                 if (valSpan) {
                     valSpan.classList.remove('pop-in');
                 }
-            }, 500);
+            }, 600);
         } else {
             valSpan.innerText = val;
         }
