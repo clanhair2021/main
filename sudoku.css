@@ -322,9 +322,9 @@ body:has(#screen-select.active) .container {
     grid-template-columns: repeat(9, 1fr);
     grid-template-rows: repeat(9, 1fr);
     width: 100%; height: 100%;
-    background: var(--border);
+    background: var(--bg-color-sub);
     gap: 1px;
-    border: 2px solid var(--border);
+    border: 3.5px solid var(--text-main);
 }
 
 .cell {
@@ -346,13 +346,7 @@ body:has(#screen-select.active) .container {
 .cell[data-col="2"], .cell[data-col="5"] { border-right: 2px solid var(--border); }
 .cell[data-row="2"], .cell[data-row="5"] { border-bottom: 2px solid var(--border); }
 
-.cell.fixed { color: var(--text-main); background: var(--card-bg); }
-/* 入力可能なマス（初期数字ではないマス）をあらかじめ太枠にする */
-.cell:not(.fixed) {
-    /* 内側に2pxの太枠（枠線）をつける */
-    box-shadow: inset 0 0 0 3px var(--border);
-    border-radius: 0px;
-}
+.cell.fixed { color: var(--text-main); }
 .cell.user-input { color: var(--primary); }
 .cell.selected { color: var(--bg-color); }
 .cell.highlight-cross {}
