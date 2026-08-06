@@ -514,7 +514,7 @@ function getHighlightTargetAndTrigger(cell) {
         const dist = Math.abs(r - selectedRow) + Math.abs(col - selectedCol);
         
         // 1マス離れるごとに25ミリ秒遅延させる
-        c.style.setProperty('--delay', `${dist * 25}ms`);
+        c.style.setProperty('--delay', `${dist * 35}ms`);
 
         c.classList.remove('highlight-cross');
         if (r === selectedRow || col === selectedCol) {
