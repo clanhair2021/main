@@ -413,39 +413,40 @@ body:has(#screen-select.active) .container {
 
 
 /* --- 数字の入力・消去アニメーション --- */
+/* ==============================================
+   数字の入力・消去アニメーション
+   ============================================== */
 
-/* 入力時：ポンッと大きくなって元に戻る */
+/* 数字入力時（数字専用キーフレーム numberPopIn を使用） */
 .cell-value.pop-in {
-    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    animation: numberPopIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.4) forwards;
 }
 
-/* 消去時：縮みながらスーッと消える */
+/* 数字消去時 */
 .cell-value.pop-out {
-    animation: popOut 0.5s ease-in forwards;
+    animation: popOut 0.3s ease-in forwards;
 }
 
-/* ポップイン（飛び出し）アニメーション定義 */
-@keyframes popIn {
+/* 1. 数字入力用キーフレーム */
+@keyframes numberPopIn {
     0% {
         opacity: 0;
-        transform: scale(0.1);
+        transform: scale(0.3);
     }
-    50% {
-        transform: scale(2.3);
+    60% {
+        opacity: 1;
+        transform: scale(1.35); /* マスからはみ出さない絶妙なサイズ */
     }
-   75% {
-        transform: scale(0.75); /* 👈 一度キュッと縮む反動を入れる */
+    85% {
+        transform: scale(0.92);
     }
-   90% {
-        transform: scale(1.15);
-   }
     100% {
         opacity: 1;
         transform: scale(1);
     }
 }
 
-/* ポップアウト（消去）アニメーション定義 */
+/* 2. 数字消去用キーフレーム */
 @keyframes popOut {
     0% {
         opacity: 1;
@@ -453,9 +454,45 @@ body:has(#screen-select.active) .container {
     }
     100% {
         opacity: 0;
-        transform: scale(0.4);
+        transform: scale(0.2);
     }
 }
+
+
+/* ==============================================
+   2. ハイライト・ウェーブ用（ダイナミック演出）
+   ============================================== */
+
+/* 十字ハイライト枠にド派手なアニメーションを設定 */
+.cell.highlight-cross::before {
+    border-color: rgba(0, 120, 255, 0.6) !important;
+    animation: highlightPopIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.8) forwards;
+    animation-delay: var(--delay, 0ms); /* 波状に広がる遅延を維持 */
+}
+
+/* ご希望の強烈なポップインキーフレーム */
+@keyframes highlightPopIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.1);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(2.3); /* 👈 盤面からはみ出す勢いで極大化 */
+    }
+    75% {
+        transform: scale(0.75); /* 👈 ぐっと強く縮む反動 */
+    }
+    90% {
+        transform: scale(1.15); /* 👈 軽くもう一度跳ねる */
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
 /* メモ（下書き） */
 .memo-grid {
     position: absolute; top: 0; left: 0;
