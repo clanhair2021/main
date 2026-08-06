@@ -353,7 +353,7 @@ body:has(#screen-select.active) .container {
     border-radius: 4px; /* 角を少し丸くして枠感を強調 */
                  }
 .cell.selected { color: var(--bg-color); }
-.cell.highlight-cross { background: var(--card-bg); }
+.cell.highlight-cross { background: var(--hover-bg); }
 .cell.same-number { color: var(--bg-color-sub); background: var(--border) !important; }
 
 /* --- 内枠（十字ハイライト・選択枠 Strong Bounce） --- */
