@@ -502,7 +502,6 @@ function highlightSameNumbers(targetNum) {
 }
 
 function getHighlightTargetAndTrigger(cell) {
-    const row = cell.dataset.row;
     const selectedRow = parseInt(cell.dataset.row);
     const selectedCol = parseInt(cell.dataset.col);
 
@@ -513,8 +512,8 @@ function getHighlightTargetAndTrigger(cell) {
         // 選択セルからの距離（マンハッタン距離）を計算
         const dist = Math.abs(r - selectedRow) + Math.abs(col - selectedCol);
         
-        // 1マス離れるごとに25ミリ秒遅延させる
-        c.style.setProperty('--delay', `${dist * 35}ms`);
+        // 1マス離れるごとに25ミリ秒遅延させる（お好みで 20ms〜35ms に調整可能）
+        c.style.setProperty('--delay', `${dist * 25}ms`);
 
         c.classList.remove('highlight-cross');
         if (r === selectedRow || col === selectedCol) {
@@ -532,6 +531,7 @@ function getHighlightTargetAndTrigger(cell) {
         highlightSameNumbers(firstMemo);
     }
 }
+
 function renderMemo(cell) {
     if (getCellValue(cell) !== "") {
         const existing = cell.querySelector('.memo-grid');
