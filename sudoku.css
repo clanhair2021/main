@@ -214,7 +214,7 @@ body:has(#screen-select.active) .container {
 }
 
 .btn-menu .jp {
-    'NosutaruDot': 'Nosutaru-dotMPlusH-10-Regular', 'Courier New', monospace, sans-serif !important;
+    font-family: 'NosutaruDot', 'Courier New', monospace, sans-serif !important;
     font-size: 0.85rem;
     opacity: 0.85;
 }
