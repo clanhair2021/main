@@ -16,7 +16,7 @@
   --bg-color-sub: #7d7d7d; 
   --card-bg: rgba(255, 255, 255, 0.92);
   --card-bg-sub: rgba(245, 245, 245, 0.92);
-  --text-main: #222222;
+  --text-main: #222222; /* 反対色 */
   --text-main-clear: rgba(34, 34, 34, 0.92);
   --text-muted: #666666;
   --border: #333333;
@@ -32,7 +32,7 @@
   --bg-color-sub: #828282;
   --card-bg: rgba(30, 30, 30, 0.92);
   --card-bg-sub: rgba(40, 40, 40, 0.92);
-  --text-main: #ffffff;
+  --text-main: #ffffff; /* 反対色 */
   --text-main-clear: rgba(255, 255, 255, 0.92);
   --text-muted: #666666;
   --border: #cccccc;
@@ -379,19 +379,18 @@ body:has(#screen-select.active) .container {
 
 /* 十字ハイライトのマスの内枠（ウェーブで広がる） */
 .cell.highlight-cross::before {
-    border-color: rgba(0, 120, 255, 0.4) !important;
+    border-color: var(text-main) !important;
     transform: scale(1) !important;
     opacity: 1 !important;
 }
 
 /* 選択セルの内枠（選択自体は即座に表示） */
 .cell.selected::before {
-    top: 2px;
-    left: 2px;
-    right: 2px;
-    bottom: 2px;
-    border: 3px solid var(--primary, #0078ff) !important;
-    box-shadow: inset 0 0 6px rgba(0, 120, 255, 0.4) !important;
+    top: 1px;
+    left: 1px;
+    right: 1px;
+    bottom: 1px;
+    border: 4px solid var(text-main) !important;
     transform: scale(1) !important;
     opacity: 1 !important;
     transition-delay: 0ms !important;
