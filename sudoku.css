@@ -428,14 +428,17 @@ body:has(#screen-select.active) .container {
 @keyframes popIn {
     0% {
         opacity: 0;
-        transform: scale(0.3);
+        transform: scale(0.1);
     }
-    60% {
-        transform: scale(1.8);
+    50% {
+        transform: scale(2.3);
     }
-   80% {
-        transform: scale(0.85); /* 👈 一度キュッと縮む反動を入れる */
+   75% {
+        transform: scale(0.75); /* 👈 一度キュッと縮む反動を入れる */
     }
+   90% {
+        transform: scale(1.15);
+   }
     100% {
         opacity: 1;
         transform: scale(1);
