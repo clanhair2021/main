@@ -349,7 +349,7 @@ body:has(#screen-select.active) .container {
 .cell.fixed { color: var(--text-main); background: var(--card-bg); }
 .cell.user-input { color: var(--primary); }
 .cell.selected { color: var(--bg-color); }
-.cell.highlight-cross { color: var(--bg-color-sub); }
+.cell.highlight-cross { background: var(--card-bg); }
 .cell.same-number { color: var(--bg-color-sub); background: var(--border) !important; }
 
 /* --- 内枠（十字ハイライト・選択枠 Strong Bounce） --- */
