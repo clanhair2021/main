@@ -329,6 +329,10 @@ body:has(#screen-select.active) .container {
 .cell {
     background: var(--bg-color-sub);
     color: var(--text-main);
+    text-shadow: 
+     0 0 5px var(--text-main), 
+     0 0 10px var(--text-main), 
+     0 0 20px var(--text-main);
     display: flex;
     justify-content: center;
     align-items: center;
