@@ -329,10 +329,6 @@ body:has(#screen-select.active) .container {
 .cell {
     background: var(--bg-color-sub);
     color: var(--text-main);
-    text-shadow: 
-     0 0 5px var(--text-main), 
-     0 0 10px var(--text-main), 
-     0 0 20px var(--text-main);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -349,7 +345,14 @@ body:has(#screen-select.active) .container {
 .cell[data-col="2"], .cell[data-col="5"] { border-right: 2px solid var(--border); }
 .cell[data-row="2"], .cell[data-row="5"] { border-bottom: 2px solid var(--border); }
 
-.cell.fixed { color: var(--text-main); }
+.cell.cell.fixed,
+.cell.fixed .cell-value {
+    color: var(--text-main);
+    text-shadow: 
+        0 0 5px #FFFFFF, 
+        0 0 10px #6200EE, 
+        0 0 20px #6200EE !important;
+}
 .cell.user-input { color: var(--primary); }
 .cell.selected { color: var(--bg-color); }
 .cell.highlight-cross { color: var(--text-main); }
