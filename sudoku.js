@@ -503,10 +503,21 @@ function highlightSameNumbers(targetNum) {
 
 function getHighlightTargetAndTrigger(cell) {
     const row = cell.dataset.row;
-    const col = cell.dataset.col;
+    const selectedRow = parseInt(cell.dataset.row);
+    const selectedCol = parseInt(cell.dataset.col);
+
     cellsArray.forEach(c => {
+        const r = parseInt(c.dataset.row);
+        const col = parseInt(c.dataset.col);
+
+        // 選択セルからの距離（マンハッタン距離）を計算
+        const dist = Math.abs(r - selectedRow) + Math.abs(col - selectedCol);
+        
+        // 1マス離れるごとに25ミリ秒遅延させる
+        c.style.setProperty('--delay', `${dist * 25}ms`);
+
         c.classList.remove('highlight-cross');
-        if (c.dataset.row === row || c.dataset.col === col) {
+        if (r === selectedRow || col === selectedCol) {
             c.classList.add('highlight-cross');
         }
     });
