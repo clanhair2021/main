@@ -976,5 +976,5 @@ body:has(#screen-select.active) .container {
 .btn-modal-close,
 .save-item,
 .save-name {
-    font-family: 'Nosutaru-dotMPlusH-10-Regular', 'Courier New', monospace !important;
+    font-family: 'NosutaruDot', 'Courier New', monospace !important;
 }
