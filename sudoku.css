@@ -376,13 +376,6 @@ body:has(#screen-select.active) .container {
     transition-delay: var(--delay, 0ms);
 }
 
-/* 十字ハイライトのマスの内枠（ウェーブで広がる） */
-.cell.highlight-cross::before {
-    border-color: rgba(0, 120, 255, 0.4) !important;
-    transform: scale(1) !important;
-    opacity: 1 !important;
-}
-
 /* 選択セルの内枠（選択自体は即座に表示） */
 .cell.selected::before {
     top: 1px;
