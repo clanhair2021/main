@@ -355,8 +355,8 @@ body:has(#screen-select.active) .container {
 }
 .cell.user-input { color: var(--primary); }
 .cell.selected { color: var(--bg-color); }
-.cell.highlight-cross { background: var(--hover-bg); }
-.cell.same-number { color: var(--bg-color-sub); background: var(--border) !important; }
+.cell.highlight-cross {}
+.cell.same-number { color: var(--bg-color-sub); }
 
 /* --- 内枠（十字ハイライト・選択枠 Strong Bounce） --- */
 .cell::before {
