@@ -347,7 +347,11 @@ body:has(#screen-select.active) .container {
 .cell[data-row="2"], .cell[data-row="5"] { border-bottom: 2px solid var(--border); }
 
 .cell.fixed { color: var(--text-main); background: var(--card-bg); }
-.cell.user-input { color: var(--primary); }
+.cell.user-input { color: var(--primary);
+                  /* 内側に2pxの太枠をつける（グリッドを崩さずに太く見せる） */
+    box-shadow: inset 0 0 0 2px var(--text-main);
+    border-radius: 4px; /* 角を少し丸くして枠感を強調 */
+                 }
 .cell.selected { color: var(--bg-color); }
 .cell.highlight-cross { background: var(--card-bg); }
 .cell.same-number { color: var(--bg-color-sub); background: var(--border) !important; }
