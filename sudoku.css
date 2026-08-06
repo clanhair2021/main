@@ -396,13 +396,6 @@ body:has(#screen-select.active) .container {
     transition-delay: 0ms !important;
 }
 
-/* --- 同じ数字マス（.same-number）の波状効果 --- */
-.cell.same-number {
-    transition: background-color 0.2s ease, box-shadow 0.2s ease;
-    transition-delay: var(--delay, 0ms);
-}
-
-
 /* --- 同じ数字マス（.same-number）にも波状効果をつける場合 --- */
 .cell.same-number {
     transition: background-color 0.2s ease, box-shadow 0.2s ease;
