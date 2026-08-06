@@ -347,11 +347,11 @@ body:has(#screen-select.active) .container {
 
 .cell.cell.fixed,
 .cell.fixed .cell-value {
-    color: var(--text-main);
+    color: #FFFFFF !important;
     text-shadow: 
         0 0 5px #FFFFFF, 
-        0 0 10px #6200EE, 
-        0 0 20px #6200EE !important;
+        0 0 10px var(--primary, #6200EE), 
+        0 0 20px var(--primary, #6200EE) !important;
 }
 .cell.user-input { color: var(--primary); }
 .cell.selected { color: var(--bg-color); }
