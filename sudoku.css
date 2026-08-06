@@ -352,7 +352,7 @@ body:has(#screen-select.active) .container {
 .cell.highlight-cross { color: var(--bg-color-sub); }
 .cell.same-number { color: var(--bg-color-sub); background: var(--border) !important; }
 
-/* --- 内枠（十字ハイライト・選択枠） --- */
+/* --- 内枠（十字ハイライト・選択枠 Strong Bounce） --- */
 .cell::before {
     content: '';
     position: absolute;
@@ -364,26 +364,45 @@ body:has(#screen-select.active) .container {
     border-radius: 4px;
     pointer-events: none;
     z-index: 1;
-    /* --- transition-delay に --delay を割り当てる --- */
-    transition: all 0.15s ease;
+
+    /* 初期状態：縮小して透明 */
+    transform: scale(0.2);
+    opacity: 0;
+
+    /* 強めの跳ね返り（1.6）を設定 */
+    transition: transform 0.28s cubic-bezier(0.175, 0.885, 0.32, 1.6),
+                border-color 0.15s ease,
+                opacity 0.15s ease,
+                box-shadow 0.15s ease;
     transition-delay: var(--delay, 0ms);
 }
 
-/* 十字ハイライトのマスの内枠 */
-.cell.highlight-cross:not(.selected)::before {
-    border-color: rgba(0, 120, 255, 0.3);
+/* 十字ハイライトのマスの内枠（ウェーブで広がる） */
+.cell.highlight-cross::before {
+    border-color: rgba(0, 120, 255, 0.4) !important;
+    transform: scale(1) !important;
+    opacity: 1 !important;
 }
 
-/* 選択セルの内枠（選択自体は遅延なしで即表示させるため delay を 0ms で上書き） */
+/* 選択セルの内枠（選択自体は即座に表示） */
 .cell.selected::before {
     top: 2px;
     left: 2px;
     right: 2px;
     bottom: 2px;
-    border: 3px solid var(--primary, #0078ff);
-    box-shadow: inset 0 0 6px rgba(0, 120, 255, 0.4);
+    border: 3px solid var(--primary, #0078ff) !important;
+    box-shadow: inset 0 0 6px rgba(0, 120, 255, 0.4) !important;
+    transform: scale(1) !important;
+    opacity: 1 !important;
     transition-delay: 0ms !important;
 }
+
+/* --- 同じ数字マス（.same-number）の波状効果 --- */
+.cell.same-number {
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+    transition-delay: var(--delay, 0ms);
+}
+
 
 /* --- 同じ数字マス（.same-number）にも波状効果をつける場合 --- */
 .cell.same-number {
