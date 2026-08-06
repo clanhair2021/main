@@ -521,7 +521,6 @@ function getHighlightTargetAndTrigger(cell) {
         highlightSameNumbers(firstMemo);
     }
 }
-
 function renderMemo(cell) {
     if (getCellValue(cell) !== "") {
         const existing = cell.querySelector('.memo-grid');
