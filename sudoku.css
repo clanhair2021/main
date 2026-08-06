@@ -985,3 +985,12 @@ body:has(#screen-select.active) .container {
 .save-name {
     font-family: 'NosutaruDot', 'Courier New', monospace !important;
 }
+/* sudoku.css の一番最後に追加 */
+.cell.fixed,
+.cell.fixed .cell-value {
+    color: #FFFFFF !important;
+    text-shadow: 
+        0 0 5px #FFFFFF, 
+        0 0 10px var(--primary, #6200EE), 
+        0 0 20px var(--primary, #6200EE) !important;
+}
