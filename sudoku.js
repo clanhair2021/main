@@ -207,7 +207,7 @@ function getCellValue(cell) {
 }
 
 function setCellValue(cell, val) {
-   let valSpan = cell.querySelector('.cell-value');
+    let valSpan = cell.querySelector('.cell-value');
     
     if (val === "" || val === null || val === undefined) {
         // --- 消去する場合 ---
@@ -215,11 +215,12 @@ function setCellValue(cell, val) {
             valSpan.classList.remove('pop-in');
             valSpan.classList.add('pop-out');
             
+            // CSSアニメーション(0.5s)に合わせて要素を削除
             setTimeout(() => {
                 if (valSpan && valSpan.parentNode) {
                     valSpan.remove();
                 }
-            }, 120);
+            }, 450);
         } else if (valSpan) {
             valSpan.remove();
         }
@@ -236,13 +237,21 @@ function setCellValue(cell, val) {
             valSpan.innerText = val;
             
             valSpan.classList.remove('pop-in', 'pop-out');
-            void valSpan.offsetWidth; // アニメーション再再生
+            void valSpan.offsetWidth; // アニメーションリセット（再再生用）
             valSpan.classList.add('pop-in');
+            
+            // アニメーション終了後にpop-inクラスを外して状態をリセット
+            setTimeout(() => {
+                if (valSpan) {
+                    valSpan.classList.remove('pop-in');
+                }
+            }, 500);
         } else {
             valSpan.innerText = val;
         }
     }
-}  
+}
+
 
 function checkValid(board, row, col, num) {
     for (let x = 0; x < 9; x++) {
