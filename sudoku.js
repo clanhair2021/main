@@ -215,7 +215,7 @@ function setCellValue(cell, val) {
             valSpan.classList.remove('pop-in');
             valSpan.classList.add('pop-out');
             
-            // CSSアニメーション(0.5s)に合わせて要素を削除
+            // アニメーション(0.5秒)が終わる直前に要素を削除
             setTimeout(() => {
                 if (valSpan && valSpan.parentNode) {
                     valSpan.remove();
@@ -237,10 +237,10 @@ function setCellValue(cell, val) {
             valSpan.innerText = val;
             
             valSpan.classList.remove('pop-in', 'pop-out');
-            void valSpan.offsetWidth; // アニメーションリセット（再再生用）
+            void valSpan.offsetWidth; // アニメーション再再生（リフロー）
             valSpan.classList.add('pop-in');
             
-            // アニメーション終了後にpop-inクラスを外して状態をリセット
+            // アニメーション終了後にクラスを削除して状態をクリア
             setTimeout(() => {
                 if (valSpan) {
                     valSpan.classList.remove('pop-in');
@@ -251,7 +251,6 @@ function setCellValue(cell, val) {
         }
     }
 }
-
 
 function checkValid(board, row, col, num) {
     for (let x = 0; x < 9; x++) {
