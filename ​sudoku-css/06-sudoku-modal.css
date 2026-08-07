@@ -1,0 +1,258 @@
+/* =======================================================
+   ⚙️ モーダル（設定画面・セーブデータ画面）
+   ======================================================= */
+.btn-settings, .settings-btn {
+    position: absolute;
+    top: -4px; right: 10px;
+    background: none; border: none;
+    font-size: 1.4rem; cursor: pointer;
+    color: var(--text-main); z-index: 10;
+    transition: transform 0.3s ease;
+}
+
+.btn-settings:hover, .settings-btn:hover {
+    transform: rotate(60deg);
+}
+
+.settings-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+[data-theme="dark"] .settings-btn {
+    background: rgba(30, 30, 30, 0.8);
+    border-color: #555;
+}
+
+.settings-btn svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+}
+
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.2s ease-in-out;
+}
+
+.modal-overlay.active,
+.modal-overlay.show {
+    display: flex !important;
+}
+
+.modal-content {
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    width: 90%;
+    max-width: 360px;
+    padding: 24px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 10px;
+}
+
+.modal-header h3 {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.9rem;
+    color: var(--text-main);
+}
+
+.close-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-main);
+    font-size: 1.4rem;
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+.danger-zone {
+    margin-top: 24px;
+    padding: 10px 14px;
+    border: 2px dashed var(--border);
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.danger-zone:hover {
+    background: var(--hover-bg);
+}
+
+.danger-zone .label {
+    color: var(--text-main);
+    font-weight: bold;
+    font-size: 0.85rem;
+}
+
+.danger-zone .desc {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+}
+
+.setting-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.setting-label {
+    font-weight: bold;
+    font-size: 0.9rem;
+    color: var(--text-main);
+}
+
+.mode-select-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-setting-action {
+    flex: 1;
+    padding: 10px;
+    background: var(--card-bg);
+    border: 2px solid var(--border);
+    color: var(--text-main);
+    font-weight: 700;
+    font-size: 0.75rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'Courier New', Courier, monospace, sans-serif;
+}
+
+.btn-setting-action:hover, .btn-setting-action:active {
+    background: var(--text-main);
+    color: var(--bg-color);
+    border-color: var(--text-main);
+}
+
+.btn-setting-action.active {
+    background: var(--text-main);
+    color: var(--bg-color);border-color: var(--text-main);
+}
+
+.modal-title {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.9rem;
+    color: var(--text-main);
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+.btn-modal-close {
+    width: 100%;
+    padding: 10px;
+    background: var(--card-bg);
+    border: 2px solid var(--border);
+    color: var(--text-main);
+    font-weight: 700;
+    font-size: 0.75rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: 16px;
+}
+
+.btn-modal-close:hover, .btn-modal-close:active {
+    background: var(--text-main);
+    color: var(--bg-color);
+    border-color: var(--text-main);
+}
+
+.save-list {
+    max-height: 300px;
+    overflow-y: auto;
+    margin-bottom: 12px;
+}
+
+.save-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    background: var(--card-bg-sub);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    margin-bottom: 8px;
+}
+
+.save-name {
+    flex: 1;
+    font-size: 0.85rem;
+    color: var(--text-main);
+}
+
+.save-item-btns {
+    display: flex;
+    gap: 4px;
+}
+
+.btn-item-load, .btn-item-del {
+    padding: 4px 8px;
+    font-size: 0.7rem;
+    border: 1px solid var(--border);
+    background: var(--card-bg);
+    color: var(--text-main);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-item-load:hover {
+    background: var(--primary);
+    color: #ffffff;
+}
+
+.btn-item-del:hover {
+    background: var(--error);
+    color: #ffffff;
+}
+
+/* モーダル内の日本語をNosutaru-dotMPlusH-10-Regularに */
+.modal-content,
+.modal-header h3,
+.setting-item,
+.setting-label,
+.danger-zone .label,
+.danger-zone .desc,
+.btn-setting-action,
+.btn-modal-close,
+.save-item,
+.save-name {
+    font-family: 'NosutaruDot', 'Courier New', monospace !important;
+}
