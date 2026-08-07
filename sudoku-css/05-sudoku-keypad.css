@@ -1,0 +1,114 @@
+/* =======================================================
+   ⌨️ キーパッド
+   ======================================================= */
+.keypad-container {
+    display: flex !important;
+    gap: 8px; width: 100%;
+}
+
+.left-pad-area {
+    flex: 2; display: flex; flex-direction: column; gap: 8px;
+}
+
+.main-pad, .memo-pad {
+    background: var(--card-bg);
+    padding: 6px;
+    border-radius: 12px;
+    border: 2px solid var(--border);
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 1px;
+    position: relative;
+    aspect-ratio: 1 / 1;
+}
+
+.main-pad { flex: 3; }
+.memo-pad { width: 100%; }
+
+.btn-hint {
+    width: 100%;
+    background: var(--card-bg);
+    border: 2px solid var(--border);
+    color: var(--text-main);
+    font-weight: 700;
+    font-size: 0.95rem;
+    border-radius: 12px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 24px;
+}
+
+.btn-hint:hover, .btn-hint:active {
+    background: var(--text-main);
+    color: var(--bg-color);
+}
+
+.pad-title {
+    position: absolute;
+    top: -10px; left: 8px;
+    font-size: 0.6rem; font-weight: 800;
+    background: var(--text-muted);
+    color: var(--card-bg);
+    padding: 1px 5px;
+    border-radius: 3px; z-index: 10;
+}
+
+.btn-memo-num, .num-btn {
+    width: 100%; height: 100%;
+    border-radius: 4px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    transition: all 0.2s ease;
+}
+
+.btn-memo-num {
+    background: var(--card-bg-sub);
+    border: 2px solid var(--border);
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    font-family: 'Orbitron', sans-serif !important;
+    font-weight: 700 !important;
+    transition: all 0.1s ease !important;
+}
+
+.btn-memo-num:hover, .btn-memo-num:active {
+    transform: translate(1px, 1px);
+}
+
+.num-btn {
+    background: var(--card-bg);
+    border: 2px solid var(--border);
+    color: var(--text-main);
+    font-size: 1.5rem;
+    font-family: 'Orbitron', sans-serif !important;
+    font-weight: 900 !important;
+    box-shadow: 2px 2px 0px var(--border);
+    transition: all 0.1s ease !important;
+}
+
+.num-btn:hover, .num-btn:active {
+    background: var(--text-main);
+    color: var(--bg-color);
+    border-color: var(--text-main);
+    transform: translate(2px, 2px);
+    box-shadow: none;
+}
+
+.num-btn.completed {
+    background: var(--card-bg-sub) !important;
+    border-color: var(--border) !important;
+    color: var(--text-muted) !important;
+    opacity: 0.5;
+}
+
+.num-count {
+    font-size: 0.5rem;
+    color: var(--text-muted);
+}
