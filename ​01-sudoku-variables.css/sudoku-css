@@ -1,0 +1,57 @@
+/* ======================================================
+   🔤 カスタムフォント
+   ======================================================= */
+@font-face {
+    font-family: 'NosutaruDot';
+    src: url('./Nosutaru-dotMPlusH-10-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* =======================================================
+   🎨 テーマ設定（ダーク / ライト）
+   ======================================================= */
+:root {
+  --bg-color: #fcfcfc;
+  --bg-color-sub: #7d7d7d; 
+  --card-bg: rgba(255, 255, 255, 0.92);
+  --card-bg-sub: rgba(245, 245, 245, 0.92);
+  --text-main: #222222; /* 反対色 */
+  --text-main-clear: rgba(34, 34, 34, 0.92);
+  --text-muted: #666666;
+  --border: #333333;
+  --primary: #111111;
+  --error: #ef4444;
+  --radius: 8px;
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --hover-bg: rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="dark"] {
+  --bg-color: #121212;
+  --bg-color-sub: #828282;
+  --card-bg: rgba(30, 30, 30, 0.92);
+  --card-bg-sub: rgba(40, 40, 40, 0.92);
+  --text-main: #ffffff; /* 反対色 */
+  --text-main-clear: rgba(255, 255, 255, 0.92);
+  --text-muted: #666666;
+  --border: #cccccc;
+  --primary: #111111;
+  --error: #ef4444;
+  --radius: 8px;
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+  --hover-bg: rgba(255, 255, 255, 0.1);
+}
+
+/* リセット & 基本設定 */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body, button, input, select, textarea {
+    font-family: 'Courier New', Courier, monospace, sans-serif;
+}
+
