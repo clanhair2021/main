@@ -1,0 +1,143 @@
+/* ===================================================
+   背景画像 & 枠の透過設定（完全決定版）
+   =================================================== */
+
+/* 1. bodyの基本設定 */
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    min-height: 100vh;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    position: relative;
+    z-index: 0;
+}
+
+/* 2. 背景画像を最背面に固定配置 */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-size: contain;
+    background-position: center top;
+    background-repeat: no-repeat;
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* 3. ライトモード時の背景画像（黒線） */
+body:not([data-theme="dark"])::before,
+[data-theme="light"] body::before {
+    background-image: url("sudoku-icon.png");
+    opacity: 0.3;
+}
+
+/* 4. ダークモード時の背景画像（白線） */
+[data-theme="dark"] body::before,
+body[data-theme="dark"]::before {
+    background-image: url("sudoku-icon-white.png");
+    opacity: 0.6;
+}
+
+/* 5. 枠（container）を透過させて背景画像を見せる設定 */
+.container, .screen-container {
+    position: relative;
+    z-index: 1;
+    background-color: rgba(255, 255, 255, 0.8) !important;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+[data-theme="dark"] .container,
+[data-theme="dark"] .screen-container {
+    background-color: rgba(18, 18, 18, 0.8) !important;
+}
+
+/* =======================================================
+   📱 レイアウト & メニュー画面
+   ======================================================= */
+.screen-container, .container {
+    width: 100%;
+    max-width: 500px;
+    position: relative;
+    z-index: 1;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-top: 15px;
+    transition: background-color 0.3s;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+body:has(#screen-title.active) .container {
+  background: transparent;
+  box-shadow: none;
+}
+
+body:has(#screen-select.active) .container {
+  background: var(--card-bg);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* 画面切り替えアニメーション */
+.screen {
+    display: none;
+    animation: fadeIn 0.25s ease-in-out;
+}
+
+.screen.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 汎用非表示クラス */
+.hidden {
+    display: none !important;
+}
+
+/* ===================================================
+   選択画面の枠を完全にシースルーにする設定（確定版）
+   =================================================== */
+
+/* 1. すりガラス効果をオフにして背景画像をくっきり見せる */
+.container, .screen-container {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+/* 2. 選択画面(#screen-select)が表示されている時は、枠の背景を完全に透明にする */
+#screen-select.active {
+    background: transparent !important;
+}
+
+/* 3. 親枠(.container)の黒背景も超極薄(10%の濃さ)にする */
+[data-theme="dark"] .container {
+    background-color: rgba(18, 18, 18, 0.1) !important;
+}
+
+[data-theme="light"] .container {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* CRT Overlay */
+#crt-overlay {
+  position: fixed; top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  pointer-events: none; z-index: 999;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.08) 50%);
+  background-size: 100% 4px;
+}
+
