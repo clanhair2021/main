@@ -119,27 +119,3 @@ body[data-theme="dark"]::before {
 [data-theme="light"] .container {
     background-color: rgba(255, 255, 255, 0.1) !important;
 }
-.title-image {
-    max-width: 300px;
-    height: auto;
-    display: block;
-    margin: 0 auto;
-}
-
-/* ダークモード時は別の画像に切り替え */
-[data-theme="dark"] .title-image {
-    content: url("title-nanpure-dark.png");
-}
-/* モーダル内の日本語をNosutaru-dotMPlusH-10-Regularに */
-.modal-content,
-.modal-header h3,
-.setting-item,
-.setting-label,
-.danger-zone .label,
-.danger-zone .desc,
-.btn-setting-action,
-.btn-modal-close,
-.save-item,
-.save-name {
-    font-family: 'NosutaruDot', 'Courier New', monospace !important;
-}
