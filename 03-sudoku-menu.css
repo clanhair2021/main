@@ -2,10 +2,9 @@
    🎮 共通レトロスタイル
    ======================================================= */
 /* 英語ドットフォントを使う要素を統合 */
-.btn-menu, .btn-menu-load-trigger, .back-btn, .retro-start-text, .pause-title, .clear-title, #clear-time-text, .new-record, .modal-btn {
+.btn-menu, .btn-menu-load-trigger, .back-btn, .pause-title, .clear-title, #clear-time-text, .new-record, .modal-btn {
     font-family: 'Press Start 2P', monospace !important;
 }
-
 /* ホバー時に反転する丸みボタンの共通化 */
 .btn-menu, .back-btn, .modal-btn {
     background: var(--bg-color) !important;
@@ -26,6 +25,15 @@
 /* 点滅アニメーション共通 */
 .retro-start-text, .clear-title, .new-record {
     animation: retroBlink 1.0s steps(1) infinite;
+}
+.retro-start-text {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 1.1rem;
+  color: var(--text-main);
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 0px rgba(0,0,0,0.15);
+  animation: retroBlink 1.0s steps(1) infinite;
+  margin-bottom: 12px;
 }
 
 @keyframes retroBlink {
@@ -120,26 +128,4 @@
     font-weight: 700;
     padding: 10px 18px;
     margin-top: 0px;
-}
-
-.retro-start-text {
-  font-family: 'Press Start 2P', monospace;
-  font-size: 1.1rem;
-  color: var(--text-main);
-  letter-spacing: 2px;
-  text-shadow: 2px 2px 0px rgba(0,0,0,0.15);
-  animation: retroBlink 1.0s steps(1) infinite;
-  margin-bottom: 12px;
-}
-
-.title-image {
-    width: 100%;
-    max-width: 300px;
-    height: auto;
-    display: block;
-    margin: 0 auto;
-}
-
-[data-theme="dark"] .title-image {
-    content: url("title-nanpure-dark.png");
 }
