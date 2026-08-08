@@ -112,7 +112,6 @@ body[data-theme="dark"]::before {
     border: 2px solid var(--border);
     color: var(--text-main);
     font-family: 'Press Start 2P', monospace;  /* ← 追加 */
-    font-size: 0.6rem;
 }
 
 .status-row-top, .status-row-bottom {
@@ -163,4 +162,129 @@ body:has(#screen-select.active) .container {
 /* ダークモード時は別の画像に切り替え */
 [data-theme="dark"] .title-image {
     content: url("title-nanpure-dark.png");
+}
+/* =======================================================
+   🎮 共通レトロスタイル
+   ======================================================= */
+/* 英語ドットフォントを使う要素を統合 */
+.btn-menu, .btn-menu-load-trigger, .back-btn, .pause-title, .clear-title, #clear-time-text, .new-record, .modal-btn {
+    font-family: 'Press Start 2P', monospace !important;
+}
+/* ホバー時に反転する丸みボタンの共通化 */
+.btn-menu, .back-btn, .modal-btn {
+    background: var(--bg-color) !important;
+    border: 2px solid var(--text-main) !important;
+    color: var(--text-main) !important;
+    cursor: pointer;
+    transition: all 0.2s ease !important;
+}
+
+.btn-menu:hover, .btn-menu:active, .btn-menu:focus,
+.back-btn:hover, .back-btn:active,
+.modal-btn:hover, .modal-btn:active {
+    background: var(--text-main) !important;
+    color: var(--bg-color) !important;
+}
+.btn-menu {
+    font-size: 0.7rem !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    width: 100%;
+    padding: 8px 16px !important;
+    border-radius: 8px !important;
+    position: relative;
+}
+
+.btn-menu .jp {
+    font-family: 'NosutaruDot', 'Courier New', monospace, sans-serif !important;
+    font-size: 0.85rem;
+    opacity: 0.85;
+}
+
+.btn-menu::before {
+    content: "▶";
+    position: absolute;
+    left: -18px;
+    opacity: 0;
+    color: var(--text-main);
+    font-size: 0.75rem;
+    transition: opacity 0.15s ease, transform 0.15s ease;
+    pointer-events: none;
+}
+
+.btn-menu:hover::before, .btn-menu:focus::before, .btn-menu:active::before {
+    opacity: 1;
+    animation: cursorBlink 0.6s infinite alternate;
+}
+@keyframes cursorBlink {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(4px); }
+}
+/* 点滅アニメーション共通 */
+.retro-start-text, .clear-title, .new-record {
+    animation: retroBlink 1.0s steps(1) infinite;
+}
+.retro-start-text {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 1.1rem;
+  color: var(--text-main);
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 0px rgba(0,0,0,0.15);
+  margin-bottom: 12px;
+}
+
+@keyframes retroBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* メニュータイトル */
+.menu-title, h2 {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 1.8rem;
+    text-align: center;
+    margin-top: 15px;
+    color: var(--text-main);
+    letter-spacing: 1px;
+}
+
+/* 難易度選択ボタン */
+.menu-difficulty-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto;
+    margin-top: 0px;
+}
+/* ロードボタン */
+.btn-menu-load-trigger {
+    font-size: 0.5rem !important;
+    width: 100%;
+    max-width: 220px;
+    margin: 0px auto 0;
+    padding: 8px 12px;
+    background: transparent !important;
+    border: 2px dashed var(--border) !important;
+    color: var(--text-muted) !important;
+    border-radius: 8px !important;
+    cursor: pointer;
+    text-align: center;
+}
+
+.btn-menu-load-trigger:hover, .btn-menu-load-trigger:active {
+    border-color: var(--text-main) !important;
+    color: var(--text-main) !important;
+    background: var(--hover-bg) !important;
+}
+
+/* 戻るボタン */
+.back-btn {
+    border-radius: 10px;
+    font-size: 0.5rem !important;
+    font-weight: 700;
+    padding: 10px 18px;
+    margin-top: 0px;
 }
