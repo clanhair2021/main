@@ -37,8 +37,8 @@
     cursor: pointer;
     text-align: center;
     transition: all 0.2s ease;
-    display: flex;
-    align-items: center;
+    display: flex;                 /* ← 追加：中身を中央寄せ */
+    align-items: center;           /* ← 追加：縦中央 */
     justify-content: center;
     height: 24px;
 }
@@ -73,6 +73,7 @@
     border: 2px solid var(--border);
     color: var(--text-muted);
     font-size: 0.9rem;
+    /* 🟢 メモ用 Orbitron 設定 */
     font-family: 'Orbitron', sans-serif !important;
     font-weight: 700 !important;
     transition: all 0.1s ease !important;
@@ -87,12 +88,14 @@
     border: 2px solid var(--border);
     color: var(--text-main);
     font-size: 1.5rem;
+    /* 🟢 Orbitron と モノクロゲーム風の影を設定 */
     font-family: 'Orbitron', sans-serif !important;
     font-weight: 900 !important;
     box-shadow: 2px 2px 0px var(--border);
     transition: all 0.1s ease !important;
 }
 
+/* 🟢 ボタンを押したとき・ホバー時の沈み込みエフェクト */
 .num-btn:hover, .num-btn:active {
     background: var(--text-main);
     color: var(--bg-color);
