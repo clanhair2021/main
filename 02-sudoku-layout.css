@@ -57,20 +57,9 @@ body[data-theme="dark"]::before {
 [data-theme="dark"] .screen-container {
     background-color: rgba(18, 18, 18, 0.8) !important;
 }
-.screen-container, .container {
-    width: 100%;
-    max-width: 500px;
-    position: relative;
-    z-index: 1;
-    border: 2px solid var(--border);
-    border-radius: 12px;
-    padding: 24px;
-    margin-top: 15px;
-    transition: background-color 0.3s;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
+/* =======================================================
+   📺 エフェクト 
+   ======================================================= */
 #crt-overlay {
   position: fixed; top: 0; left: 0;
   width: 100vw; height: 100vh;
@@ -78,6 +67,7 @@ body[data-theme="dark"]::before {
   background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.08) 50%);
   background-size: 100% 4px;
 }
+
 /* 画面切り替えアニメーション */
 .screen {
     display: none;
@@ -87,6 +77,7 @@ body[data-theme="dark"]::before {
 .screen.active {
     display: block;
 }
+
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(4px); }
     to { opacity: 1; transform: translateY(0); }
@@ -96,26 +87,44 @@ body[data-theme="dark"]::before {
 .hidden {
     display: none !important;
 }
-/* ===================================================
-   選択画面の枠を完全にシースルーにする設定（確定版）
-   =================================================== */
-
-/* 1. すりガラス効果をオフにして背景画像をくっきり見せる */
-.container, .screen-container {
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
+/* =======================================================
+   📊 ステータス & 盤面（数独）
+   ======================================================= */
+.status-bar {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    background: var(--card-bg);
+    padding: 8px 12px;
+    border-radius: 12px;
+    border: 2px solid var(--border);
+    color: var(--text-main);
+    font-family: 'Press Start 2P', monospace;  /* ← 追加 */
+    font-size: 0.6rem;
 }
 
-/* 2. 選択画面(#screen-select)が表示されている時は、枠の背景を完全に透明にする */
-#screen-select.active {
-    background: transparent !important;
+.status-row-top, .status-row-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Press Start 2P', monospace;  /* ← 追加 */
+    font-size: 0.55rem;
 }
 
-/* 3. 親枠(.container)の黒背景も超極薄(10%の濃さ)にする */
-[data-theme="dark"] .container {
-    background-color: rgba(18, 18, 18, 0.1) !important;
+.badge {
+    background: var(--primary);
+    color: #ffffff;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.5rem;                         /* ← font-sizeを変更 */
+    font-family: 'Press Start 2P', monospace;  /* ← 追加 */
 }
-
-[data-theme="light"] .container {
-    background-color: rgba(255, 255, 255, 0.1) !important;
+.error-message {
+    font-size: 0.85rem;
+    color: var(--error);
+    text-align: center;
+    min-height: 1.2rem;
+    font-weight: 600;
 }
