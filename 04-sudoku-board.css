@@ -29,7 +29,6 @@
     /* 🟢 セル内の数字を Orbitron に変更 */
     font-family: 'Orbitron', sans-serif;
     font-weight: 900;
-    
     position: relative;
     cursor: pointer;
     user-select: none;
@@ -38,11 +37,11 @@
 .cell[data-col="2"], .cell[data-col="5"] { border-right: 2px solid var(--border); }
 .cell[data-row="2"], .cell[data-row="5"] { border-bottom: 2px solid var(--border); }
 
-.cell.cell.fixed,
+.cell.fixed,
 .cell.fixed .cell-value {
     color: #FFFFFF !important;
-  -webkit-text-stroke: 2px #6200EE;
-  paint-order: stroke fill;
+    -webkit-text-stroke: 2px #6200EE;
+    paint-order: stroke fill;
 }
 .cell.user-input { color: var(--primary); }
 .cell.selected { color: var(--bg-color); }
@@ -95,19 +94,24 @@
 }
 /* メモ（下書き） */
 .memo-grid {
-    position: absolute; top: 0; left: 0;
-    width: 100%; height: 100%;
+    position: absolute; 
+    top: 0; 
+    left: 0;
+    width: 100%; 
+    height: 100%;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
-    padding: 1px; z-index: 1;
+    padding: 1px; 
+    z-index: 1;
 }
 
 .memo-digit {
     font-size: 0.55rem;
     font-weight: 500;
     color: var(--text-muted);
-    display: flex; justify-content: center; align-items: center;
+    display: flex; justify-content: center; 
+    align-items: center;
 }
 
 .memo-digit.highlight-memo {
