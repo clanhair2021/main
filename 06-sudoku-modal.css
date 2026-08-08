@@ -17,10 +17,6 @@
     transition: transform 0.3s ease;
 }
 
-.settings-btn:hover {
-    transform: rotate(60deg);
-}
-
 
 .btn-settings:hover, .settings-btn:hover {
     transform: rotate(60deg);
