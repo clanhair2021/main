@@ -132,7 +132,7 @@
     transition: all 0.2s ease;
     font-family: 'Courier New', Courier, monospace, sans-serif;
 }
-.btn-setting-action:hover, .btn-setting-action:active,btn-setting-action.active {
+.btn-setting-action:hover, .btn-setting-action:active, .btn-setting-action.active {
     background: var(--text-main);
     color: var(--bg-color);
     border-color: var(--text-main);
