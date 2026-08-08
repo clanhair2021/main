@@ -128,6 +128,11 @@
     transition: all 0.2s ease;
     font-family: 'Courier New', Courier, monospace, sans-serif;
 }
+.btn-setting-action:hover, .btn-setting-action:active,btn-setting-action.active {
+    background: var(--text-main);
+    color: var(--bg-color);
+    border-color: var(--text-main);
+}
 .btn-modal-close {
     width: 100%;
     padding: 10px;
@@ -149,20 +154,6 @@
 /* =======================================================
    4. Danger Zone & セーブデータ一覧
    ======================================================= */
-
-.btn-setting-action:hover, .btn-setting-action:active {
-    background: var(--text-main);
-    color: var(--bg-color);
-    border-color: var(--text-main);
-}
-
-.btn-setting-action.active {
-    background: var(--text-main);
-    color: var(--bg-color);
-    border-color: var(--text-main);
-}
-
-
 .danger-zone {
     margin-top: 24px;
     padding: 10px 14px;
