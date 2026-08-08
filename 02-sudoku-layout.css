@@ -128,3 +128,43 @@ body[data-theme="dark"]::before {
     min-height: 1.2rem;
     font-weight: 600;
 }
+/* =======================================================
+   📱 レイアウト & メニュー画面
+   ======================================================= */
+.screen-container, .container {
+    width: 100%;
+    max-width: 500px;
+    position: relative;
+    z-index: 1;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-top: 15px;
+    transition: background-color 0.3s;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+body:has(#screen-title.active) .container {
+  background: transparent;
+  box-shadow: none;
+}
+
+body:has(#screen-select.active) .container {
+  background: var(--card-bg);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+.title-image {
+    max-width: 300px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+/* ダークモード時は別の画像に切り替え */
+[data-theme="dark"] .title-image {
+    content: url("title-nanpure-dark.png");
+}
