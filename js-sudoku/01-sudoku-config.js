@@ -10,6 +10,8 @@ const loadModal = document.getElementById('load-modal');
 const modalSaveList = document.getElementById('modal-save-list');
 const settingsModal = document.getElementById('settings-modal');
 const gameActionsArea = document.getElementById('game-actions-area');
+const pauseScreen = document.getElementById('pause-screen');
+const clearScreen = document.getElementById('clear-screen');
 
 // --- ゲーム状態変数 ---
 let selectedCell = null;
