@@ -62,13 +62,13 @@
     }
     50% {
         opacity: 1;
-        transform: scale(2.3); /* 👈 盤面からはみ出す勢いで極大化 */
+        transform: scale(1.4); /* 👈 盤面からはみ出す勢いで極大化 */
     }
     75% {
-        transform: scale(0.75); /* 👈 ぐっと強く縮む反動 */
+        transform: scale(0.9); /* 👈 ぐっと強く縮む反動 */
     }
     90% {
-        transform: scale(1.15); /* 👈 軽くもう一度跳ねる */
+        transform: scale(1.05); /* 👈 軽くもう一度跳ねる */
     }
     100% {
         opacity: 1;
