@@ -33,14 +33,14 @@ body::before {
 /* 3. ライトモード時の背景画像（黒線） */
 body:not([data-theme="dark"])::before,
 [data-theme="light"] body::before {
-    background-image: url("/sudoku-icon.png");
+    background-image: url("../sudoku-icon.png");
     opacity: 0.3;
 }
 
 /* 4. ダークモード時の背景画像（白線） */
 [data-theme="dark"] body::before,
 body[data-theme="dark"]::before {
-    background-image: url("/sudoku-icon-white.png");
+    background-image: url("../sudoku-icon-white.png");
     opacity: 0.6;
 }
 
@@ -165,7 +165,7 @@ body:has(#screen-title.active) .container {
 
 /* ダークモード時は別の画像に切り替え */
 [data-theme="dark"] .title-image {
-    content: url("/title-nanpure-dark.png");
+    content: url("../title-nanpure-dark.png");
 }
 /* =======================================================
    🎮 共通レトロスタイル
