@@ -512,7 +512,14 @@ function highlightSameNumbers(targetNum) {
 function getHighlightTargetAndTrigger(cell) {
     const selectedRow = parseInt(cell.dataset.row);
     const selectedCol = parseInt(cell.dataset.col);
-
+    
+    // 先に全てのハイライトを削除
+    cellsArray.forEach(c => {
+        c.classList.remove('highlight-cross');
+    });
+    // 強制的にリフローを発生させる（ここに追加）
+    void cell.offsetWidth;
+        
     cellsArray.forEach(c => {
         const r = parseInt(c.dataset.row);
         const col = parseInt(c.dataset.col);
@@ -523,7 +530,6 @@ function getHighlightTargetAndTrigger(cell) {
         // 1マス離れるごとに25ミリ秒遅延させる（お好みで 20ms〜35ms に調整可能）
         c.style.setProperty('--delay', `${dist * 25}ms`);
 
-        c.classList.remove('highlight-cross');
         if (r === selectedRow || col === selectedCol) {
             c.classList.add('highlight-cross');
         }
