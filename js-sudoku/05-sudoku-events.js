@@ -34,11 +34,23 @@ function autoClearMemos(confirmedIndex, num) {
     const targetCell = cellsArray[confirmedIndex];
     const row = parseInt(targetCell.dataset.row);
     const col = parseInt(targetCell.dataset.col);
-    const index = parseInt(targetCell.dataset.index);
     const boxIdx = Math.floor(row / 3) * 3 + Math.floor(col / 3);
-    const numStr = String(num);
-    const inGroup = (indices) => indices.some(i => i !== index && getCellValue(cellsArray[i]) === numStr);
-    return !inGroup(rowIndices[row]) && !inGroup(colIndices[col]) && !inGroup(boxIndices[boxIdx]);
+
+    const relatedIndices = new Set([
+        ...rowIndices[row],
+        ...colIndices[col],
+        ...boxIndices[boxIdx]
+    ]);
+
+    relatedIndices.forEach(idx => {
+        if (idx !== confirmedIndex) {
+            const cell = cellsArray[idx];
+            if (getCellValue(cell) === "" && cell.memoValues[num] === true) {
+                cell.memoValues[num] = false;
+                renderMemo(cell); 
+            }
+        }
+    });
 }
 
 function triggerHint() {
