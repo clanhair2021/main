@@ -20,7 +20,7 @@
 }
 
 .cell {
-    background: var(--bg-color-sub);
+    background: var(--bg-color);
     color: var(--text-main);
     display: flex;
     justify-content: center;
@@ -44,9 +44,9 @@
     paint-order: stroke fill;
 }
 .cell.user-input { color: var(--primary); }
-.cell.selected { color: var(--bg-color); }
+.cell.selected { color: var(--text-main); }
 .cell.highlight-cross { color: var(--text-main); }
-.cell.same-number { color: var(--bg-color-sub); }
+.cell.same-number { color: var(--text-main); }
 
 /* --- 内枠（十字ハイライト・選択枠 Strong Bounce） --- */
 .cell::before {
