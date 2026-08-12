@@ -98,7 +98,12 @@
     /* animation-delay: var(--delay, 0ms); */
 }
 .cell.same-number::before {
-    border: 2px dashed var(--text-main) !important;
+    border: 2px solid var(--text-main) !important;
+    border-radius: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     animation: wiggleEffect 0.8s ease-in-out infinite;
     animation-delay: var(--delay, 0ms);
     opacity: 1;
