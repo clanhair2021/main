@@ -84,6 +84,11 @@
     opacity: 1 !important;
     transition-delay: 0ms !important;
 }
+/* 数字をさらに大きく */
+.cell.selected .cell-value {
+    transform: scale(1.15);
+    display: inline-block;
+}
 
 /* --- 同じ数字マス（.same-number）にも波状効果をつける場合 --- */
 .cell.same-number {
