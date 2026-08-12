@@ -75,3 +75,14 @@
         transform: scale(1);
     }
 }
+
+.cell.same-number {
+    animation: wiggleEffect 0.8s ease-in-out infinite;
+    animation-delay: var(--delay, 0ms);
+}
+
+@keyframes wiggleEffect {
+    0%, 100% { transform: rotate(0deg) scale(1); }
+    25% { transform: rotate(-2deg) scale(1.08); }
+    75% { transform: rotate(2deg) scale(1.08); }
+}
