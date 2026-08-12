@@ -97,6 +97,13 @@
     /* keyframes アニメーションを使用している場合は以下を有効化 */
     /* animation-delay: var(--delay, 0ms); */
 }
+.cell.same-number::before {
+    border: 2px dashed var(--text-main) !important;
+    animation: wiggleEffect 0.8s ease-in-out infinite;
+    animation-delay: var(--delay, 0ms);
+    opacity: 1;
+    transform-origin: center;
+}
 /* メモ（下書き） */
 .memo-grid {
     position: absolute; 
