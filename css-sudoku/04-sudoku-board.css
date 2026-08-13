@@ -100,10 +100,10 @@
 .cell.same-number::before {
     border: 1.7px solid var(--border) !important;
     border-radius: 0;
-    top: 0.5;
-    left: 0.5;
-    right: 0.5;
-    bottom: 0.5;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     animation: wiggleEffect 0.8s ease-in-out infinite;
     animation-delay: var(--delay, 0ms);
     opacity: 1;
