@@ -108,6 +108,7 @@
     animation-delay: var(--delay, 0ms);
     opacity: 1;
     transform-origin: center;
+    z-index: 2;
 }
 /* メモ（下書き） */
 .memo-grid {
