@@ -97,14 +97,6 @@
    5. 同じ数字のマス（.same-number）
    ========================================== */
     
-/* 同じ数字マスの背景変化 */
-.cell.same-number {
-    transition: background-color 0.2s ease, box-shadow 0.2s ease;
-    transition-delay: var(--delay, 0ms);
-    /* keyframes アニメーションを使用している場合は以下を有効化 */
-    /* animation-delay: var(--delay, 0ms); */
-}
-    
 /* 同じ数字マスの枠線＆アニメーション */ 
 .cell.same-number::before {
     top: 0;
@@ -117,6 +109,11 @@
     animation-delay: var(--delay, 0ms);
     opacity: 1;
     transform-origin: center;
+
+   /* 🟢 揺れるアニメーションと遅延の設定 */
+    animation: wiggleEffect 0.8s ease-in-out infinite;
+    animation-delay: var(--delay, 0ms);
+    animation-fill-mode: backwards; /* 👈 遅延待機中のガタつきを抑えて滑らかに開始 */
 }   
 
 /* ==========================================
