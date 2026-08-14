@@ -1,3 +1,8 @@
+/* ==========================================
+   1. 盤面全体・レイアウト（Wrapper & Grid）
+   ========================================== */
+
+/* 全体を囲むカード風の枠 */
 .grid-wrapper {
     position: relative;
     width: 100%;
@@ -9,6 +14,7 @@
     border: 2px solid var(--border);
 }
 
+/* 9x9の格子状盤面 */
 .grid {
     display: grid;
     grid-template-columns: repeat(9, 1fr);
@@ -19,6 +25,11 @@
     border: 3.5px solid var(--text-main);
 }
 
+/* ==========================================
+   2. セル（マス）の基本スタイル
+   ========================================== */
+
+/* 通常セルのデザイン */
 .cell {
     background: var(--bg-color);
     color: var(--text-main);
@@ -34,9 +45,11 @@
     user-select: none;
 }
 
+/* 3x3ブロックを区切る太い境界線 */
 .cell[data-col="2"], .cell[data-col="5"] { border-right: 2px solid var(--border); }
 .cell[data-row="2"], .cell[data-row="5"] { border-bottom: 2px solid var(--border); }
 
+/* 初期配置の数字（変更不可の固定マス） */
 .cell.fixed,
 .cell.fixed .cell-value {
     color: #FFFFFF !important;
@@ -48,6 +61,10 @@
 .cell.highlight-cross { color: var(--text-main); }
 .cell.same-number { color: var(--text-main); }*/
 
+/* ==========================================
+   3. マス枠線（::before擬似要素）の共通設定
+   ========================================== */
+
 .cell.highlight-cross::before,
 .cell.selected::before,
 .cell.same-number::before {
@@ -56,7 +73,57 @@
     pointer-events: none;
     z-index: 1;
 ｝
-/* --- 内枠（十字ハイライト・選択枠 Strong Bounce） --- */
+/* ==========================================
+   4. 選択マス（.selected）
+   ========================================== */
+
+/* 選択されたセルの外枠 */
+.cell.selected::before {
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    border: 4px solid var(--primary, #0078ff) !important;
+    transform: scale(1) !important;
+    opacity: 1 !important;
+    transition-delay: 0ms !important;
+}
+/* 選択されたマスの数字を強調拡大 */
+.cell.selected .cell-value {
+    transform: scale(1.15);
+    display: inline-block;
+}
+/* ==========================================
+   5. 同じ数字のマス（.same-number）
+   ========================================== */
+    
+/* 同じ数字マスの背景変化 */
+.cell.same-number {
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+    transition-delay: var(--delay, 0ms);
+    /* keyframes アニメーションを使用している場合は以下を有効化 */
+    /* animation-delay: var(--delay, 0ms); */
+}
+    
+/* 同じ数字マスの枠線＆アニメーション */ 
+.cell.same-number::before {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 1.7px solid var(--border) !important;
+    border-radius: 0;
+    animation: wiggleEffect 0.8s ease-in-out infinite;
+    animation-delay: var(--delay, 0ms);
+    opacity: 1;
+    transform-origin: center;
+}   
+
+/* ==========================================
+   6. 十字ハイライト（.highlight-cross）
+   ========================================== */
+
+/* 選択セルを中心とした縦横列の広がるアニメーション枠 */
 .cell.highlight-cross::before {
     top: 4px;
     left: 4px;
@@ -74,46 +141,11 @@
                 box-shadow 0.15s ease;
     transition-delay: var(--delay, 0ms);
 }
+/* ==========================================
+   7. メモ（下書き）のグリッド表示
+   ========================================== */
 
-/* 選択セルの内枠（選択自体は即座に表示） */
-.cell.selected::before {
-    top: 0px;
-    left: 0px;
-    right: 0px;
-    bottom: 0px;
-    border: 4px solid var(--primary, #0078ff) !important;
-    transform: scale(1) !important;
-    opacity: 1 !important;
-    transition-delay: 0ms !important;
-}
-/* 数字をさらに大きく */
-.cell.selected .cell-value {
-    transform: scale(1.15);
-    display: inline-block;
-}
-
-.cell.same-number::before {
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border: 1.7px solid var(--border) !important;
-    border-radius: 0;
-    animation: wiggleEffect 0.8s ease-in-out infinite;
-    animation-delay: var(--delay, 0ms);
-    opacity: 1;
-    transform-origin: center;
-    
-}
-    /* --- 同じ数字マス（.same-number）にも波状効果をつける場合 --- */
-.cell.same-number {
-    transition: background-color 0.2s ease, box-shadow 0.2s ease;
-    transition-delay: var(--delay, 0ms);
-    /* keyframes アニメーションを使用している場合は以下を有効化 */
-    /* animation-delay: var(--delay, 0ms); */
-}
-
-/* メモ（下書き） */
+/* セル内の3x3メモ配置領域 */
 .memo-grid {
     position: absolute; 
     top: 0; 
@@ -126,7 +158,8 @@
     padding: 1px; 
     z-index: 1;
 }
-
+    
+/* メモの数字単体 */
 .memo-digit {
     font-size: 0.55rem;
     font-weight: 500;
@@ -134,7 +167,8 @@
     display: flex; justify-content: center; 
     align-items: center;
 }
-
+    
+/* 選択中の数字と同じメモ数字の強調 */
 .memo-digit.highlight-memo {
     color: var(--primary);
     font-weight: 800;
