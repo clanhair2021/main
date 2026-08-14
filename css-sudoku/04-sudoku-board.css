@@ -56,6 +56,10 @@
     -webkit-text-stroke: 2px #6200EE;
     paint-order: stroke fill;
 }
+/* 🟢 A. 自分が入力するマス（パターンA：内側にピッタリ太枠） */
+.cell:not(.fixed) {
+    box-shadow: inset 0 0 0 2px var(--primary, #0078ff);
+}
 /*.cell.user-input { color: var(--primary); }
 .cell.selected { color: var(--text-main); }
 .cell.highlight-cross { color: var(--text-main); }
