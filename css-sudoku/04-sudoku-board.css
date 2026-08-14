@@ -97,11 +97,27 @@
    5. 同じ数字のマス（.same-number）
    ========================================== */
     
-/* 枠線は付けず、中の「数字」だけを波状に揺らす */
+/* ① マス本体（背景・枠組み）はアニメーションを一切かけず完全静止 */
+.cell.same-number {
+    background-color: var(--bg-color);
+    transform: none !important; /* マス自体の動きを強力にリセット */
+}
+
+/* ② 枠線（::before）のアニメーションも無効化 */
+.cell.same-number::before {
+    animation: none !important;
+    border: none !important;
+}
+
+/* ③ 中の「数字（.cell-value）」だけを孤立させて揺らす */
 .cell.same-number .cell-value {
-    display: inline-block; /* 揺れアニメーションを綺麗に効かせる設定 */
+    display: inline-block;
+    position: relative; /* マスの中で数字だけを動かす設定 */
+    z-index: 2;
+    
+    /* 数字だけに揺れアニメーションを適用 */
     animation: wiggleEffect 0.8s ease-in-out infinite;
-    animation-delay: var(--delay, 0ms); /* 波紋の遅延を継承 */
+    animation-delay: var(--delay, 0ms);
     animation-fill-mode: backwards;
 }
 
