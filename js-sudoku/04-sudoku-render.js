@@ -90,7 +90,11 @@ function renderMemo(cell) {
 }
 
 function highlightSameNumbers(targetNum) {
-    cellsArray.forEach(cell => {
+   // 選択中セルの位置を取得（距離計算用）
+   const selRow = selectedCell ? parseInt(selectedCell.dataset.row) : null;
+   const selCol = selectedCell ? parseInt(selectedCell.dataset.col) : null;
+ 
+   cellsArray.forEach(cell => {
         cell.classList.remove('same-number');
         const memoContainer = cell.querySelector('.memo-grid');
         if(memoContainer) {
@@ -102,6 +106,15 @@ function highlightSameNumbers(targetNum) {
 
     cellsArray.forEach(cell => {
         if (getCellValue(cell) === targetNum) {
+            // 🟢 選択マスからの距離に応じた遅延時間（--delay）を設定
+            if (selRow !== null && selCol !== null) {
+                const r = parseInt(cell.dataset.row);
+                const c = parseInt(cell.dataset.col);
+                const dist = Math.abs(r - selRow) + Math.abs(c - selCol);
+                
+                // 1マス離れるごとに 35ms 遅らせる（波紋の速度調整はここ）
+                cell.style.setProperty('--delay', `${dist * 35}ms`);
+            }
             cell.classList.add('same-number');
         }
         if (cell.memoValues && cell.memoValues[targetNum] === true && getCellValue(cell) === "") {
@@ -155,6 +168,7 @@ function clearAllHighlights() {
     selectedCell = null;
     cellsArray.forEach(cell => {
         cell.classList.remove('same-number', 'highlight-cross');
+        cell.style.removeProperty('--delay'); // 👈 この1行を追加！
         const mg = cell.querySelector('.memo-grid');
         if(mg) mg.querySelectorAll('.memo-digit').forEach(d => d.classList.remove('highlight-memo'));
     });
