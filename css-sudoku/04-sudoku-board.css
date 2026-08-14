@@ -48,23 +48,25 @@
 .cell.highlight-cross { color: var(--text-main); }
 .cell.same-number { color: var(--text-main); }*/
 
-/* --- 内枠（十字ハイライト・選択枠 Strong Bounce） --- */
-.cell.highlight-cross::before {
+.cell.highlight-cross::before,
+.cell.selected::before,
+.cell.same-number::before {
     content: '';
     position: absolute;
+    pointer-events: none;
+    z-index: 1;
+｝
+/* --- 内枠（十字ハイライト・選択枠 Strong Bounce） --- */
+.cell.highlight-cross::before {
     top: 4px;
     left: 4px;
     right: 4px;
     bottom: 4px;
     border: 2px solid transparent;
     border-radius: 4px;
-    pointer-events: none;
-    z-index: 1;
-
     /* 初期状態：縮小して透明 */
     transform: scale(0.2);
     opacity: 0;
-
     /* 強めの跳ね返り（1.6）を設定 */
     transition: transform 0.28s cubic-bezier(0.175, 0.885, 0.32, 1.6),
                 border-color 0.15s ease,
@@ -90,26 +92,27 @@
     display: inline-block;
 }
 
-/* --- 同じ数字マス（.same-number）にも波状効果をつける場合 --- */
-.cell.same-number {
-    transition: background-color 0.2s ease, box-shadow 0.2s ease;
-    transition-delay: var(--delay, 0ms);
-    /* keyframes アニメーションを使用している場合は以下を有効化 */
-    /* animation-delay: var(--delay, 0ms); */
-}
 .cell.same-number::before {
-    border: 1.7px solid var(--border) !important;
-    border-radius: 0;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
+    border: 1.7px solid var(--border) !important;
+    border-radius: 0;
     animation: wiggleEffect 0.8s ease-in-out infinite;
     animation-delay: var(--delay, 0ms);
     opacity: 1;
     transform-origin: center;
     
 }
+    /* --- 同じ数字マス（.same-number）にも波状効果をつける場合 --- */
+.cell.same-number {
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+    transition-delay: var(--delay, 0ms);
+    /* keyframes アニメーションを使用している場合は以下を有効化 */
+    /* animation-delay: var(--delay, 0ms); */
+}
+
 /* メモ（下書き） */
 .memo-grid {
     position: absolute; 
