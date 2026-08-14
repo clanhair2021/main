@@ -120,6 +120,18 @@
     animation-delay: var(--delay, 0ms);
     animation-fill-mode: backwards;
 }
+/* 🟢 揺れる際にもっと数字を大きく拡大する例 */
+@keyframes wiggleEffect {
+    0% { transform: rotate(0deg) scale(1.15); /* 通常時より少し大きめをキープ */
+    }
+    25% { transform: rotate(-10deg) scale(1.35); /* 👈 ここを 1.35 〜 1.4 あたりに大きく！ */
+    }
+    75% { transform: rotate(10deg) scale(1.35);  /* 👈 逆方向に傾くときも大きく！ */
+    }
+    100% { transform: rotate(0deg) scale(1.15); 
+    }
+}
+
 
 /* ==========================================
    6. 十字ハイライト（.highlight-cross）
