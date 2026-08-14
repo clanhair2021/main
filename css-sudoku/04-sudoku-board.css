@@ -43,10 +43,10 @@
     -webkit-text-stroke: 2px #6200EE;
     paint-order: stroke fill;
 }
-.cell.user-input { color: var(--primary); }
+/*.cell.user-input { color: var(--primary); }
 .cell.selected { color: var(--text-main); }
 .cell.highlight-cross { color: var(--text-main); }
-.cell.same-number { color: var(--text-main); }
+.cell.same-number { color: var(--text-main); }*/
 
 /* --- 内枠（十字ハイライト・選択枠 Strong Bounce） --- */
 .cell.highlight-cross::before {
