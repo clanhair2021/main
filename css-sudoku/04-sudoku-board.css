@@ -97,24 +97,13 @@
    5. 同じ数字のマス（.same-number）
    ========================================== */
     
-/* 同じ数字マスの枠線＆アニメーション */ 
-.cell.same-number::before {
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border: 1.7px solid var(--border) !important;
-    border-radius: 0;
+/* 枠線は付けず、中の「数字」だけを波状に揺らす */
+.cell.same-number .cell-value {
+    display: inline-block; /* 揺れアニメーションを綺麗に効かせる設定 */
     animation: wiggleEffect 0.8s ease-in-out infinite;
-    animation-delay: var(--delay, 0ms);
-    opacity: 1;
-    transform-origin: center;
-
-   /* 🟢 揺れるアニメーションと遅延の設定 */
-    animation: wiggleEffect 0.8s ease-in-out infinite;
-    animation-delay: var(--delay, 0ms);
-    animation-fill-mode: backwards; /* 👈 遅延待機中のガタつきを抑えて滑らかに開始 */
-}   
+    animation-delay: var(--delay, 0ms); /* 波紋の遅延を継承 */
+    animation-fill-mode: backwards;
+}
 
 /* ==========================================
    6. 十字ハイライト（.highlight-cross）
