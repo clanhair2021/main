@@ -112,8 +112,8 @@ function highlightSameNumbers(targetNum) {
                 const c = parseInt(cell.dataset.col);
                 const dist = Math.abs(r - selRow) + Math.abs(c - selCol);
                 
-                // 1マス離れるごとに 35ms 遅らせる（波紋の速度調整はここ）
-                cell.style.setProperty('--delay', `${dist * 35}ms`);
+                // 1マス離れるごとに 70ms 遅らせる（波紋の速度調整はここ）
+                cell.style.setProperty('--delay', `${dist * 70}ms`);
             }
             cell.classList.add('same-number');
         }
