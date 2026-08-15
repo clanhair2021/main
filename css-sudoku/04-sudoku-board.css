@@ -20,7 +20,7 @@
     grid-template-columns: repeat(9, 1fr);
     grid-template-rows: repeat(9, 1fr);
     width: 100%; height: 100%;
-    background: var(--bg-color-sub);
+    background: var(--bg-color--sub);
     gap: 1px;
     border: 3.5px solid var(--text-main);
 }
@@ -52,15 +52,15 @@
 /* 初期数字（問題・固定マス）の色変更 */
 .cell.fixed,
 .cell.fixed .cell-value {
-    color: var(--bg-color-sub) !important; /* 文字自体の色 */
-    -webkit-text-stroke: 3px var(--text-main); /* 縁取りの太さと色 */
+    color: var(--bg-color) !important; /* 文字自体の色 */
+    -webkit-text-stroke: 3px var(--bg-color-sub); /* 縁取りの太さと色 */
     paint-order: stroke fill;
 }
 
 /* 自分が入力した数字（縁取りスタイル） */
 .cell:not(.fixed) .cell-value {
-    color: var(--bg-color);                       /* 内側の文字色 */
-    -webkit-text-stroke: 3px var(--bg-color-sub);     /* 縁取りの太さと色 */
+    color: var(--bg-color-sub);                       /* 内側の文字色 */
+    -webkit-text-stroke: 3px var(--text-main);     /* 縁取りの太さと色 */
     paint-order: stroke fill;             /* 文字が潰れないよう縁を外側に配置 */
 }
 
