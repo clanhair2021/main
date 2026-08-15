@@ -49,13 +49,21 @@
 .cell[data-col="2"], .cell[data-col="5"] { border-right: 2px solid var(--border); }
 .cell[data-row="2"], .cell[data-row="5"] { border-bottom: 2px solid var(--border); }
 
-/* 初期配置の数字（変更不可の固定マス） */
+/* 初期数字（問題・固定マス）の色変更 */
 .cell.fixed,
 .cell.fixed .cell-value {
-    color: var(--bg-color-sub) !important;
-    -webkit-text-stroke: 2px var(--text-main);
+    color: var(--bg-color-sub) !important; /* 文字自体の色 */
+    -webkit-text-stroke: 3px var(--text-main); /* 縁取りの太さと色 */
     paint-order: stroke fill;
 }
+
+/* 自分が入力した数字（縁取りスタイル） */
+.cell:not(.fixed) .cell-value {
+    color: var(--text-main);                       /* 内側の文字色 */
+    -webkit-text-stroke: 3px var(--bg-color-sub);     /* 縁取りの太さと色 */
+    paint-order: stroke fill;             /* 文字が潰れないよう縁を外側に配置 */
+}
+
 /*.cell.user-input { color: var(--primary); }
 .cell.selected { color: var(--text-main); }
 .cell.highlight-cross { color: var(--text-main); }
