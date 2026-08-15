@@ -59,7 +59,7 @@
 
 /* 自分が入力した数字（縁取りスタイル） */
 .cell:not(.fixed) .cell-value {
-    color: var(--text-main);                       /* 内側の文字色 */
+    color: var(--bg-color);                       /* 内側の文字色 */
     -webkit-text-stroke: 3px var(--bg-color-sub);     /* 縁取りの太さと色 */
     paint-order: stroke fill;             /* 文字が潰れないよう縁を外側に配置 */
 }
