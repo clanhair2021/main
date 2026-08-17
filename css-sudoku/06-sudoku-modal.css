@@ -12,20 +12,18 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255, 255, 255, 0.8);
-    border: 1px solid #ccc;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
     border-radius: 50%;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 8px var(--shadow);
+    color: var(--text-main);
     cursor: pointer;
     z-index: 100;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, background 0.2s ease, color 0.2s ease;
 }
 .btn-settings:hover, .settings-btn:hover {
     transform: rotate(60deg);
-}
-[data-theme="dark"] .settings-btn {
-    background: rgba(30, 30, 30, 0.8);
-    border-color: #555;
+    background: var(--hover-bg);
 }
 
 .settings-btn svg {
